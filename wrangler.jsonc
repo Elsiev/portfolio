@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "elsie-portfolio",
+  "compatibility_date": "2026-09-15",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    // All not-found requests fall back to index.html so React Router's
+    // client-side routes (e.g. /work/:slug, /graphic-design) work on a
+    // hard refresh or a direct link.
+    "not_found_handling": "single-page-application"
+  }
+}

@@ -3,6 +3,10 @@
   "name": "elsie-portfolio",
   "compatibility_date": "2026-09-15",
   "workers_dev": true,
+  "routes": [
+    { "pattern": "elsievanrooyen.co.za", "custom_domain": true },
+    { "pattern": "www.elsievanrooyen.co.za", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     // All not-found requests fall back to index.html so React Router's

@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Elsie van Rooyen — CV</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #f5f1e6;
+        color: #14110b;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+        font-size: 9.8pt;
+        line-height: 1.4;
+      }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        background: #f5f1e6;
+        padding: 12mm 14mm 10mm;
+      }
+      header.head {
+        background: #0a0a0b;
+        color: #f5f1e6;
+        margin: -12mm -14mm 7mm;
+        padding: 9mm 14mm 7mm;
+      }
+      header.head .name {
+        font-family: "Space Grotesk", sans-serif;
+        font-weight: 700;
+        font-size: 26pt;
+        letter-spacing: -0.5px;
+        margin: 0;
+      }
+      header.head .role {
+        display: inline-block;
+        margin-top: 4px;
+        color: #ffb100;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+      }
+      header.head .contact {
+        margin-top: 7px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 8.5pt;
+        color: #cfc9bd;
+      }
+      h2.section {
+        font-family: "Space Grotesk", sans-serif;
+        font-size: 11.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #14110b;
+        border-bottom: 2px solid #ffb100;
+        padding-bottom: 3px;
+        margin: 0 0 5px;
+      }
+      section {
+        margin-bottom: 9px;
+      }
+      .summary {
+        font-size: 9.8pt;
+        color: #33301f;
+        margin: 0;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1.55fr;
+        gap: 18px;
+      }
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: rgba(255, 177, 0, 0.14);
+        border: 1px solid rgba(255, 177, 0, 0.5);
+        color: #7a4e00;
+        border-radius: 999px;
+        padding: 3px 9px;
+        margin-bottom: 4px;
+      }
+      .skill-group {
+        margin-bottom: 7px;
+      }
+      .skill-group .label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 8pt;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #6b6555;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .entry {
+        margin-bottom: 7px;
+      }
+      .entry .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .entry .title {
+        font-weight: 600;
+        font-size: 9.8pt;
+      }
+      .entry .org {
+        color: #5a5646;
+      }
+      .entry .dates {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 8pt;
+        color: #8a8571;
+        white-space: nowrap;
+      }
+      .entry ul {
+        margin: 3px 0 0;
+        padding-left: 14px;
+      }
+      .entry li {
+        margin-bottom: 1px;
+        font-size: 9.2pt;
+        color: #33301f;
+      }
+      .badge-pro-bono {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 7.5pt;
+        text-transform: uppercase;
+        color: #7a4e00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="head">
+        <p class="name">Elsie van Rooyen</p>
+        <span class="role">UI/UX &amp; Graphic Designer</span>
+        <div class="contact">
+          <span>elsie@honeycodedesign.com</span>
+          <span>079 512 7720</span>
+          <span>Pretoria, South Africa</span>
+          <span>linkedin.com/in/elsie-van-rooyen-1b1473280</span>
+        </div>
+      </header>
+
+      <section>
+        <p class="summary">
+          Early-career UI/UX designer with a graphic design and brand identity background.
+          Comfortable running a project end to end: research, wireframes, visual design and a
+          working build, across real client launches, self-initiated UX audits and a live
+          personal product with real user flows. Prompts AI coding tools (Claude Code) to turn
+          designs into real, shipped websites faster, without waiting on a separate dev handoff.
+        </p>
+      </section>
+
+      <div class="cols">
+        <div>
+          <section>
+            <h2 class="section">Skills</h2>
+            <div class="skill-group">
+              <span class="label">Design</span>
+              <div class="tag-list">
+                <span class="tag">UI Design</span>
+                <span class="tag">User Research</span>
+                <span class="tag">Brand Identity</span>
+                <span class="tag">Information Architecture</span>
+                <span class="tag">Design Thinking</span>
+                <span class="tag">Ideation</span>
+                <span class="tag">Empathy Mapping</span>
+                <span class="tag">Wireframing &amp; Prototyping</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <span class="label">Tools</span>
+              <div class="tag-list">
+                <span class="tag">Figma</span>
+                <span class="tag">Miro</span>
+                <span class="tag">Claude Code (AI-Assisted Dev)</span>
+              </div>
+            </div>
+            <div class="skill-group">
+              <span class="label">Languages</span>
+              <div class="tag-list">
+                <span class="tag">English</span>
+                <span class="tag">Afrikaans</span>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section">Education</h2>
+            <div class="entry">
+              <div class="row">
+                <span class="title">Matric</span>
+                <span class="dates">2016</span>
+              </div>
+              <div class="org">Hoërskool Randburg</div>
+            </div>
+            <div class="entry">
+              <div class="row">
+                <span class="title">UI/UX Design coursework</span>
+                <span class="dates">Jan–Feb 2024</span>
+              </div>
+              <div class="org">Codecademy</div>
+              <ul>
+                <li>Introduction to UI and UX Design</li>
+                <li>Interaction Design</li>
+                <li>Design Thinking: Ideation</li>
+                <li>User Research: Generative</li>
+                <li>Visual Design</li>
+              </ul>
+            </div>
+            <div class="entry">
+              <div class="row">
+                <span class="title">Introduction to UI and UX Design</span>
+                <span class="dates">Mar 2024</span>
+              </div>
+              <div class="org">Google (Coursera)</div>
+            </div>
+            <div class="entry">
+              <div class="row">
+                <span class="title">Claude Code 101, Claude 101 &amp; Claude Code in Action</span>
+                <span class="dates">May 2026</span>
+              </div>
+              <div class="org">Anthropic</div>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section">Reference</h2>
+            <p style="margin: 0; font-size: 9.7pt; color: #33301f">Available on request.</p>
+          </section>
+        </div>
+
+        <div>
+          <section>
+            <h2 class="section">Design &amp; Freelance Experience</h2>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Co-Founder</span>
+                <span class="dates">Oct 2025 – Present</span>
+              </div>
+              <div class="org">Honeycode Design Studio · Freelance</div>
+              <ul>
+                <li>
+                  Run a freelance design studio end to end: brand identity, social content, website
+                  design and UI/UX audits.
+                </li>
+                <li>
+                  Designed and built a full brand identity and website for Everlune Photography, a
+                  real client launch.
+                </li>
+                <li>
+                  Prompt Claude Code directly to ship production sites (this studio's own site included),
+                  cutting the usual design-to-dev handoff out of the process entirely.
+                </li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Graphic Designer</span>
+                <span class="dates">Feb 2026 – Present</span>
+              </div>
+              <div class="org">Seven Seas Liquor · Freelance</div>
+            </div>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Graphic Designer</span>
+                <span class="dates">Oct 2024 – Oct 2025</span>
+              </div>
+              <div class="org">Hennie's · Freelance</div>
+              <ul>
+                <li>Graphics and creative strategy for the brand.</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Freelance Designer <span class="badge-pro-bono">· Pro bono</span></span>
+                <span class="dates">~Aug 2023 – Oct 2024</span>
+              </div>
+              <div class="org">Corleon Property</div>
+              <ul>
+                <li>
+                  Designed a full website for a client with no prior online presence, from
+                  wireframes and prototypes through to a finished, cohesive site.
+                </li>
+                <li>
+                  Led client meetings to present concepts and gather feedback; built and maintained
+                  a small design system to keep the work consistent.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <h2 class="section">Administrative &amp; Legal Experience</h2>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Portfolio Administrator</span>
+                <span class="dates">Jan 2021 – Present</span>
+              </div>
+              <div class="org">ANGOR Property Specialist</div>
+              <ul>
+                <li>Coordinate maintenance, insurance and compliance documentation across a property portfolio.</li>
+                <li>Manage meeting logistics, owner correspondence and recordkeeping.</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Legal Secretary</span>
+                <span class="dates">Jul 2020 – Dec 2020</span>
+              </div>
+              <div class="org">Cavanagh &amp; Richard Attorneys</div>
+              <ul>
+                <li>Drafted legal documents, managed diary and file organisation, handled client-facing reception duties.</li>
+              </ul>
+            </div>
+
+            <div class="entry">
+              <div class="row">
+                <span class="title">Legal Secretary</span>
+                <span class="dates">Apr 2018 – Jul 2020</span>
+              </div>
+              <div class="org">Ivan Maintin Attorneys</div>
+              <ul>
+                <li>Supported litigation on Third-Party Claims and RAF cases: diary management, court filings and document drafting.</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

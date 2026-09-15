@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+:root {
+  /* Confident, high-contrast base: near-black ground, warm bone
+     foreground, one loud honey-gold accent and nothing else competing
+     for attention. Bold comes from scale and restraint, not a
+     rainbow of colours. */
+  --background: #0a0a0b;
+  --foreground: #f5f1e6;
+
+  --card: #131315;
+  --card-foreground: #f5f1e6;
+
+  --muted: #17171a;
+  --muted-foreground: #a39c8e;
+
+  --border: #2a2a2e;
+
+  --honey: #ffb100;
+  --honey-foreground: #1a1203;
+  --honey-soft: #ffc94d;
+
+  --ring: #ffb100;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-honey: var(--honey);
+  --color-honey-foreground: var(--honey-foreground);
+  --color-honey-soft: var(--honey-soft);
+  --color-ring: var(--ring);
+
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::selection {
+  background: var(--honey);
+  color: var(--honey-foreground);
+}
+
+/* Honeycomb dot field, same treatment as the honeycodedesign.com About
+   section. Scoped tight to whatever it's dropped behind (the portrait
+   card, not full text columns) so it never sits under body copy. */
+.honeycomb-dots {
+  background-image: radial-gradient(circle, rgba(255, 177, 0, 0.8) 2px, transparent 2px);
+  background-size: 20px 20px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 24s linear infinite;
+}
+

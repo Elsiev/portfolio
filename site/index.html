@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Elsie van Rooyen is a UI/UX and web designer in Pretoria. Selected work: Honeycode Design, Corleon Property and PURR.">
+<meta name="author" content="Elsie van Rooyen">
+<meta property="og:title" content="Elsie van Rooyen, UI/UX and web designer">
+<meta property="og:description" content="Selected work and CV of Elsie van Rooyen, UI/UX and web designer in Pretoria.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://elsievanrooyen.co.za/">
+<meta property="og:image" content="https://elsievanrooyen.co.za/img/hc-desktop.jpg">
+<meta name="theme-color" content="#050505">
+<link rel="canonical" href="https://elsievanrooyen.co.za/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<title>Elsie van Rooyen, UI/UX and web designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: one dark Honeycode page. Index = compact intro, then the work as large image tiles. Each case study = cover, info strip, then a sticky section index beside the story, with galleries breaking out to full width. */
+:root{
+  color-scheme: dark;
+  --bg:#050505; --raise:#121210; --raise2:#1A1915; --line:rgba(245,241,230,.13);
+  --fg:#F5F1E6; --dim:#ABA595; --honey:#FFB300; --honey-2:#FFCC4D; --honey-ink:#050505;
+  --display:'Unbounded', 'Arial Black', system-ui, sans-serif;
+  --body:'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --wrap:1240px;
+  --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.65 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--honey);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+.dim{color:var(--dim)}
+
+/* top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 15px/1 var(--display);letter-spacing:-.01em}
+.brand img{width:26px;height:26px}
+.bar nav{display:flex;gap:clamp(14px,3vw,28px);font-weight:600;font-size:15px}
+.bar nav a{text-decoration:none;color:var(--dim)}
+.bar nav a:hover{color:var(--fg)}
+.brand{white-space:nowrap}
+@media (max-width:440px){.brand{font-size:0;gap:0}.bar nav{gap:14px;font-size:14px}}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--honey);width:0}
+
+/* index */
+.intro{padding-block:clamp(48px,9vw,110px) clamp(36px,6vw,64px)}
+.intro .mono{color:var(--honey)}
+.intro h1{font:800 clamp(38px,6.4vw,92px)/1.02 var(--display);letter-spacing:-.035em;margin:18px 0 0;max-width:15ch;text-wrap:balance}
+.intro h1 span{color:var(--honey)}
+.intro p{max-width:58ch;margin:24px 0 0;font-size:clamp(17px,1.6vw,20px);color:var(--dim)}
+.intro p strong{color:var(--fg);font-weight:600}
+
+.work{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(16px,2.4vw,28px);padding-bottom:40px}
+.tile{display:block;text-decoration:none;min-width:0}
+.tile.wide{grid-column:1/-1}
+.tile .pic{aspect-ratio:16/10;overflow:hidden;border-radius:14px;background:var(--raise);border:1px solid var(--line)}
+.tile.wide .pic{aspect-ratio:21/10}
+.tile .pic img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .pic img{transform:scale(1.025)}
+.tile .cap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:end;padding:18px 2px 8px}
+.tile h2{font:800 clamp(26px,3.4vw,46px)/1 var(--display);letter-spacing:-.03em;margin:10px 0 0}
+.tile p{margin:8px 0 0;color:var(--dim);max-width:60ch}
+.go{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:15px;white-space:nowrap;border-bottom:2px solid var(--honey);padding-bottom:3px}
+.tile:hover .go{color:var(--honey)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:600 11.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:999px;border:1px solid var(--line);color:var(--fg)}
+.chip.live{background:var(--honey);color:var(--honey-ink);border-color:var(--honey)}
+.chip.concept{border-color:var(--honey);color:var(--honey)}
+@media (max-width:760px){.work{grid-template-columns:1fr}.tile.wide .pic{aspect-ratio:16/10}.tile .cap{grid-template-columns:1fr}}
+
+.about{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(24px,5vw,64px);align-items:center;padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--line);margin-top:40px}
+.about img{border-radius:14px;background:var(--raise);width:100%;height:auto}
+.about h2,.contact h2{font:800 clamp(30px,4vw,52px)/1.05 var(--display);letter-spacing:-.03em;margin:12px 0 18px;text-wrap:balance}
+.about p{margin:0 0 14px;max-width:62ch;color:var(--dim)}
+.about p strong{color:var(--fg)}
+@media (max-width:700px){.about{grid-template-columns:1fr}.about img{max-width:220px}}
+.contact{padding-block:clamp(48px,7vw,90px);border-top:1px solid var(--line)}
+.contact .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.contact code{font:600 clamp(17px,2.2vw,24px)/1.2 var(--mono);user-select:all;color:var(--honey)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;background:var(--honey);color:var(--honey-ink);font-weight:800;font-size:15px;padding:12px 20px;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--dim);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* personal portfolio framing */
+.mark{width:30px;height:30px;border-radius:8px;background:var(--honey);color:var(--honey-ink);display:grid;place-items:center;font:800 10px/1 var(--display);letter-spacing:-.02em}
+.intro .name{font:900 clamp(56px,12vw,176px)/.9 var(--display);letter-spacing:-.05em;margin:18px 0 0;max-width:none}
+.intro .name .hl{color:var(--honey)}
+.intro-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,4vw,56px);margin-top:clamp(28px,4vw,44px);align-items:start}
+.intro .role{margin:0;font:700 clamp(20px,2.2vw,28px)/1.25 var(--display);letter-spacing:-.02em;color:var(--fg);max-width:16ch}
+.intro .stmt{margin:0;max-width:60ch;color:var(--dim);font-size:clamp(17px,1.5vw,19px)}
+.now{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line);margin:clamp(32px,5vw,52px) 0 0}
+.now div{background:var(--bg);padding:14px 16px 14px 0}
+.now div+div{padding-left:16px}
+.now dt{font:600 11.5px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--honey);margin-bottom:8px}
+.now dd{margin:0;font-size:15px}
+.now a{text-decoration:underline;text-decoration-color:var(--honey);text-underline-offset:3px}
+@media (max-width:760px){.intro-row{grid-template-columns:1fr}.now{grid-template-columns:1fr}.now div,.now div+div{padding-left:0}}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:clamp(20px,3vw,32px)}
+.sec-head h2{font:800 clamp(24px,2.6vw,34px)/1 var(--display);letter-spacing:-.025em;margin:0}
+.tile .yr{margin:0 0 6px;font:600 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--honey)}
+.tile .chips{margin-top:12px}
+.tile h2{margin-top:0}
+.approach{padding-top:clamp(48px,7vw,90px)}
+.principles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2vw,24px)}
+.principles div{border-top:2px solid var(--honey);padding-top:16px;min-width:0}
+.principles h3{font:700 clamp(17px,1.5vw,20px)/1.25 var(--display);letter-spacing:-.015em;margin:0 0 10px}
+.principles p{margin:0 0 12px;color:var(--dim);font-size:15.5px}
+.principles a{font-weight:700;font-size:14.5px;text-decoration:none;color:var(--fg);border-bottom:1px solid var(--honey)}
+.principles a:hover{color:var(--honey)}
+@media (max-width:980px){.principles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.principles{grid-template-columns:1fr}}
+
+/* interaction layer */
+html,body{overflow-x:clip}
+.intro{position:relative}
+.intro>*:not(.hive){position:relative;z-index:1}
+.hive{position:absolute;top:-40px;bottom:0;left:50%;width:100vw;height:calc(100% + 40px);transform:translateX(-50%);z-index:0;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%);mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%)}
+.name .wd{display:inline-block;white-space:nowrap}
+.name .ch{display:inline-block;transition:transform .4s cubic-bezier(.3,1.6,.5,1),color .25s;animation:settle .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
+.name .ch:hover{transform:translateY(-.08em) rotate(-5deg);color:var(--honey)}
+.name .hl .ch:hover{color:var(--fg)}
+@keyframes settle{from{transform:translateY(.16em);color:var(--honey)}}
+.clock{color:var(--dim);font:500 13px/1 var(--mono);margin-left:6px;white-space:nowrap}
+.tile .pic{position:relative}
+.tile .pic img.alt{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.tile .pic img.alt.on{opacity:1}
+.ticks{position:absolute;left:14px;right:14px;bottom:12px;display:flex;gap:6px;opacity:0;transition:opacity .25s;z-index:2}
+.ticks i{flex:1;height:3px;border-radius:3px;background:rgba(245,241,230,.35)}
+.ticks i.on{background:var(--honey)}
+.tile.reel .ticks{opacity:1}
+.vcursor{position:fixed;left:0;top:0;z-index:90;pointer-events:none;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;background:var(--honey);color:var(--honey-ink);
+  display:grid;place-items:center;text-align:center;font:800 12px/1.15 var(--display);text-transform:uppercase;opacity:0;scale:.3;transition:opacity .2s,scale .3s cubic-bezier(.3,1.5,.5,1)}
+.vcursor.on{opacity:1;scale:1}
+html.vc .tile,html.vc .next{cursor:none}
+.principles div{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.principles div:hover{transform:translateY(-4px)}
+@media (prefers-reduced-motion: reduce){.name .ch{animation:none;transition:none}}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+    .tile,.principles>div,.about,.story section,.gal figure,.next{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+    .case .hero img{animation:drift linear both;animation-timeline:view();animation-range:exit 0% exit 100%}
+  }
+}
+@keyframes rise{from{opacity:.15;transform:translateY(48px)}}
+@keyframes drift{to{transform:scale(1.06)}}
+
+/* about photo + CV */
+.about img.photo{box-shadow:12px 12px 0 var(--honey);filter:grayscale(1) contrast(1.05)}
+.cv{padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--line)}
+.cv .sec-head{align-items:center}
+.cv-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cv-grid{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:clamp(28px,5vw,64px)}
+.cv-h{font:600 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--honey);margin:0 0 16px}
+.cv-main .cv-h:not(:first-child){margin-top:44px}
+.job{display:grid;grid-template-columns:160px minmax(0,1fr);gap:6px 20px;padding:16px 0;border-top:1px solid var(--line)}
+.job.lead{border-top:2px solid var(--fg)}
+.job .when{font:500 13px/1.6 var(--mono);color:var(--dim)}
+.job h4{margin:0;font:700 17px/1.35 var(--body)}
+.job h4 a{text-decoration:none;border-bottom:1px solid var(--honey)}
+.job h4 a:hover{color:var(--honey)}
+.job .org{margin:3px 0 0;color:var(--dim);font-size:15px}
+.job ul{margin:10px 0 0;padding-left:18px;color:var(--dim);font-size:15.5px;line-height:1.55}
+.job li{margin-bottom:6px}
+.job li::marker{color:var(--honey)}
+.cv-side .blk{padding-bottom:22px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+.cv-side .blk:last-child{border-bottom:0}
+.cv-side .chips{gap:6px}
+.cv-side .chip{text-transform:none;letter-spacing:0;font:500 13.5px/1 var(--body);padding:7px 11px}
+.cv-side .chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.cv-side p{margin:0 0 4px;font-size:15px;line-height:1.55}
+.cv-side .sm{color:var(--dim);font:500 12.5px/1.5 var(--mono)}
+@media (max-width:860px){.cv-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.job{grid-template-columns:1fr;gap:2px}}
+
+/* case study */
+.case{padding-bottom:40px}
+.back{display:inline-flex;gap:8px;align-items:center;margin-top:28px;color:var(--dim);text-decoration:none;font-weight:600;font-size:15px}
+.back:hover{color:var(--fg)}
+.cover{padding-block:28px 32px}
+.cover h1{font:900 clamp(46px,9vw,132px)/.92 var(--display);letter-spacing:-.045em;margin:18px 0 0}
+.cover .lede{font:600 clamp(20px,2.3vw,28px)/1.3 var(--body);letter-spacing:-.01em;max-width:34ch;margin:20px 0 0;text-wrap:balance}
+.notice{margin-top:22px;max-width:70ch;border:1px solid var(--honey);border-radius:12px;padding:14px 16px;color:var(--fg);font-size:15px}
+.notice b{color:var(--honey)}
+.hero{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--raise)}
+.hero img{width:100%;height:auto}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:28px 0 0}
+.meta div{background:var(--bg);padding:16px 16px 18px;min-width:0}
+.meta dt{font:600 11.5px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--honey);margin-bottom:8px}
+.meta dd{margin:0;font-size:15px;line-height:1.5}
+.meta .span2{grid-column:span 2}
+@media (max-width:900px){.meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.meta{grid-template-columns:1fr}.meta .span2{grid-column:auto}}
+
+.body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(24px,5vw,72px);margin-top:clamp(40px,6vw,72px)}
+.toc{position:sticky;top:90px;align-self:start;display:flex;flex-direction:column;gap:2px}
+.toc button{background:none;border:0;text-align:left;padding:7px 10px;border-radius:8px;color:var(--dim);font-weight:600;font-size:14.5px}
+.toc button:hover{color:var(--fg);background:var(--raise)}
+.toc button.on{color:var(--honey-ink);background:var(--honey)}
+@media (max-width:900px){.body{grid-template-columns:1fr}.toc{display:none}}
+.story{min-width:0}
+.story section{padding-bottom:clamp(40px,5vw,64px);scroll-margin-top:90px}
+.story h2{font:800 clamp(24px,2.8vw,36px)/1.1 var(--display);letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+.story h2 .mono{display:block;color:var(--honey);font-weight:600;margin-bottom:12px;font-size:12px}
+.story p{margin:0 0 16px;max-width:66ch}
+.story ul.list{margin:0;padding:0;list-style:none;display:grid;gap:10px;max-width:70ch}
+.story ul.list li{padding:12px 14px 12px 40px;position:relative;background:var(--raise);border-radius:10px}
+.story ul.list li::before{content:"";position:absolute;left:16px;top:21px;width:10px;height:10px;transform:rotate(45deg);background:var(--honey);border-radius:2px}
+.story ul.list li b{font-weight:700}
+.decision{background:var(--raise);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,2.4vw,26px);margin:0 0 16px}
+.decision h3{font:700 clamp(18px,1.8vw,22px)/1.25 var(--display);letter-spacing:-.015em;margin:0 0 12px}
+.decision dl{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px 18px;margin:0}
+.decision dt{font:600 11.5px/1.7 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.decision dd{margin:0}
+.decision .rej{display:inline-block;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--fg);color:var(--bg);padding:4px 7px;border-radius:4px;margin-right:8px;vertical-align:2px}
+@media (max-width:560px){.decision dl{grid-template-columns:1fr;gap:2px}.decision dd{margin-bottom:10px}}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:8px 0 20px}
+.stats div{background:var(--raise);border-radius:12px;padding:16px}
+.stats b{display:block;font:800 clamp(30px,3.4vw,44px)/1 var(--display);color:var(--honey);font-variant-numeric:tabular-nums}
+.stats span{font-size:14px;color:var(--dim)}
+@media (max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.quote{margin:8px 0 20px;padding:clamp(20px,3vw,32px);background:var(--honey);color:var(--honey-ink);border-radius:16px;max-width:760px}
+.quote p{font:700 clamp(19px,2vw,24px)/1.4 var(--body);margin:0 0 12px;max-width:none}
+.quote cite{font:600 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;font-style:normal}
+.small{font-size:14px;color:var(--dim)}
+
+/* galleries */
+.gal{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:4px 0 22px}
+.gal.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.gal figure{margin:0;min-width:0}
+.gal .full{grid-column:1/-1}
+.gal button{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--raise)}
+.gal img{width:100%;height:auto}
+.gal button:hover img{opacity:.92}
+.gal figcaption{font-size:13.5px;color:var(--dim);margin-top:8px;line-height:1.45}
+.scrollshot{max-height:560px;overflow-y:auto;border:1px solid var(--line);border-radius:12px;background:var(--raise)}
+.scrollshot img{width:100%;height:auto}
+@media (max-width:640px){.gal,.gal.three{grid-template-columns:1fr}}
+
+/* before / after */
+.ba{position:relative;aspect-ratio:16/10;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--raise);user-select:none;margin:4px 0 8px}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
+.ba .after{clip-path:inset(0 0 0 var(--cut,50%))}
+.ba .line{position:absolute;top:0;bottom:0;left:var(--cut,50%);width:3px;margin-left:-1.5px;background:var(--honey);pointer-events:none}
+.ba .line::after{content:"";position:absolute;top:50%;left:50%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:var(--honey);box-shadow:0 4px 18px rgba(0,0,0,.5)}
+.ba .tag{position:absolute;top:12px;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;background:var(--bg);color:var(--fg);padding:6px 8px;border-radius:6px;pointer-events:none}
+.ba .tag.l{left:12px}.ba .tag.r{right:12px;background:var(--honey);color:var(--honey-ink)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+
+.next{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:24px;align-items:center;text-decoration:none;border-top:1px solid var(--line);padding-top:36px;margin-top:20px}
+.next .pic{aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.next .pic img{width:100%;height:100%;object-fit:cover;object-position:top}
+.next h2{font:800 clamp(28px,4vw,52px)/1 var(--display);letter-spacing:-.03em;margin:10px 0 0}
+.next:hover h2{color:var(--honey)}
+@media (max-width:700px){.next{grid-template-columns:1fr}}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  padding:calc(56px + env(safe-area-inset-top,0px)) var(--gr) calc(24px + env(safe-area-inset-bottom,0px)) var(--gl)}
+.lb img{max-height:calc(100% - 50px);max-width:100%;width:auto;object-fit:contain;border-radius:8px}
+.lb p{margin:0;color:var(--dim);font-size:14px;text-align:center;max-width:70ch}
+.lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:var(--gr)}
+.lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--raise);font-size:20px}
+.lb .prev{left:var(--gl)}.lb .nx{right:var(--gr)}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#"><span class="mark" aria-hidden="true">EvR</span>Elsie van Rooyen</a>
+    <nav aria-label="Main"><a href="#" data-to="work">Work</a><a href="#" data-to="approach">Approach</a><a href="#" data-to="about">About</a><a href="#" data-to="cv">CV</a><a href="#" data-to="contact">Contact</a></nav>
+  </div>
+  <div class="progress" id="progress"></div>
+</header>
+
+<!-- ============================== INDEX ============================== -->
+<main id="v-index">
+  <div class="wrap">
+    <section class="intro">
+      <canvas class="hive" id="hive" aria-hidden="true"></canvas>
+      <p class="mono">Portfolio · Selected work 2025 to 2026</p>
+      <h1 class="name">Elsie<br><span class="hl">van Rooyen</span></h1>
+      <div class="intro-row">
+        <p class="role">UI/UX and web designer in Pretoria.</p>
+        <p class="stmt">I'm a designer with an admin brain. Nine years of keeping law firms and property portfolios running taught me what clients need: clear thinking, honest updates and work delivered on time. I bring that to every website and portal I design, from the first user flow to final sign-off.</p>
+      </div>
+      <dl class="now">
+        <div><dt>Disciplines</dt><dd>UI/UX design, web design, design systems, brand identity, social media design</dd></div>
+        <div><dt>Currently</dt><dd>Running my studio, <a href="https://honeycodedesign.com" target="_blank" rel="noopener">Honeycode Design</a></dd></div>
+        <div><dt>Based in</dt><dd>Pretoria East, South Africa <span class="clock" id="clock"></span></dd></div>
+      </dl>
+    </section>
+
+    <div class="sec-head"><h2>Selected work</h2><span class="mono dim">3 case studies</span></div>
+
+    <div class="work" id="work">
+      <a class="tile wide" href="#honeycode" data-reel='[["img/hc-desktop.jpg",""],["img/hc-long.jpg","center 30%"],["img/hc-long.jpg","center 58%"],["img/hc-long.jpg","center 86%"]]'>
+        <div class="pic"><img src="img/hc-desktop.jpg" alt="Honeycode Design Studio homepage: Make your business impossible to ignore" width="1440" height="900"></div>
+        <div class="cap">
+          <div>
+            <p class="yr">2026 · Brand, voice, web design and build</p>
+            <h2>Honeycode Design Studio</h2>
+            <p>The brand, design system and website for my own studio, designed and built by me. It won three paying clients in its first ten weeks.</p>
+            <div class="chips"><span class="chip live">Live</span><span class="chip">Self-initiated</span></div>
+          </div>
+          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+        </div>
+      </a>
+      <a class="tile" href="#corleon" data-reel='[["img/corleon-site-hero.webp",""],["img/corleon-site-listings.webp","top"],["img/corleon-site-reviews.webp","center"],["img/corleon-before.jpg","top"]]'>
+        <div class="pic"><img src="img/corleon-site-hero.webp" alt="Corleon Property homepage: Welcome to Corleon" width="1200" height="664"></div>
+        <div class="cap">
+          <div>
+            <p class="yr">2024 to 2025 · Website and admin portal UI/UX</p>
+            <h2>Corleon Property</h2>
+            <p>The first real website for a Johannesburg rental company that had been letting since 1998.</p>
+            <div class="chips"><span class="chip live">Live</span><span class="chip">Client</span></div>
+          </div>
+          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+        </div>
+      </a>
+      <a class="tile" href="#purr" data-reel='[["img/purr-campaign-cover.webp",""],["img/purr-poster-01-bleed-loud.webp","center 35%"],["img/purr-colour-type-devices.webp","center"],["img/purr-in-the-wild.webp","center"],["img/purr-instagram-grid.webp","top"]]'>
+        <div class="pic"><img src="img/purr-campaign-cover.webp" alt="PURR campaign cover: Tampons and pads with a filthy mouth" width="1440" height="900"></div>
+        <div class="cap">
+          <div>
+            <p class="yr">2026 · Brand identity, campaign, art direction</p>
+            <h2>PURR</h2>
+            <p>A concept period-care brand that calls blood blood, carried across every part of a launch.</p>
+            <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></div>
+          </div>
+          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+        </div>
+      </a>
+    </div>
+
+    <section class="approach" id="approach">
+      <div class="sec-head"><h2>How I work</h2><span class="mono dim">What you'll find in every project</span></div>
+      <div class="principles">
+        <div><h3>The problem comes first</h3><p>I start with what has to happen for the people using it, then design toward that. For Corleon, that meant a tenant reaching a real listing without picking up the phone.</p><a href="#corleon">See Corleon &rarr;</a></div>
+        <div><h3>I write the words</h3><p>Copy is design material, so I write it myself. PURR runs on a banned-words list, and my studio site opens with one struck-through line.</p><a href="#purr">See PURR &rarr;</a></div>
+        <div><h3>Real over stock</h3><p>Real photos, real listings, real product. Corleon leads with one of its own complexes, and PURR uses no lifestyle photography at all.</p><a href="#corleon">See Corleon &rarr;</a></div>
+        <div><h3>Open about my tools</h3><p>I use AI to build and produce faster, and every case study says exactly where. The thinking, the words and the calls are mine.</p><a href="#honeycode">See Honeycode &rarr;</a></div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <img class="photo" src="img/elsie-photo.jpg" alt="Portrait of Elsie van Rooyen" width="500" height="626" loading="lazy">
+      <div>
+        <p class="mono" style="color:var(--honey)">About</p>
+        <h2>Hi, I'm Elsie.</h2>
+        <p>I came to design the long way round. Since 2017 I've worked as a legal secretary and then a portfolio administrator. Today I handle about 100 tickets a day for a managing agent with over 500 complexes. That work taught me what clients actually need: <strong>clear thinking, honest updates and work delivered on time.</strong></p>
+        <p>I've designed for clients since October 2024, and in August 2026 I started trading as <strong>Honeycode Design</strong>. I work in Figma from the first user flow to the final component library, and I build in React and Tailwind when a project needs it. Between clients I make concept brands like PURR, to push into categories that clients rarely let you touch.</p>
+        <p>Self-confessed perfectionist, so yes, I will sweat the spacing.</p>
+      </div>
+    </section>
+
+    <section class="cv" id="cv">
+      <div class="sec-head"><h2>CV</h2><span class="cv-actions"><button type="button" class="btn" id="cv-dl" hidden>Download CV (PDF)</button><a class="btn ghost" href="cv.pdf" target="_blank" rel="noopener">Open PDF</a></span></div>
+      <div class="cv-grid">
+        <div class="cv-main">
+          <h3 class="cv-h">Design work</h3>
+          <div class="job lead"><div class="when">Oct 2024 to now</div><div><h4>Freelance UI/UX and web designer</h4><p class="org">Self-employed, trading as Honeycode Design since August 2026</p></div></div>
+          <div class="job"><div class="when">Oct 2024 to Mar 2025</div><div><h4><a href="#corleon">Corleon Property</a></h4><p class="org">Website and admin portal UI/UX design</p><ul>
+            <li>Designed the complete UI for the website and admin portal in Figma: about 20 pages, responsive across desktop, tablet and mobile.</li>
+            <li>Mapped user flows and wireframes, then built high-fidelity designs, clickable prototypes and a reusable component library.</li>
+            <li>Ran every client meeting from kickoff to sign-off: gathered requirements, presented concepts and managed revisions.</li>
+            <li>Handed approved designs to the developer and trained the client to use the admin portal.</li></ul></div></div>
+          <div class="job"><div class="when">Live Sep 2026</div><div><h4><a href="#honeycode">Honeycode Design Studio</a></h4><p class="org">Brand and website</p><ul>
+            <li>Created the studio's brand palette and design system in Figma, then designed the full website from it.</li>
+            <li>Built and launched the site in React and Tailwind CSS on Cloudflare. I also run the studio's LinkedIn and social content.</li></ul></div></div>
+          <div class="job"><div class="when">Oct 2026 to now</div><div><h4>Everlune Photography</h4><p class="org">Website design, build and maintenance</p><ul>
+            <li>Designed and built the photography business's website in React and Tailwind CSS, hosted on Cloudflare.</li>
+            <li>Maintain the live site with regular content updates.</li></ul></div></div>
+          <div class="job"><div class="when">Oct 2024 to now</div><div><h4>Hennies and Seven Seas Liquor</h4><p class="org">Social media design and promotions</p><ul>
+            <li>Designed social media graphics for Hennies restaurant's head office in Moreleta Park (Oct 2024 to Oct 2025).</li>
+            <li>Design promotions and short videos for Seven Seas Liquor since September 2026, published to the client's WhatsApp audience at least twice a week.</li></ul></div></div>
+          <div class="job"><div class="when">Sep 2026 to now</div><div><h4>BrokerEdge</h4><p class="org">Content publishing</p><ul>
+            <li>Publish bilingual (English and Afrikaans) member articles to the BrokerEdge WordPress website.</li>
+            <li>Wrote a feature article for the website and an editorial piece for industry magazines.</li></ul></div></div>
+
+          <h3 class="cv-h">Admin experience</h3>
+          <div class="job lead"><div class="when">Jan 2021 to now</div><div><h4>Portfolio Administrator</h4><p class="org">ANGOR Properties</p><ul>
+            <li>Handle about 100 tickets a day in Zoho Desk across maintenance, insurance and general enquiries, seeing each one through to resolution.</li>
+            <li>Administer sectional title schemes and HOAs for a managing agent with over 500 complexes under management.</li>
+            <li>Coordinate service providers, approvals, invoices, levy administration, insurance and compliance.</li>
+            <li>Follow up valuations and fire services for 38 buildings, and run a post-AGM records audit for accuracy and POPIA compliance.</li>
+            <li>Organise meetings, distribute notes and keep records, databases and owner communications accurate.</li></ul></div></div>
+          <div class="job"><div class="when">Oct 2017 to Dec 2020</div><div><h4>Legal Secretary</h4><p class="org">Cavanagh &amp; Richards (Jul to Dec 2020) · Ivan Maitin Attorneys (Apr 2018 to Jul 2020) · Van Heerden Troskie (Oct 2017 to Apr 2018)</p><ul>
+            <li>Prepared legal documents and court applications, managed attorneys' schedules and court dates, and trained new staff.</li></ul></div></div>
+        </div>
+        <aside class="cv-side">
+          <div class="blk"><h3 class="cv-h">Toolkit</h3><div class="chips"><span class="chip">UI and UX design</span><span class="chip">User flows</span><span class="chip">Wireframing</span><span class="chip">Prototyping</span><span class="chip">Design thinking</span><span class="chip">Style guides</span><span class="chip">Component libraries</span><span class="chip">Responsive web</span><span class="chip">Visual design</span><span class="chip">Typography</span><span class="chip">Social media design</span></div></div>
+          <div class="blk"><h3 class="cv-h">Software</h3><div class="chips"><span class="chip on">Figma</span><span class="chip">Canva</span><span class="chip">React</span><span class="chip">Tailwind CSS</span><span class="chip">Cloudflare</span><span class="chip">WordPress</span><span class="chip">Microsoft Office</span><span class="chip">Zoho Desk</span></div></div>
+          <div class="blk"><h3 class="cv-h">Certifications</h3>
+            <p class="sm">Anthropic · May 2026</p><p>Claude Code in Action<br>Claude Code 101<br>Claude 101</p>
+            <p class="sm" style="margin-top:12px">Codecademy · 2024</p><p>Visual Design<br>Introduction to UI and UX Design<br>Learn Interaction Design<br>Learn Design Thinking: Ideation<br>Learn User Research: Generative</p></div>
+          <div class="blk"><h3 class="cv-h">Education</h3><p>National Senior Certificate (Matric)</p><p class="sm">Hoërskool Randburg · 2016</p></div>
+          <div class="blk"><h3 class="cv-h">Awards</h3><p>Long Service Award (5 years)</p><p class="sm">ANGOR Properties · 2026</p></div>
+          <div class="blk"><h3 class="cv-h">Languages</h3><p>English, Afrikaans</p></div>
+          <div class="blk"><h3 class="cv-h">References</h3><p>Available on request.</p></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <p class="mono" style="color:var(--honey)">Contact</p>
+      <h2>Have a project in mind, or just want to talk design?</h2>
+      <div class="row"><code>elsie@honeycodedesign.com</code><button type="button" class="btn" data-copy="elsie@honeycodedesign.com">Copy email</button><a class="btn ghost" href="https://www.linkedin.com/in/elsie-van-rooyen-1b1473280" target="_blank" rel="noopener">LinkedIn</a></div>
+    </section>
+  </div>
+</main>
+
+<!-- ============================== HONEYCODE ============================== -->
+<article class="case" id="v-honeycode" hidden>
+  <div class="wrap">
+    <a class="back" href="#">&larr; All work</a>
+    <div class="cover">
+      <div class="chips"><span class="chip live">Live</span><span class="chip">Own studio</span><span class="chip">Self-initiated</span></div>
+      <h1>Honeycode Design Studio</h1>
+      <p class="lede">A studio site that shows its prices, picks a fight with beige, and won three paying clients in its first ten weeks.</p>
+    </div>
+    <div class="hero"><img src="img/hc-desktop.jpg" alt="Honeycode Design Studio homepage with the honeycomb hero" width="1440" height="900"></div>
+    <dl class="meta">
+      <div><dt>Project</dt><dd>My own studio's brand and website</dd></div>
+      <div><dt>Status</dt><dd>Live at <a href="https://honeycodedesign.com" target="_blank" rel="noopener">honeycodedesign.com</a> since 8 September 2026</dd></div>
+      <div><dt>My role</dt><dd>Founder. Positioning, copy, brand, design and front-end build</dd></div>
+      <div><dt>Timeline</dt><dd>Built and launched 7 to 8 September 2026. Homepage redesigned 15 October 2026</dd></div>
+      <div><dt>Team</dt><dd>Solo. Built with AI coding tools (Claude Code) under my direction</dd></div>
+      <div><dt>Tools</dt><dd>Figma (design system), React, Vite, Tailwind CSS, Cloudflare Workers, Resend</dd></div>
+      <div class="span2"><dt>Deliverables</dt><dd>Positioning and voice, hive identity, Home, Work, Manifesto and Quote pages, published ZAR pricing, quote and callback forms, free online-presence audit, prerendered pages for search</dd></div>
+    </dl>
+
+    <div class="body">
+      <nav class="toc" aria-label="Case study sections"></nav>
+      <div class="story">
+        <section data-t="Brief">
+          <h2><span class="mono">The brief</span>Small businesses can't tell one designer from the next</h2>
+          <p>Before this build, honeycodedesign.com was a coming-soon page. My clients are small South African businesses who need a logo, a website or social media, and they're spoilt for cheap templates. Most can't tell one designer from the next, and most are scared of the surprise invoice.</p>
+          <p>The studio needed a site that sells on its own. It had to say what Honeycode stands for, show the work, and tell a small-business owner what things cost before they have to ask.</p>
+        </section>
+        <section data-t="Constraints">
+          <h2><span class="mono">Constraints</span>What I had to work with</h2>
+          <ul class="list">
+            <li><b>One person.</b> I design for clients while running the studio, so the site had to bring in enquiries without a sales team.</li>
+            <li><b>A price-sensitive audience.</b> Small-business owners who are wary of agencies and budget in rand.</li>
+            <li><b>Found through search.</b> Local search is how most of them look for a designer, so every page had to be readable by search engines.</li>
+            <li><b>Low running costs.</b> Hosting on Cloudflare, with form notifications through Resend.</li>
+          </ul>
+        </section>
+        <section data-t="My role">
+          <h2><span class="mono">My role</span>Everything, with AI doing the typing</h2>
+          <p>I wrote the positioning and every line of copy, created the brand palette and design system in Figma, designed every page from it, and built the site in React and Tailwind CSS with Claude Code. I directed and reviewed each change. No agency, no developer. The repository has 48 commits between 7 September and 15 October 2026, because the site kept changing as I learned what clients asked about.</p>
+        </section>
+        <section data-t="Process">
+          <h2><span class="mono">Process</span>Positioning first, pages second</h2>
+          <p>I wrote the manifesto before I designed a screen. "Refuse to be beige" became the test for every decision: if a section could sit on any other studio's site, it was cut or rewritten.</p>
+          <p>After launch I kept editing in the open. I repriced services in rand only and led with entry prices. I added AI image and video services as clients asked for them. On 2 October I removed four UI/UX audits from the work section, so it leads with live client sites and complete brand systems.</p>
+        </section>
+        <section data-t="Decisions">
+          <h2><span class="mono">Key decisions</span>Three calls that shaped the site</h2>
+          <div class="decision">
+            <h3>Show the prices on the page</h3>
+            <dl>
+              <dt>Considered</dt><dd><span class="rej">Rejected</span>"Contact us for a quote" with no prices, the norm for design studios.</dd>
+              <dt>Chose</dt><dd>Published ZAR entry prices for every service, from logos at R 1 950 to Starter websites from R 3 500. Each pricing card pre-selects its package in the quote form.</dd>
+              <dt>Why</dt><dd>The surprise invoice is my clients' biggest fear. Showing prices filters out mismatched enquiries before anyone fills in a form, and makes the quote form a next step instead of a gamble.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>A voice that picks a fight with beige</h3>
+            <dl>
+              <dt>Chose</dt><dd>The hero opens with "Beige. Basic. Blends in." struck through, then "Make your business impossible to ignore." A ticker repeats the promises: zero templates, 100% custom.</dd>
+              <dt>Why</dt><dd>Small-business owners skim. A strike-through says what the studio is against in three words, and the headline says what they get.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>A live hive instead of a stock hero</h3>
+            <dl>
+              <dt>Chose</dt><dd>A honeycomb field behind the hero that reacts to the cursor, in black and honey taken from my illustrated portrait. It replaced the first homepage on 15 October.</dd>
+              <dt>Why</dt><dd>The name already does the branding work. The hive makes the first five seconds feel made by hand, which is the whole argument against templates.</dd>
+            </dl>
+          </div>
+        </section>
+        <section data-t="The work">
+          <h2><span class="mono">The work</span>The live site</h2>
+          <div class="gal">
+            <figure class="full"><div class="scrollshot" tabindex="0" aria-label="Scrollable full-page screenshot"><img src="img/hc-long.jpg" alt="Full homepage of honeycodedesign.com" loading="lazy"></div><figcaption>The homepage, captured 17 November 2026. Scroll inside the frame.</figcaption></figure>
+          </div>
+        </section>
+        <section data-t="Results">
+          <h2><span class="mono">Results</span>Ten weeks live</h2>
+          <ul class="list" style="margin-bottom:20px">
+            <li><b>Three paying clients</b> came through the site: BrokerEdge, Seven Seas Liquor and Get Strong.</li>
+            <li><b>A handful of quote and callback requests</b> in the first ten weeks, from a site that replaced a coming-soon page.</li>
+          </ul>
+          <p class="small" style="margin-bottom:10px">Lighthouse, desktop, 17 November 2026:</p>
+          <div class="stats">
+            <div><b>99</b><span>Performance</span></div>
+            <div><b>93</b><span>Accessibility</span></div>
+            <div><b>100</b><span>Best practices</span></div>
+            <div><b>100</b><span>SEO</span></div>
+          </div>
+        </section>
+        <section data-t="Reflection">
+          <h2><span class="mono">Reflection</span>What I'd do next</h2>
+          <p>Mobile is the weak spot. On a phone, the live hive delays the hero by about six seconds, and mobile performance scores 62. Next I'd show a still hive on phones and keep the animated one for desktop. I'd also fix the contrast warnings Lighthouse flagged, and set up analytics from day one, so the next version of this case study can show visit-to-enquiry rates instead of a count.</p>
+        </section>
+      </div>
+    </div>
+    <a class="next" href="#corleon"><div class="pic"><img src="img/corleon-site-hero.webp" alt="" loading="lazy"></div><div><p class="mono dim">Next case study</p><h2>Corleon Property &rarr;</h2></div></a>
+  </div>
+</article>
+
+<!-- ============================== CORLEON ============================== -->
+<article class="case" id="v-corleon" hidden>
+  <div class="wrap">
+    <a class="back" href="#">&larr; All work</a>
+    <div class="cover">
+      <div class="chips"><span class="chip live">Live</span><span class="chip">Client</span><span class="chip">Website design</span></div>
+      <h1>Corleon Property</h1>
+      <p class="lede">The first real website for a Johannesburg rental company that had been letting since 1998, and had a "Launching Soon" page to show for it.</p>
+    </div>
+    <div class="hero"><img src="img/corleon-site-hero.webp" alt="Corleon Property homepage: Welcome to Corleon, over a photo of one of their complexes" width="1200" height="664"></div>
+    <dl class="meta">
+      <div><dt>Client</dt><dd>Corleon Property, a private rental company in Johannesburg's northern suburbs</dd></div>
+      <div><dt>Status</dt><dd>Live at <a href="https://corleonproperty.co.za" target="_blank" rel="noopener">corleonproperty.co.za</a></dd></div>
+      <div><dt>My role</dt><dd>UI/UX designer for the website and admin portal. Ran every client meeting</dd></div>
+      <div><dt>Timeline</dt><dd>October 2024 to March 2025</dd></div>
+      <div><dt>Team</dt><dd>Me (UI/UX design, client meetings), a development partner (build), Corleon (photos, content, sign-off)</dd></div>
+      <div><dt>Tools</dt><dd>Figma</dd></div>
+      <div class="span2"><dt>Deliverables</dt><dd>User flows and wireframes, high-fidelity designs for about 20 responsive pages (desktop, tablet, mobile), clickable prototypes, a reusable component library, admin portal UI, developer handoff and client training</dd></div>
+    </dl>
+
+    <div class="body">
+      <nav class="toc" aria-label="Case study sections"></nav>
+      <div class="story">
+        <section data-t="Brief">
+          <h2><span class="mono">The brief</span>27 years of trust, invisible online</h2>
+          <p>Corleon Property has been letting homes across Johannesburg's northern suburbs since 1998. They have real complexes such as Barradonna, Vernan Mews and Pamela Place, a named team, and tenants who write reviews that read like letters.</p>
+          <p>Online, none of that existed. Their domain showed a GoDaddy "Launching Soon" page, still up in April 2025 while the new site was being built: a stock photo of mountains and a Contact Us heading. Someone looking for a rental in Fairland had nothing to browse and no reason to call.</p>
+          <p><b>The goal:</b> look established and trustworthy from the first screen, get a prospective tenant from the homepage to a real listing fast, and give the reviews and the team room to build trust online.</p>
+        </section>
+        <section data-t="Constraints">
+          <h2><span class="mono">Constraints</span>What shaped the design</h2>
+          <ul class="list">
+            <li><b>Designed for someone else to build.</b> A development partner built the site, so every layout had to be specified clearly enough to build as drawn.</li>
+            <li><b>Two audiences.</b> Renters on the public site, and Corleon's own team in the admin portal behind it.</li>
+            <li><b>Three screen sizes.</b> Every page designed for desktop, tablet and mobile, about 20 pages in all.</li>
+            <li><b>Real content only.</b> Photos, unit details and reviews came from Corleon. No stock imagery to lean on.</li>
+            <li><b>Starting from nothing.</b> No previous site, so there were no pages, structure or listings to migrate. Everything was decided from scratch.</li>
+          </ul>
+        </section>
+        <section data-t="My role">
+          <h2><span class="mono">My role</span>Design, and guiding the client through it</h2>
+          <p>I designed the complete UI for the public website and the admin portal in Figma, about 20 pages. I ran every client meeting from kickoff to sign-off: gathering requirements, presenting concepts and managing revisions, which meant walking the client through decisions they hadn't had to make before.</p>
+          <p>A development partner built the site from my handoff. Once it was live, I trained the client to use the admin portal. Corleon supplied the photography and content.</p>
+        </section>
+        <section data-t="Process">
+          <h2><span class="mono">Process</span>Start from what they already had</h2>
+          <p>Corleon didn't need to invent a story. They needed the one they had to show up online. I listed what already existed offline (the complexes, the team, the reviews, a clear rental process) and mapped it onto the question every visitor arrives with: is there something available near me, and can I trust these people?</p>
+          <p>From there I mapped user flows and wireframes, built high-fidelity designs and clickable prototypes, and assembled a reusable component library, so the developer could build about 20 pages from one consistent set of parts. The public site is organised around Home, About, Complexes and Contact, with the admin portal behind it for Corleon's team.</p>
+        </section>
+        <section data-t="Decisions">
+          <h2><span class="mono">Key decisions</span>Four calls that make it work</h2>
+          <div class="decision">
+            <h3>Lead with a real complex, not a stock street</h3>
+            <dl>
+              <dt>Considered</dt><dd><span class="rej">Rejected</span>Generic property stock photography, the same move as the mountains on the old holding page.</dd>
+              <dt>Chose</dt><dd>A photo of one of Corleon's own complexes behind "Welcome to Corleon".</dd>
+              <dt>Why</dt><dd>Renters are judging the actual product. Showing it on the first screen backs the welcome with proof.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>Listings you can browse instead of phone</h3>
+            <dl>
+              <dt>Chose</dt><dd>Every complex as a filterable card with suburb, floor sizes and full unit descriptions.</dd>
+              <dt>Why</dt><dd>"Is there anything in Fairland?" should take a scroll, not a phone call.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>The rental process gets its own section</h3>
+            <dl>
+              <dt>Chose</dt><dd>Three steps on the page: Initial Consultation, Application and Screening, Welcome Home.</dd>
+              <dt>Why</dt><dd>People hesitate to enquire when they don't know what happens next. Putting the steps up front, instead of in an FAQ, removes that hesitation.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>Reviews get room, and a way in</h3>
+            <dl>
+              <dt>Chose</dt><dd>A reviews carousel with star ratings, plus a live form so tenants can add their own.</dd>
+              <dt>Why</dt><dd>Corleon's tenants were already writing long, warm reviews. The site gives that trust a home and keeps it growing.</dd>
+            </dl>
+          </div>
+        </section>
+        <section data-t="The work">
+          <h2><span class="mono">The work</span>Before and after</h2>
+          <div class="ba" id="ba" style="--cut:50%">
+            <img src="img/corleon-before.jpg" alt="Before: GoDaddy Launching Soon holding page, April 2025" loading="lazy">
+            <img class="after" src="img/corleon-site-hero.webp" alt="After: the new Corleon Property homepage" loading="lazy">
+            <span class="line"></span>
+            <span class="tag l">Before · April 2025</span><span class="tag r">After · live site</span>
+            <input type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after" id="ba-range">
+          </div>
+          <p class="small" style="margin-bottom:24px">Drag to compare. The before is the Wayback Machine capture of corleonproperty.co.za from 7 April 2025, while the new site was still in development.</p>
+          <div class="gal">
+            <figure class="full"><button type="button"><img src="img/corleon-site-listings.webp" alt="Complex listings across Johannesburg's northern suburbs" loading="lazy"></button><figcaption>Complexes: real listings with suburb, floor sizes and descriptions.</figcaption></figure>
+            <figure><button type="button"><img src="img/corleon-site-about.webp" alt="We Do Rentals section" loading="lazy"></button><figcaption>Home: "We Do Rentals", the complexes at a glance.</figcaption></figure>
+            <figure><button type="button"><img src="img/corleon-site-process.webp" alt="How We Do It, three-step rental process" loading="lazy"></button><figcaption>About: the three-step rental process.</figcaption></figure>
+            <figure><button type="button"><img src="img/corleon-site-reviews.webp" alt="Tenant reviews carousel" loading="lazy"></button><figcaption>Reviews: tenant testimonials with star ratings.</figcaption></figure>
+            <figure><button type="button"><img src="img/corleon-site-contact.webp" alt="Footer with contact and enquiry capture" loading="lazy"></button><figcaption>Footer: contact details and enquiry capture.</figcaption></figure>
+          </div>
+        </section>
+        <section data-t="Results">
+          <h2><span class="mono">Results</span>From a holding page to a working site</h2>
+          <ul class="list" style="margin-bottom:22px">
+            <li><b>Live</b> at corleonproperty.co.za, replacing the "Launching Soon" page.</li>
+            <li><b>More enquiries:</b> the client reports more enquiries since launch. No figures were shared.</li>
+            <li><b>Every complex online</b> with its own listing, for the first time in 27 years of trading.</li>
+            <li><b>Client trained</b> to run the admin portal themselves after handoff.</li>
+          </ul>
+          <blockquote class="quote">
+            <p>"I enjoyed the experience working with Elsie as she is very creative and guided me nicely through the whole process. Would definitely recommend working with her and her team."</p>
+            <cite>Corleon Property</cite>
+          </blockquote>
+        </section>
+        <section data-t="Reflection">
+          <h2><span class="mono">Reflection</span>What I'd do differently</h2>
+          <p>I'd agree a way to measure success with the client before launch, such as a baseline for monthly enquiries, so "more enquiries" comes with a number. I'd also ask for a named testimonial at sign-off, while the project is fresh.</p>
+        </section>
+      </div>
+    </div>
+    <a class="next" href="#purr"><div class="pic"><img src="img/purr-campaign-cover.webp" alt="" loading="lazy"></div><div><p class="mono dim">Next case study</p><h2>PURR &rarr;</h2></div></a>
+  </div>
+</article>
+
+<!-- ============================== PURR ============================== -->
+<article class="case" id="v-purr" hidden>
+  <div class="wrap">
+    <a class="back" href="#">&larr; All work</a>
+    <div class="cover">
+      <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span><span class="chip">Brand + launch campaign</span></div>
+      <h1>PURR</h1>
+      <p class="lede">A concept period-care brand that says blood out loud, carried across every part of a real launch.</p>
+      <p class="notice"><b>Concept project.</b> PURR is a brand I invented to show what I can do in a sensitive category. It is not a real company, it has no client, and it has not launched.</p>
+    </div>
+    <div class="hero"><img src="img/purr-campaign-cover.webp" alt="PURR campaign cover: Tampons and pads with a filthy mouth" width="1440" height="900"></div>
+    <dl class="meta">
+      <div><dt>Type</dt><dd>Concept, self-initiated. Fictional brand</dd></div>
+      <div><dt>Status</dt><dd>Complete as a concept. Not launched, no metrics</dd></div>
+      <div><dt>My role</dt><dd>Strategy, naming, voice, copywriting and art direction</dd></div>
+      <div><dt>Timeline</dt><dd>September 2026</dd></div>
+      <div><dt>Team</dt><dd>Solo. Layouts and renders produced with AI (Claude design canvas) under my direction</dd></div>
+      <div><dt>Research</dt><dd>Category ad audit, 3 to 5 informal conversations, South African shelf check</dd></div>
+      <div class="span2"><dt>Deliverables</dt><dd>Identity and logo system, tone of voice with banned words, packaging dieline and renders, three posters and out of home, e-commerce homepage and product page, three app screens, social grid, stories, paid, carousel and reels, launch film storyboard</dd></div>
+    </dl>
+
+    <div class="body">
+      <nav class="toc" aria-label="Case study sections"></nav>
+      <div class="story">
+        <section data-t="Brief">
+          <h2><span class="mono">My brief</span>Make a category built on euphemism loud and honest</h2>
+          <p>Period-care advertising has looked the same for decades: blue liquid, white jeans, yoga, and the word "period" never said out loud. I wanted to prove I could take a sensitive category built on euphemism and make it confident and honest. Then I wanted to show the idea holding up across every format a real launch needs, not just a logo and a mood board.</p>
+          <p>The brief is mine. So are the audience, the goal and the constraints. The product is organic-cotton tampons and pads for South African women, sold in pharmacies and online.</p>
+        </section>
+        <section data-t="Constraints">
+          <h2><span class="mono">Self-set constraints</span>The rules I gave myself</h2>
+          <ul class="list">
+            <li><b>Blood is called blood.</b> A banned-words list: no "discreet", no "feminine hygiene", no "freshness you can trust".</li>
+            <li><b>No soft-focus lifestyle photography.</b> Type, colour and the product carry the brand.</li>
+            <li><b>Sortable from two metres.</b> Packaging has to read on a crowded pharmacy shelf.</li>
+            <li><b>One line at every scale.</b> The campaign has to work from a 48-sheet billboard down to a 15-second reel.</li>
+          </ul>
+        </section>
+        <section data-t="My role">
+          <h2><span class="mono">My role, and how it was made</span>My thinking, AI-assisted production</h2>
+          <p>I did the strategy, the name, the voice and every line of copy, including "Bleed loud", "A period is not a luxury" and "Not sorry. Not scented." I made the art direction calls (palette, type, composition) and corrected the output until it matched. Layouts, renders and mockups were produced with AI in a Claude design canvas, under my direction.</p>
+        </section>
+        <section data-t="Research">
+          <h2><span class="mono">Research</span>Small, informal, and honest about it</h2>
+          <ul class="list">
+            <li><b>Category audit.</b> I reviewed how period products are advertised: the euphemisms, the blue liquid, the whispering.</li>
+            <li><b>Conversations.</b> I spoke informally with three to five people about their frustrations with period products and how they're marketed.</li>
+            <li><b>Shelf check.</b> I looked at South African pharmacy shelves, packaging and prices.</li>
+          </ul>
+          <p style="margin-top:16px">This is a point of view sharpened by evidence, not a study. It shaped the voice and the shelf strategy below.</p>
+        </section>
+        <section data-t="Decisions">
+          <h2><span class="mono">Key decisions</span>Four calls that make the system hold</h2>
+          <div class="decision">
+            <h3>Loud red instead of soft pastel</h3>
+            <dl>
+              <dt>Considered</dt><dd><span class="rej">Rejected</span>A gentle, pastel wellness direction.</dd>
+              <dt>Chose</dt><dd>Purr Red as the hero field across 60% of any layout, Bodoni Moda for the wordmark and Archivo Black for statements.</dd>
+              <dt>Why</dt><dd>The pastel version disappeared into the aisle it was meant to stand out from. Pastels are how the category already whispers.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>The voice does the heavy lifting</h3>
+            <dl>
+              <dt>Chose</dt><dd>Short sentences, verbs first, and a banned-words list applied to every touchpoint.</dd>
+              <dt>Why</dt><dd>Without hard rules, copy drifts back to the category's euphemisms. The list keeps every line honest.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>Colour sorts the packs, not copy</h3>
+            <dl>
+              <dt>Chose</dt><dd>Super, Regular and Night pads read as a red, pink and black block from two metres. The only joke, "Nobody asked. Tell them anyway.", sits where you see it after you've bought the box.</dd>
+              <dt>Why</dt><dd>On a crowded shelf, people find their product by colour before they read anything.</dd>
+            </dl>
+          </div>
+          <div class="decision">
+            <h3>One line, every scale</h3>
+            <dl>
+              <dt>Chose</dt><dd>"Bleed loud" on the 48-sheet, as a burned-in caption on reels, and as a marquee band on social. The film opens cold and desaturated like every pad advert, then floods red.</dd>
+              <dt>Why</dt><dd>One repeated line makes six deliverables read as one launch.</dd>
+            </dl>
+          </div>
+        </section>
+        <section data-t="The work">
+          <h2><span class="mono">The work</span>The launch system</h2>
+          <div class="gal">
+            <figure class="full"><button type="button"><img src="img/purr-colour-type-devices.webp" alt="PURR colour, type and graphic devices" loading="lazy"></button><figcaption>Identity: colour, type and the three graphic devices.</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-logo-system.webp" alt="PURR logo system" loading="lazy"></button><figcaption>Logo system: wordmark, claw mark and lockup rules.</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-tone-of-voice.webp" alt="PURR tone of voice" loading="lazy"></button><figcaption>Tone of voice: what we say, what we never say.</figcaption></figure>
+          </div>
+          <div class="gal three">
+            <figure><button type="button"><img src="img/purr-poster-01-bleed-loud.webp" alt="Poster: Bleed loud" loading="lazy"></button><figcaption>Poster 01: "Bleed loud."</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-poster-02-not-a-luxury.webp" alt="Poster: A period is not a luxury" loading="lazy"></button><figcaption>Poster 02: "A period is not a luxury."</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-poster-03-not-scented.webp" alt="Poster: Not sorry. Not scented." loading="lazy"></button><figcaption>Poster 03: "Not sorry. Not scented."</figcaption></figure>
+          </div>
+          <div class="gal">
+            <figure><button type="button"><img src="img/purr-carton-dieline.webp" alt="Super tampons carton dieline" loading="lazy"></button><figcaption>Packaging: Super tampons carton dieline, 245 × 105 mm.</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-in-the-wild.webp" alt="Wheatpaste posters, tote and pharmacy shelf mockup" loading="lazy"></button><figcaption>Mockups: wheatpaste, tote and pharmacy shelf.</figcaption></figure>
+            <figure><div class="scrollshot" tabindex="0" aria-label="Scrollable website homepage"><img src="img/purr-website-homepage.webp" alt="PURR website homepage" loading="lazy"></div><figcaption>Website: homepage. Scroll inside the frame.</figcaption></figure>
+            <figure><div class="scrollshot" tabindex="0" aria-label="Scrollable product page"><img src="img/purr-website-product-page.webp" alt="PURR product page" loading="lazy"></div><figcaption>Website: Super tampons product page.</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-instagram-grid.webp" alt="PURR Instagram grid" loading="lazy"></button><figcaption>Social: the 3 × 3 Instagram grid.</figcaption></figure>
+            <figure><button type="button"><img src="img/purr-stories-paid.webp" alt="PURR stories and paid ads" loading="lazy"></button><figcaption>Social: stories and paid ads.</figcaption></figure>
+          </div>
+        </section>
+        <section data-t="Status">
+          <h2><span class="mono">Status and next step</span>A concept, so no results to report</h2>
+          <p>PURR hasn't launched, so there are no sales, sign-ups or engagement figures, and I won't invent any. The concept is complete across 21 artboards: identity, posters, packaging, website, app, social, out of home and film.</p>
+          <p><b>How I'd validate it next:</b> put the three posters and pack fronts in front of 8 to 10 people in the target audience, and test whether "Bleed loud" reads as confident or alienating before any rollout.</p>
+        </section>
+        <section data-t="Reflection">
+          <h2><span class="mono">Reflection</span>What I'd do differently</h2>
+          <p>I'd test before building the full rollout, not after. A brand this loud works or fails on whether its audience feels spoken to or shouted at, and a handful of conversations isn't enough to know that yet.</p>
+        </section>
+      </div>
+    </div>
+    <a class="next" href="#honeycode"><div class="pic"><img src="img/hc-desktop.jpg" alt="" loading="lazy"></div><div><p class="mono dim">Next case study</p><h2>Honeycode Design Studio &rarr;</h2></div></a>
+  </div>
+</article>
+
+<footer><div class="wrap"><span>&copy; 2026 Elsie van Rooyen · Pretoria</span><span>Designed and written by me</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button type="button" class="btn ghost x" id="lb-x">Close</button>
+  <button type="button" class="nav prev" id="lb-p" aria-label="Previous image">&larr;</button>
+  <img id="lb-img" alt="">
+  <p id="lb-cap"></p>
+  <button type="button" class="nav nx" id="lb-n" aria-label="Next image">&rarr;</button>
+</div>
+
+<div class="vcursor" id="vcursor" aria-hidden="true">View<br>case</div>
+
+<script>
+(function(){
+'use strict';
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const VIEWS=['honeycode','corleon','purr'];
+let current=null;
+
+function route(){
+  const h=location.hash.slice(1);
+  const v=VIEWS.includes(h)?h:'index';
+  if(v===current) return;
+  current=v;
+  $('#v-index').hidden = v!=='index';
+  VIEWS.forEach(k=>{ $('#v-'+k).hidden = k!==v; });
+  window.scrollTo(0,0);
+  if(v!=='index') buildToc($('#v-'+v));
+  onScroll();
+}
+addEventListener('hashchange',route);
+
+// index nav scrolls within the index view
+$$('[data-to]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  const go=()=>document.getElementById(a.dataset.to).scrollIntoView();
+  if(current!=='index'){ history.pushState(null,'',location.pathname+location.search); route(); requestAnimationFrame(go); } else go();
+}));
+
+// sticky section index for each case study
+const tocIO={};
+function buildToc(art){
+  const toc=$('.toc',art); if(toc.dataset.built) return; toc.dataset.built='1';
+  const secs=$$('.story section',art);
+  secs.forEach(s=>{ const b=document.createElement('button'); b.type='button'; b.textContent=s.dataset.t; b.addEventListener('click',()=>s.scrollIntoView()); toc.appendChild(b); s._b=b; });
+  const io=new IntersectionObserver(es=>{ es.forEach(e=>{ if(e.isIntersecting){ $$('button',toc).forEach(b=>b.classList.remove('on')); e.target._b.classList.add('on'); } }); },{rootMargin:'-30% 0px -60% 0px'});
+  secs.forEach(s=>io.observe(s));
+}
+
+// reading progress on case studies
+const prog=$('#progress');
+function onScroll(){
+  if(current==='index'){ prog.style.width='0'; return; }
+  const max=document.documentElement.scrollHeight-innerHeight;
+  prog.style.width=(max>0? Math.min(100,scrollY/max*100):0)+'%';
+}
+addEventListener('scroll',onScroll,{passive:true});
+
+// before / after
+const ba=$('#ba'), r=$('#ba-range');
+if(ba&&r){ r.addEventListener('input',()=>ba.style.setProperty('--cut',r.value+'%')); }
+
+// lightbox
+const lb=$('#lb'), li=$('#lb-img'), lc=$('#lb-cap'); let set=[], idx=0, opener=null;
+function show(i){ idx=(i+set.length)%set.length; const f=set[idx]; const im=$('img',f); li.src=im.currentSrc||im.src; li.alt=im.alt; lc.textContent=($('figcaption',f)||{}).textContent||''; }
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.gal button'); if(!b) return;
+  const art=b.closest('article'); set=$$('.gal figure',art).filter(f=>$('button',f)); opener=b;
+  show(set.indexOf(b.closest('figure'))); lb.hidden=false; $('#lb-x').focus();
+});
+function close(){ lb.hidden=true; li.removeAttribute('src'); if(opener) opener.focus(); }
+$('#lb-x').addEventListener('click',close);
+$('#lb-p').addEventListener('click',()=>show(idx-1));
+$('#lb-n').addEventListener('click',()=>show(idx+1));
+lb.addEventListener('click',e=>{ if(e.target===lb) close(); });
+addEventListener('keydown',e=>{ if(lb.hidden) return; if(e.key==='Escape') close(); if(e.key==='ArrowLeft') show(idx-1); if(e.key==='ArrowRight') show(idx+1); });
+
+// copy email
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-copy]'); if(!b) return;
+  const t=b.dataset.copy, old=b.textContent, done=()=>{ b.textContent='Copied'; setTimeout(()=>b.textContent=old,1500); };
+  const sel=()=>{ const c=b.parentElement.querySelector('code'); if(!c) return; const rg=document.createRange(); rg.selectNodeContents(c); const s=getSelection(); s.removeAllRanges(); s.addRange(rg); };
+  try{ navigator.clipboard.writeText(t).then(done,sel); }catch(_){ sel(); }
+});
+
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// split the name into letters that settle in and react on hover
+const nm=$('.intro .name');
+if(nm){
+  nm.setAttribute('aria-label','Elsie van Rooyen'); let n=0;
+  const walk=el=>{ [...el.childNodes].forEach(c=>{
+    if(c.nodeType===3){ const f=document.createDocumentFragment();
+      c.textContent.split(/(\s+)/).forEach(word=>{ if(!word) return; if(/^\s+$/.test(word)){ f.appendChild(document.createTextNode(' ')); return; }
+        const w=document.createElement('span'); w.className='wd';
+        [...word].forEach(ch=>{ const s=document.createElement('span'); s.className='ch'; s.textContent=ch; s.style.setProperty('--i',n++); s.setAttribute('aria-hidden','true'); w.appendChild(s); });
+        f.appendChild(w); });
+      c.replaceWith(f);
+    } else if(c.nodeType===1 && c.tagName!=='BR') walk(c);
+  }); };
+  walk(nm);
+}
+
+// hive behind the intro: cells light up under the cursor, a few glint on their own
+(function(){
+  const cv=$('#hive'); if(!cv) return; const ctx=cv.getContext('2d');
+  let W=0,H=0,dpr=1,R=28,cells=[],grid=null,mx=-1e4,my=-1e4,last=0;
+  const hex=(g,x,y,r)=>{ g.beginPath(); for(let i=0;i<6;i++){ const a=Math.PI/180*(60*i-30), px=x+r*Math.cos(a), py=y+r*Math.sin(a); i?g.lineTo(px,py):g.moveTo(px,py); } g.closePath(); };
+  function size(){
+    const r=cv.getBoundingClientRect(); if(!r.width) return;
+    dpr=Math.min(2,devicePixelRatio||1); W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr;
+    R= W<600?20:28; const w=Math.sqrt(3)*R, h=1.5*R; cells=[];
+    for(let row=-1; row*h<H+R*2; row++) for(let col=-1; col*w<W+w; col++) cells.push({x:col*w+(row&1?w/2:0), y:row*h, e:0});
+    grid=document.createElement('canvas'); grid.width=cv.width; grid.height=cv.height;
+    const g=grid.getContext('2d'); g.scale(dpr,dpr); g.strokeStyle='rgba(245,241,230,.07)'; g.lineWidth=1;
+    cells.forEach(c=>{ hex(g,c.x,c.y,R-1.5); g.stroke(); });
+    draw();
+  }
+  function draw(){
+    if(!grid) return;
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height); ctx.drawImage(grid,0,0); ctx.setTransform(dpr,0,0,dpr,0,0);
+    for(const c of cells){ if(c.e<.01) continue; ctx.fillStyle='rgba(255,179,0,'+(c.e*.34).toFixed(3)+')'; hex(ctx,c.x,c.y,R-3); ctx.fill(); }
+  }
+  function tick(t){
+    if(cv.offsetParent && cells.length){
+      if(t-last>420){ last=t; const c=cells[(Math.random()*cells.length)|0]; c.e=Math.max(c.e,.75); }
+      for(const c of cells){
+        if(mx>-1e3){ const d=Math.hypot(c.x-mx,c.y-my); if(d<R*2.4) c.e=Math.max(c.e,1-d/(R*2.4)); }
+        c.e*=.955;
+      }
+      draw();
+    }
+    requestAnimationFrame(tick);
+  }
+  addEventListener('pointermove',e=>{ if(e.pointerType!=='mouse') return; const r=cv.getBoundingClientRect(); const x=e.clientX-r.left, y=e.clientY-r.top; if(x<0||y<0||x>r.width||y>r.height){ mx=my=-1e4; return; } mx=x; my=y; },{passive:true});
+  new ResizeObserver(size).observe(cv);
+  if(!RM) requestAnimationFrame(tick);
+})();
+
+// Pretoria local time
+const ck=$('#clock');
+function clock(){ try{ ck.textContent='· '+new Intl.DateTimeFormat('en-ZA',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:'Africa/Johannesburg'}).format(new Date())+' local'; }catch(_){} }
+if(ck){ clock(); setInterval(clock,30000); }
+
+// tiles flip through project images on hover
+$$('.tile[data-reel]').forEach(t=>{
+  const pic=$('.pic',t), first=$('img',pic); let list; try{ list=JSON.parse(t.dataset.reel); }catch(_){ return; }
+  const ticks=document.createElement('div'); ticks.className='ticks'; ticks.setAttribute('aria-hidden','true'); ticks.innerHTML=list.map(()=>'<i></i>').join(''); pic.appendChild(ticks);
+  let imgs=null, k=0, timer=0;
+  const set=i=>{ k=i; imgs.forEach((im,j)=>{ if(j) im.classList.toggle('on',j===k); }); $$('i',ticks).forEach((x,j)=>x.classList.toggle('on',j===k)); };
+  const build=()=>{ if(imgs) return; imgs=[first]; list.slice(1).forEach(([src,pos])=>{ const im=new Image(); im.src=src; im.alt=''; im.className='alt'; if(pos) im.style.objectPosition=pos; pic.insertBefore(im,ticks); imgs.push(im); }); };
+  t.addEventListener('pointerenter',e=>{ if(e.pointerType!=='mouse') return; build(); t.classList.add('reel'); set(RM?0:1); clearInterval(timer); if(!RM) timer=setInterval(()=>set((k+1)%imgs.length),950); });
+  t.addEventListener('pointerleave',()=>{ clearInterval(timer); t.classList.remove('reel'); if(imgs) set(0); });
+});
+
+// CV download through the viewer's save prompt (hidden where unavailable)
+(async()=>{
+  const btn=$('#cv-dl'); if(!btn) return;
+  // on a normal website: a plain download link
+  if(!(window.claude && window.claude.use)){
+    const a=document.createElement('a'); a.className=btn.className; a.href='cv.pdf'; a.download='Elsie van Rooyen CV.pdf'; a.textContent='Download CV (PDF)';
+    btn.replaceWith(a); return;
+  }
+  let dl=null; try{ dl=await window.claude.use('downloads'); }catch(_){}
+  if(!dl) return;
+  btn.hidden=false;
+  btn.addEventListener('click',async()=>{
+    const old='Download CV (PDF)';
+    try{ btn.textContent='Preparing...'; const blob=await (await fetch('cv.pdf')).blob(); await dl.save({filename:'Elsie van Rooyen CV.pdf',data:blob}); btn.textContent='Saved'; }
+    catch(e){ btn.textContent=(e && e.code==='declined')? old : 'Download unavailable here'; }
+    setTimeout(()=>{ btn.textContent=old; },2000);
+  });
+})();
+
+// "View case" cursor over project tiles (fine pointers only)
+const vc=$('#vcursor');
+if(vc && matchMedia('(hover: hover) and (pointer: fine)').matches){
+  let x=-200,y=-200,tx=-200,ty=-200,on=false;
+  addEventListener('pointermove',e=>{ tx=e.clientX; ty=e.clientY; const over=!!(e.target.closest && e.target.closest('.tile, .next')); if(over!==on){ on=over; vc.classList.toggle('on',on); document.documentElement.classList.toggle('vc',on); } },{passive:true});
+  (function f(){ x+=(tx-x)*(RM?1:.22); y+=(ty-y)*(RM?1:.22); vc.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)'; requestAnimationFrame(f); })();
+}
+
+route();
+})();
+</script>
+</body>
+</html>

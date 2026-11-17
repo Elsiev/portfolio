@@ -8,10 +8,10 @@
     { "pattern": "www.elsievanrooyen.co.za", "custom_domain": true }
   ],
   "assets": {
-    "directory": "./dist",
-    // All not-found requests fall back to index.html so React Router's
-    // client-side routes (e.g. /work/:slug, /graphic-design) work on a
-    // hard refresh or a direct link.
+    "directory": "./site",
+    // The site is one static page with hash routes (#honeycode, #corleon,
+    // #purr). Unknown paths, including links to the old React site
+    // (/work/:slug), fall back to index.html.
     "not_found_handling": "single-page-application"
   }
 }

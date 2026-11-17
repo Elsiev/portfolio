@@ -11,22 +11,23 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://elsievanrooyen.co.za/">
 <meta property="og:image" content="https://elsievanrooyen.co.za/img/hc-desktop.jpg">
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="canonical" href="https://elsievanrooyen.co.za/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <title>Elsie van Rooyen, UI/UX and web designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400;500;600&display=swap">
 <style>
 /* Layout: one dark Honeycode page. Index = compact intro, then the work as large image tiles. Each case study = cover, info strip, then a sticky section index beside the story, with galleries breaking out to full width. */
 :root{
-  color-scheme: dark;
-  --bg:#050505; --raise:#121210; --raise2:#1A1915; --line:rgba(245,241,230,.13);
-  --fg:#F5F1E6; --dim:#ABA595; --honey:#FFB300; --honey-2:#FFCC4D; --honey-ink:#050505;
-  --display:'Unbounded', 'Arial Black', system-ui, sans-serif;
-  --body:'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono:'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* black and white: "honey" is now the ink accent, "honey-ink" the paper that sits on it */
+  color-scheme: light;
+  --bg:#FFFFFF; --raise:#F3F3F1; --raise2:#EAEAE7; --line:rgba(10,10,10,.12);
+  --fg:#0A0A0A; --dim:#5C5C5C; --honey:#0A0A0A; --honey-2:#2A2A2A; --honey-ink:#FFFFFF;
+  --display:'Geist', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --body:'Geist', 'Helvetica Neue', Arial, system-ui, sans-serif;
+  --mono:'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --wrap:1240px;
   --gl:max(16px, env(safe-area-inset-left, 0px)); --gr:max(16px, env(safe-area-inset-right, 0px));
 }
@@ -96,11 +97,10 @@ footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--dim)
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 /* personal portfolio framing */
-.mark{width:30px;height:30px;display:block;flex:none;overflow:visible}
-.mark path{fill:none;stroke:var(--honey);stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1}
-.mark.drawn path{animation:draw 1s cubic-bezier(.65,0,.25,1) both}
-.mark.drawn path+path{animation-delay:.45s;animation-duration:.5s}
-@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* logo: a 2x2 layout grid; the filled cell moves around it on hover */
+.mark{width:26px;height:26px;display:block;flex:none}
+.mark rect{fill:none;stroke:var(--fg);stroke-width:2.6;transition:fill .18s}
+.mark rect.on{fill:var(--fg)}
 .intro .name{font:900 clamp(52px,10vw,150px)/.9 var(--display);letter-spacing:-.05em;margin:18px 0 0;max-width:none;color:var(--honey)}
 .intro-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,4vw,56px);margin-top:clamp(28px,4vw,44px);align-items:start}
 .intro .role{margin:0;font:700 clamp(20px,2.2vw,28px)/1.25 var(--display);letter-spacing:-.02em;color:var(--fg);max-width:16ch}
@@ -135,7 +135,7 @@ html,body{overflow-x:clip}
   -webkit-mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%);mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%)}
 .name .wd{display:inline-block;white-space:nowrap}
 .name .ch{display:inline-block;transition:transform .4s cubic-bezier(.3,1.6,.5,1),color .25s;animation:settle .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
-.name .ch:hover{transform:translateY(-.08em) rotate(-5deg);color:var(--fg)}
+.name .ch:hover{transform:translateY(-.04em);background:var(--fg);color:var(--bg)}
 @keyframes settle{from{transform:translateY(.16em);color:var(--honey)}}
 .clock{color:var(--dim);font:500 13px/1 var(--mono);margin-left:6px;white-space:nowrap}
 .tile .pic{position:relative}
@@ -279,9 +279,7 @@ html.vc .tile,html.vc .next{cursor:none}
 .lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--raise);font-size:20px}
 .lb .prev{left:var(--gl)}.lb .nx{right:var(--gr)}
 
-/* ===== minimal + loud layer =====
-   Quiet by default (fewer rules, labels and borders, more air); loud in three places:
-   the name, the honey band, and the contact block. */
+/* ===== minimal layer: fewer rules, labels and borders, more air ===== */
 .sec-head{border-bottom:0;padding-bottom:0}
 .sec-head .mono{color:var(--dim)}
 .about,.cv{border-top:0}
@@ -289,13 +287,6 @@ html.vc .tile,html.vc .next{cursor:none}
 .now div,.now div+div{padding:0}
 .brand{gap:12px}
 
-/* the honey band */
-.band{width:100vw;margin:clamp(4px,1vw,12px) 0 clamp(64px,9vw,120px) calc(50% - 50vw);background:var(--honey);color:var(--honey-ink);overflow:hidden;transform:rotate(-1.6deg);padding-block:clamp(12px,1.4vw,18px)}
-.band .track{display:flex;width:max-content;animation:band 32s linear infinite}
-.band .run{display:flex;align-items:center;gap:.7em;padding-right:.7em;font:900 clamp(20px,2.6vw,34px)/1 var(--display);letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap}
-.band i{flex:none;width:.5em;height:.56em;background:currentColor;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-@keyframes band{to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){.band .track{animation:none}}
 
 /* work: numbered, quieter captions, one arrow */
 .work{counter-reset:t;gap:clamp(28px,4vw,56px) clamp(16px,2.4vw,28px)}
@@ -333,15 +324,112 @@ html.vc .tile,html.vc .next{cursor:none}
 .btn.dark{background:var(--honey-ink);color:var(--honey)}
 .btn.line{background:transparent;color:var(--honey-ink);border:1.5px solid var(--honey-ink)}
 footer{border-top:0}
-.btn,.go{will-change:transform}
+
+/* ===== black and white layer =====
+   White paper, black ink, one typeface. Quiet by default; the name and the
+   contact block are the only loud moments. Work images go grey until you look at them. */
+body{font-size:17px;line-height:1.6}
+.intro{padding-block:clamp(56px,10vw,128px) clamp(40px,6vw,72px)}
+.intro .mono{color:var(--dim)}
+.intro .name{font-weight:700;letter-spacing:-.065em;line-height:.88;font-size:clamp(56px,11vw,168px)}
+.name .ch{border-radius:.06em;padding:0 .01em}
+.intro .role{font-weight:600;letter-spacing:-.03em}
+.now dt,.meta dt,.cv-h,.tile .yr,.story h2 .mono{color:var(--dim)}
+.tile .yr::before{color:var(--fg)}
+.sec-head{border-top:1px solid var(--fg);padding-top:14px}
+.sec-head h2{font-weight:600;letter-spacing:-.035em}
+.tile h2,.about h2,.contact h2,.cover h1,.next h2{font-weight:650;letter-spacing:-.045em}
+.story h2,.decision h3,.principles h3{font-weight:600;letter-spacing:-.03em}
+.cover .lede{font-weight:500;letter-spacing:-.015em}
+.brand{font-weight:600;font-size:15px;letter-spacing:-.02em}
+.bar{background:color-mix(in srgb,var(--bg) 92%,transparent)}
+.bar nav a{color:var(--dim)}
+.bar nav a:hover{color:var(--fg)}
+@media (hover:hover){
+  .tile .pic img{filter:grayscale(1) contrast(1.04);transition:filter .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+  .tile:hover .pic img{filter:none}
+}
+.ticks i{background:rgba(255,255,255,.55)}
+.ticks i.on{background:#fff}
+.principles div::before{color:rgba(10,10,10,.12)}
+.principles div:hover::before{color:var(--fg)}
+.lb{background:rgba(255,255,255,.97)}
+.about img.photo{box-shadow:10px 10px 0 var(--fg)}
+.chip{border-color:rgba(10,10,10,.25)}
+.story ul.list li{background:transparent;border-top:1px solid var(--line);border-radius:0;padding:14px 0 14px 28px}
+.story ul.list li::before{left:2px;top:23px;width:8px;height:8px;transform:none;border-radius:0}
+.decision{background:transparent;border:0;border-top:1px solid var(--fg);border-radius:0;padding:20px 0 4px}
+.stats div{background:transparent;border-top:1px solid var(--fg);border-radius:0;padding:14px 0 0}
+.gal button,.scrollshot,.hero,.tile .pic,.next .pic,.ba{border-radius:6px}
+.contact h2{color:var(--honey-ink)}
+@supports (animation-timeline: view()){@keyframes rise{from{opacity:.2;transform:translateY(24px)}}}
+
+/* ===== process graphics ===== */
+.fig{margin:8px 0 28px}
+.fig figcaption{font-size:13.5px;color:var(--dim);margin-top:10px;line-height:1.45}
+.fig-h{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin:0 0 14px}
+/* timeline */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:0;counter-reset:s;position:relative}
+.steps li{counter-increment:s;position:relative;padding:34px 12px 0 0;font-size:14px;line-height:1.4}
+.steps li::before{content:"";position:absolute;left:0;right:0;top:9px;height:1px;background:var(--fg)}
+.steps li::after{content:counter(s);position:absolute;left:0;top:0;width:19px;height:19px;border-radius:50%;background:var(--bg);border:1px solid var(--fg);font:500 10.5px/17px var(--mono);text-align:center}
+.steps li:last-child::before{right:auto;width:19px}
+.steps li.key::after{background:var(--fg);color:var(--bg)}
+.steps b{display:block;font-weight:600;margin-bottom:3px}
+.steps time{display:block;font:500 11.5px/1.4 var(--mono);color:var(--dim);margin-bottom:4px}
+@media (max-width:760px){
+  .steps{grid-auto-flow:row}
+  .steps li{padding:0 0 18px 34px}
+  .steps li::before{left:9px;right:auto;top:0;bottom:0;width:1px;height:auto}
+  .steps li:last-child::before{display:none}
+}
+/* sitemap */
+.map{display:grid;justify-items:center;gap:0}
+.map .root{border:1px solid var(--fg);background:var(--fg);color:var(--bg);padding:9px 14px;font:500 13px/1 var(--mono);border-radius:4px}
+.map .stem{width:1px;height:22px;background:var(--fg)}
+.map .row{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:12px;width:100%;position:relative;padding-top:22px}
+.map .row::before{content:"";position:absolute;top:0;left:calc(50% / var(--n,4));right:calc(50% / var(--n,4));height:1px;background:var(--fg)}
+.map .node{position:relative;border:1px solid var(--fg);border-radius:4px;padding:12px;font-size:13.5px;line-height:1.45;background:var(--bg)}
+.map .node::before{content:"";position:absolute;left:50%;top:-23px;width:1px;height:22px;background:var(--fg)}
+.map .node b{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px}
+.map .node span{color:var(--dim)}
+.map .node.alt{border-style:dashed}
+@media (max-width:760px){
+  .map{justify-items:stretch}
+  .map .stem,.map .row::before,.map .node::before{display:none}
+  .map .row{grid-template-columns:1fr;padding-top:10px;gap:8px}
+  .map .root{justify-self:start}
+}
+/* user flow */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+.flow .st{flex:1 1 0;min-width:130px;border:1px solid var(--fg);border-radius:4px;padding:12px;font-size:13.5px;line-height:1.45}
+.flow .st b{display:block;font-weight:600;font-size:14.5px;margin-bottom:3px}
+.flow .st span{color:var(--dim)}
+.flow .st.q{border-style:dashed}
+.flow .st.end{background:var(--fg);color:var(--bg)}
+.flow .st.end span{color:rgba(255,255,255,.72)}
+.flow .ar{flex:none;width:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 12'%3E%3Cpath d='M1 6h17M13 1l5 5-5 5' fill='none' stroke='%230A0A0A' stroke-width='1.3'/%3E%3C/svg%3E") center/18px 12px no-repeat}
+@media (max-width:760px){.flow{flex-direction:column}.flow .ar{width:auto;height:26px;transform:rotate(90deg)}}
+@media (max-width:440px){.brand{font-size:0;gap:0}}
+/* research synthesis: inputs -> insight -> rules */
+.synth{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,.9fr) 28px minmax(0,1fr);align-items:center}
+.synth .col{display:grid;gap:8px}
+.synth .c{border:1px solid var(--fg);border-radius:4px;padding:11px 12px;font-size:13.5px;line-height:1.45}
+.synth .c b{display:block;font-weight:600;font-size:14px}
+.synth .c span{color:var(--dim)}
+.synth .ins{background:var(--fg);color:var(--bg);border-radius:4px;padding:16px;font-weight:600;font-size:15.5px;line-height:1.35}
+.synth .ins small{display:block;font:500 11px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase;opacity:.7;margin-bottom:8px}
+.synth .ar{height:1px;background:var(--fg);position:relative}
+.synth .ar::after{content:"";position:absolute;right:0;top:-3.5px;width:7px;height:7px;border-top:1px solid var(--fg);border-right:1px solid var(--fg);transform:rotate(45deg)}
+@media (max-width:760px){.synth{grid-template-columns:1fr}.synth .ar{height:22px;width:1px;justify-self:center}.synth .ar::after{right:-3.5px;top:auto;bottom:0;transform:rotate(135deg)}}
 </style>
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="#"><svg class="mark drawn" viewBox="0 0 40 40" aria-hidden="true"><path pathLength="1" d="M33.9 20V12L20 4 6.1 12v16L20 36l9.2-5.3"/><path pathLength="1" d="M6.1 20h27.8"/></svg>Elsie van Rooyen</a>
-    <nav aria-label="Main"><a href="#" data-to="work">Work</a><a href="#" data-to="approach">Approach</a><a href="#" data-to="about">About</a><a href="#" data-to="cv">CV</a><a href="#" data-to="contact">Contact</a></nav>
+    <a class="brand" href="#"><svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="3" width="14.5" height="14.5" class="on"/><rect x="22.5" y="3" width="14.5" height="14.5"/><rect x="22.5" y="22.5" width="14.5" height="14.5"/><rect x="3" y="22.5" width="14.5" height="14.5"/></svg>Elsie van Rooyen</a>
+    <nav aria-label="Main"><a href="#" data-to="work">Work</a><a href="#" data-to="about">About</a><a href="#" data-to="cv">CV</a><a href="#" data-to="contact">Contact</a></nav>
   </div>
   <div class="progress" id="progress"></div>
 </header>
@@ -350,8 +438,7 @@ footer{border-top:0}
 <main id="v-index">
   <div class="wrap">
     <section class="intro">
-      <canvas class="hive" id="hive" aria-hidden="true"></canvas>
-      <p class="mono">Portfolio · Selected work 2025 to 2026</p>
+      <p class="mono">Portfolio, 2026</p>
       <h1 class="name">Elsie<br><span class="hl">van Rooyen</span></h1>
       <div class="intro-row">
         <p class="role">UI/UX and web designer in Pretoria.</p>
@@ -364,7 +451,6 @@ footer{border-top:0}
       </dl>
     </section>
 
-    <div class="band" aria-hidden="true"><div class="track"><div class="run"><span>UI/UX design</span><i></i><span>Web design</span><i></i><span>Design systems</span><i></i><span>Brand identity</span><i></i><span>Social media design</span><i></i><span>Pretoria</span><i></i></div><div class="run"><span>UI/UX design</span><i></i><span>Web design</span><i></i><span>Design systems</span><i></i><span>Brand identity</span><i></i><span>Social media design</span><i></i><span>Pretoria</span><i></i></div></div></div>
 
     <div class="sec-head"><h2>Selected work</h2><span class="mono dim">3 case studies</span></div>
 
@@ -393,13 +479,13 @@ footer{border-top:0}
           <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
-      <a class="tile" href="#purr" data-reel='[["img/purr-campaign-cover.webp",""],["img/purr-poster-01-bleed-loud.webp","center 35%"],["img/purr-colour-type-devices.webp","center"],["img/purr-in-the-wild.webp","center"],["img/purr-instagram-grid.webp","top"]]'>
+      <a class="tile" href="#purr" data-reel='[["img/purr-campaign-cover.webp",""],["img/purr-poster-01-bleed-loud.webp","center 35%"],["img/purr-colour-type-devices.webp","center"],["img/purr-instagram-grid.webp","top"]]'>
         <div class="pic"><img src="img/purr-campaign-cover.webp" alt="PURR campaign cover: Tampons and pads with a filthy mouth" width="1440" height="900"></div>
         <div class="cap">
           <div>
             <p class="yr">2026 · Brand identity, campaign, art direction</p>
             <h2>PURR</h2>
-            <p>A concept period-care brand that calls blood blood, carried across every part of a launch.</p>
+            <p>A concept period-care brand that calls blood blood, designed across a full launch.</p>
             <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></div>
           </div>
           <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -491,7 +577,7 @@ footer{border-top:0}
     <div class="cover">
       <div class="chips"><span class="chip live">Live</span><span class="chip">Own studio</span><span class="chip">Self-initiated</span></div>
       <h1>Honeycode Design Studio</h1>
-      <p class="lede">A studio site that shows its prices, picks a fight with beige, and won three paying clients in its first ten weeks.</p>
+      <p class="lede">My studio's website. It shows its prices up front, and it won three paying clients in its first ten weeks.</p>
     </div>
     <div class="hero"><img src="img/hc-desktop.jpg" alt="Honeycode Design Studio homepage with the honeycomb hero" width="1440" height="900"></div>
     <dl class="meta">
@@ -522,16 +608,54 @@ footer{border-top:0}
           </ul>
         </section>
         <section data-t="My role">
-          <h2><span class="mono">My role</span>Everything, with AI doing the typing</h2>
+          <h2><span class="mono">My role</span>Design, copy and build</h2>
           <p>I wrote the positioning and every line of copy, created the brand palette and design system in Figma, designed every page from it, and built the site in React and Tailwind CSS with Claude Code. I directed and reviewed each change. No agency, no developer. The repository has 48 commits between 7 September and 15 October 2026, because the site kept changing as I learned what clients asked about.</p>
         </section>
         <section data-t="Process">
           <h2><span class="mono">Process</span>Positioning first, pages second</h2>
           <p>I wrote the manifesto before I designed a screen. "Refuse to be beige" became the test for every decision: if a section could sit on any other studio's site, it was cut or rewritten.</p>
           <p>After launch I kept editing in the open. I repriced services in rand only and led with entry prices. I added AI image and video services as clients asked for them. On 2 October I removed four UI/UX audits from the work section, so it leads with live client sites and complete brand systems.</p>
+          <figure class="fig">
+            <p class="fig-h">Timeline</p>
+            <ol class="steps">
+              <li><time>Before 7 Sep</time><b>Manifesto</b>"Refuse to be beige" written as the test for every decision</li>
+              <li><b>Design system</b>Brand palette and components in Figma</li>
+              <li><b>Pages</b>Every page designed from the system</li>
+              <li class="key"><time>7 to 8 Sep</time><b>Build and launch</b>React and Tailwind on Cloudflare</li>
+              <li><time>2 Oct</time><b>Edit the work</b>Four UI/UX audits removed so live client work leads</li>
+              <li class="key"><time>15 Oct</time><b>New homepage</b>The live hive replaces the first hero</li>
+            </ol>
+            <figcaption>Built and launched on 7 and 8 September, then six weeks of changes based on what clients asked about. 48 commits in total.</figcaption>
+          </figure>
+          <figure class="fig">
+            <p class="fig-h">Sitemap</p>
+            <div class="map">
+              <div class="root">honeycodedesign.com</div>
+              <div class="stem"></div>
+              <div class="row" style="--n:4">
+                <div class="node"><b>Home</b><span>Struck-through hero, services, ZAR pricing cards</span></div>
+                <div class="node"><b>Work</b><span>Live client sites and brand systems</span></div>
+                <div class="node"><b>Manifesto</b><span>What the studio stands for</span></div>
+                <div class="node"><b>Quote</b><span>Quote and callback forms</span></div>
+              </div>
+            </div>
+          </figure>
+          <figure class="fig">
+            <p class="fig-h">Key flow: from price to enquiry</p>
+            <div class="flow">
+              <div class="st q"><b>"What will this cost me?"</b><span>A small-business owner lands on Home</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st"><b>Pricing cards</b><span>Entry prices in rand, from R 1 950</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st"><b>Pick a package</b><span>The card pre-selects it in the quote form</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st end"><b>Quote request</b><span>No surprise invoice, no guessing</span></div>
+            </div>
+            <figcaption>The pricing decision in one line: the price answers the first question, so the form becomes the next step instead of a gamble.</figcaption>
+          </figure>
         </section>
         <section data-t="Decisions">
-          <h2><span class="mono">Key decisions</span>Three calls that shaped the site</h2>
+          <h2><span class="mono">Key decisions</span>Three decisions</h2>
           <div class="decision">
             <h3>Show the prices on the page</h3>
             <dl>
@@ -633,9 +757,51 @@ footer{border-top:0}
           <h2><span class="mono">Process</span>Start from what they already had</h2>
           <p>Corleon didn't need to invent a story. They needed the one they had to show up online. I listed what already existed offline (the complexes, the team, the reviews, a clear rental process) and mapped it onto the question every visitor arrives with: is there something available near me, and can I trust these people?</p>
           <p>From there I mapped user flows and wireframes, built high-fidelity designs and clickable prototypes, and assembled a reusable component library, so the developer could build about 20 pages from one consistent set of parts. The public site is organised around Home, About, Complexes and Contact, with the admin portal behind it for Corleon's team.</p>
+          <figure class="fig">
+            <p class="fig-h">Process, October 2024 to March 2025</p>
+            <ol class="steps">
+              <li class="key"><b>Kickoff</b>Requirements gathered with the client</li>
+              <li><b>Flows and wireframes</b>How a tenant gets from Home to a listing</li>
+              <li><b>High-fidelity design</b>About 20 pages, desktop, tablet and mobile</li>
+              <li><b>Prototypes</b>Clickable, for client review</li>
+              <li><b>Component library</b>One set of parts for the developer</li>
+              <li><b>Handoff</b>Designs built by the development partner</li>
+              <li class="key"><b>Training</b>Client taught to run the admin portal</li>
+            </ol>
+            <figcaption>I ran every client meeting along the way, from kickoff to sign-off.</figcaption>
+          </figure>
+          <figure class="fig">
+            <p class="fig-h">Sitemap</p>
+            <div class="map">
+              <div class="root">corleonproperty.co.za</div>
+              <div class="stem"></div>
+              <div class="row" style="--n:5">
+                <div class="node"><b>Home</b><span>A real complex in the hero, "We Do Rentals"</span></div>
+                <div class="node"><b>About</b><span>The three-step rental process</span></div>
+                <div class="node"><b>Complexes</b><span>Filterable listings with suburb, sizes and unit details</span></div>
+                <div class="node"><b>Contact</b><span>Contact details and enquiry capture</span></div>
+                <div class="node alt"><b>Admin portal</b><span>Behind the site, for Corleon's own team</span></div>
+              </div>
+            </div>
+            <figcaption>Four public pages for renters, and the admin portal for the people running the business.</figcaption>
+          </figure>
+          <figure class="fig">
+            <p class="fig-h">Key flow: from a question to an enquiry</p>
+            <div class="flow">
+              <div class="st q"><b>"Anything in Fairland?"</b><span>A renter arrives on Home</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st"><b>Complexes</b><span>Browse the filterable listings</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st"><b>Read the listing</b><span>Floor sizes and unit descriptions</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st"><b>What happens next?</b><span>The three steps answer it before they ask</span></div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="st end"><b>Enquiry</b><span>Sent from the site, no phone call needed</span></div>
+            </div>
+          </figure>
         </section>
         <section data-t="Decisions">
-          <h2><span class="mono">Key decisions</span>Four calls that make it work</h2>
+          <h2><span class="mono">Key decisions</span>Four decisions</h2>
           <div class="decision">
             <h3>Lead with a real complex, not a stock street</h3>
             <dl>
@@ -714,7 +880,7 @@ footer{border-top:0}
     <div class="cover">
       <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span><span class="chip">Brand + launch campaign</span></div>
       <h1>PURR</h1>
-      <p class="lede">A concept period-care brand that says blood out loud, carried across every part of a real launch.</p>
+      <p class="lede">A concept period-care brand that calls blood blood, designed across a full launch.</p>
       <p class="notice"><b>Concept project.</b> PURR is a brand I invented to show what I can do in a sensitive category. It is not a real company, it has no client, and it has not launched.</p>
     </div>
     <div class="hero"><img src="img/purr-campaign-cover.webp" alt="PURR campaign cover: Tampons and pads with a filthy mouth" width="1440" height="900"></div>
@@ -750,16 +916,34 @@ footer{border-top:0}
           <p>I did the strategy, the name, the voice and every line of copy, including "Bleed loud", "A period is not a luxury" and "Not sorry. Not scented." I made the art direction calls (palette, type, composition) and corrected the output until it matched. Layouts, renders and mockups were produced with AI in a Claude design canvas, under my direction.</p>
         </section>
         <section data-t="Research">
-          <h2><span class="mono">Research</span>Small, informal, and honest about it</h2>
+          <h2><span class="mono">Research</span>Small and informal</h2>
           <ul class="list">
             <li><b>Category audit.</b> I reviewed how period products are advertised: the euphemisms, the blue liquid, the whispering.</li>
             <li><b>Conversations.</b> I spoke informally with three to five people about their frustrations with period products and how they're marketed.</li>
             <li><b>Shelf check.</b> I looked at South African pharmacy shelves, packaging and prices.</li>
           </ul>
-          <p style="margin-top:16px">This is a point of view sharpened by evidence, not a study. It shaped the voice and the shelf strategy below.</p>
+          <p style="margin-top:16px">It was informal research, not a study, but it shaped the voice and the shelf strategy below.</p>
+          <figure class="fig">
+            <p class="fig-h">From research to rules</p>
+            <div class="synth">
+              <div class="col">
+                <div class="c"><b>Category ad audit</b><span>Euphemisms, blue liquid, whispering</span></div>
+                <div class="c"><b>3 to 5 conversations</b><span>Frustrations with the products and the ads</span></div>
+                <div class="c"><b>SA shelf and price check</b><span>Packaging and prices on pharmacy shelves</span></div>
+              </div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="ins"><small>Insight</small>The category whispers. PURR should say it out loud, and be easy to find on a crowded shelf.</div>
+              <div class="ar" aria-hidden="true"></div>
+              <div class="col">
+                <div class="c"><b>Blood is called blood</b><span>A banned-words list for every touchpoint</span></div>
+                <div class="c"><b>Colour sorts the packs</b><span>Readable from two metres</span></div>
+                <div class="c"><b>One line at every scale</b><span>"Bleed loud", billboard to reel</span></div>
+              </div>
+            </div>
+          </figure>
         </section>
         <section data-t="Decisions">
-          <h2><span class="mono">Key decisions</span>Four calls that make the system hold</h2>
+          <h2><span class="mono">Key decisions</span>Four decisions</h2>
           <div class="decision">
             <h3>Loud red instead of soft pastel</h3>
             <dl>
@@ -769,7 +953,7 @@ footer{border-top:0}
             </dl>
           </div>
           <div class="decision">
-            <h3>The voice does the heavy lifting</h3>
+            <h3>Strict rules for the voice</h3>
             <dl>
               <dt>Chose</dt><dd>Short sentences, verbs first, and a banned-words list applied to every touchpoint.</dd>
               <dt>Why</dt><dd>Without hard rules, copy drifts back to the category's euphemisms. The list keeps every line honest.</dd>
@@ -797,18 +981,14 @@ footer{border-top:0}
             <figure><button type="button"><img src="img/purr-logo-system.webp" alt="PURR logo system" loading="lazy"></button><figcaption>Logo system: wordmark, claw mark and lockup rules.</figcaption></figure>
             <figure><button type="button"><img src="img/purr-tone-of-voice.webp" alt="PURR tone of voice" loading="lazy"></button><figcaption>Tone of voice: what we say, what we never say.</figcaption></figure>
           </div>
-          <div class="gal three">
+          <div class="gal">
             <figure><button type="button"><img src="img/purr-poster-01-bleed-loud.webp" alt="Poster: Bleed loud" loading="lazy"></button><figcaption>Poster 01: "Bleed loud."</figcaption></figure>
-            <figure><button type="button"><img src="img/purr-poster-02-not-a-luxury.webp" alt="Poster: A period is not a luxury" loading="lazy"></button><figcaption>Poster 02: "A period is not a luxury."</figcaption></figure>
             <figure><button type="button"><img src="img/purr-poster-03-not-scented.webp" alt="Poster: Not sorry. Not scented." loading="lazy"></button><figcaption>Poster 03: "Not sorry. Not scented."</figcaption></figure>
           </div>
           <div class="gal">
             <figure><button type="button"><img src="img/purr-carton-dieline.webp" alt="Super tampons carton dieline" loading="lazy"></button><figcaption>Packaging: Super tampons carton dieline, 245 × 105 mm.</figcaption></figure>
-            <figure><button type="button"><img src="img/purr-in-the-wild.webp" alt="Wheatpaste posters, tote and pharmacy shelf mockup" loading="lazy"></button><figcaption>Mockups: wheatpaste, tote and pharmacy shelf.</figcaption></figure>
             <figure><div class="scrollshot" tabindex="0" aria-label="Scrollable website homepage"><img src="img/purr-website-homepage.webp" alt="PURR website homepage" loading="lazy"></div><figcaption>Website: homepage. Scroll inside the frame.</figcaption></figure>
-            <figure><div class="scrollshot" tabindex="0" aria-label="Scrollable product page"><img src="img/purr-website-product-page.webp" alt="PURR product page" loading="lazy"></div><figcaption>Website: Super tampons product page.</figcaption></figure>
             <figure><button type="button"><img src="img/purr-instagram-grid.webp" alt="PURR Instagram grid" loading="lazy"></button><figcaption>Social: the 3 × 3 Instagram grid.</figcaption></figure>
-            <figure><button type="button"><img src="img/purr-stories-paid.webp" alt="PURR stories and paid ads" loading="lazy"></button><figcaption>Social: stories and paid ads.</figcaption></figure>
           </div>
         </section>
         <section data-t="Status">
@@ -836,7 +1016,7 @@ footer{border-top:0}
   <button type="button" class="nav nx" id="lb-n" aria-label="Next image">&rarr;</button>
 </div>
 
-<div class="vcursor" id="vcursor" aria-hidden="true">View<br>case</div>
+
 
 <script>
 (function(){
@@ -1009,34 +1189,13 @@ if(vc && matchMedia('(hover: hover) and (pointer: fine)').matches){
   (function f(){ x+=(tx-x)*(RM?1:.22); y+=(ty-y)*(RM?1:.22); vc.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)'; requestAnimationFrame(f); })();
 }
 
-// logo: the honeycomb "e" draws itself again on hover
+// logo: the filled cell of the grid travels round it on hover
 const mk=$('.mark');
-if(mk && !RM){ $('.brand').addEventListener('pointerenter',()=>{ mk.classList.remove('drawn'); void mk.getBoundingClientRect(); mk.classList.add('drawn'); }); }
-else if(mk){ mk.classList.remove('drawn'); }
-
-// honey band: speeds up with scroll, slows under the cursor
-const band=$('.band .track');
-if(band && !RM && band.getAnimations){
-  const an=band.getAnimations()[0]; let lastY=scrollY, boost=0, hover=false;
-  $('.band').addEventListener('pointerenter',()=>hover=true); $('.band').addEventListener('pointerleave',()=>hover=false);
-  addEventListener('scroll',()=>{ boost=Math.min(7,boost+Math.abs(scrollY-lastY)/14); lastY=scrollY; },{passive:true});
-  (function f(){ boost*=.92; if(an) an.playbackRate=(hover?.25:1)+boost; requestAnimationFrame(f); })();
-}
-
-const FINE=matchMedia('(hover: hover) and (pointer: fine)').matches;
-// buttons lean toward the cursor
-if(FINE && !RM){
-  $$('.btn, .go').forEach(el=>{
-    const tgt=el.classList.contains('go')? el.closest('.tile') : el;
-    tgt.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(); const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2); const k=el.classList.contains('go')?.08:.22; el.style.transform='translate('+(dx*k).toFixed(1)+'px,'+(dy*k).toFixed(1)+'px)'; });
-    tgt.addEventListener('pointerleave',()=>{ el.style.transform=''; });
-  });
-  // about photo tilts toward the cursor
-  const ph=$('.about img.photo'), ab=$('.about');
-  if(ph && ab){
-    ab.addEventListener('pointermove',e=>{ const r=ph.getBoundingClientRect(); const x=(e.clientX-(r.left+r.width/2))/r.width, y=(e.clientY-(r.top+r.height/2))/r.height; ph.style.transform='perspective(900px) rotateY('+(x*10).toFixed(2)+'deg) rotateX('+(-y*10).toFixed(2)+'deg)'; });
-    ab.addEventListener('pointerleave',()=>{ ph.style.transform=''; });
-  }
+if(mk && !RM){
+  const cells=$$('rect',mk); let k=0, tm=0;
+  const step=()=>{ k=(k+1)%cells.length; cells.forEach((c,j)=>c.classList.toggle('on',j===k)); };
+  $('.brand').addEventListener('pointerenter',()=>{ clearInterval(tm); step(); tm=setInterval(step,170); });
+  $('.brand').addEventListener('pointerleave',()=>{ clearInterval(tm); const back=setInterval(()=>{ if(k===0){ clearInterval(back); return; } step(); },170); });
 }
 
 route();

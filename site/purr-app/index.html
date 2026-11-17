@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PURR app prototype</title>
+<meta name="description" content="Clickable prototype of the PURR period-care app, a self-initiated concept by Elsie van Rooyen.">
+<meta name="theme-color" content="#16060A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23C8102E'/%3E%3Ctext x='20' y='29' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='26' fill='%23FFF4EC'%3Ep%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=Bodoni+Moda:ital,opsz,wght@0,6..96,700..900;1,6..96,700&display=swap">
+<style>
+:root{
+  --red:#C8102E; --shout:#E4002B; --gum:#FF8FA8; --blush:#FFDDE4; --acid:#FF5A1F; --ink:#16060A;
+  --cream:#FFF4EC; --card:#FFFBF8; --dim:rgba(22,6,10,.64); --line:rgba(22,6,10,.12);
+  --serif:'Bodoni Moda', Didot, Georgia, serif; --shout-f:'Archivo Black', 'Arial Black', sans-serif;
+  --ui:'Archivo', system-ui, -apple-system, sans-serif;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--ink);color:var(--cream);font:400 16px/1.5 var(--ui);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--gum);outline-offset:2px;border-radius:8px}
+svg{display:block}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- showcase page ---------- */
+.stage{min-height:100%;display:grid;grid-template-columns:minmax(0,380px) auto;justify-content:center;align-items:center;gap:clamp(40px,7vw,110px);padding:40px 24px}
+.panel .wm{font:900 64px/0.9 var(--serif);letter-spacing:-.03em}
+.panel .wm i{font-style:normal;color:var(--gum)}
+.panel .lab{font:600 12px/1 var(--ui);letter-spacing:.24em;text-transform:uppercase;color:var(--gum);margin:18px 0 22px}
+.panel p{color:rgba(255,244,236,.74);font-size:15.5px;max-width:34ch}
+.panel p b{color:var(--cream);font-weight:600}
+.jump{list-style:none;margin:28px 0 24px;display:grid;gap:2px;counter-reset:j}
+.jump button{width:100%;display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:12px;text-align:left;font-weight:500;color:rgba(255,244,236,.72);min-height:44px}
+.jump button::before{counter-increment:j;content:counter(j,decimal-leading-zero);font:600 12px/1 var(--ui);letter-spacing:.08em;color:rgba(255,244,236,.4);width:20px}
+.jump button:hover{background:rgba(255,244,236,.06);color:var(--cream)}
+.jump button[aria-current="true"]{background:var(--red);color:var(--cream)}
+.jump button[aria-current="true"]::before{color:var(--blush)}
+.back-link{color:rgba(255,244,236,.6);font-size:14px;text-decoration:none;border-bottom:1px solid rgba(255,244,236,.25)}
+.back-link:hover{color:var(--cream)}
+.note{font-size:13px!important;margin-top:16px;color:rgba(255,244,236,.48)!important}
+
+/* ---------- device ---------- */
+.phone{position:relative;width:390px;height:844px;border-radius:58px;background:var(--cream);color:var(--ink);overflow:hidden;
+  box-shadow:0 0 0 11px #050203,0 0 0 12px #3a2a2d,0 50px 120px -20px rgba(200,16,46,.45),0 30px 60px rgba(0,0,0,.5);isolation:isolate}
+.island{position:absolute;top:11px;left:50%;translate:-50% 0;width:122px;height:35px;border-radius:20px;background:#050203;z-index:60;pointer-events:none}
+.sb{position:absolute;inset:0 0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0 40px;font:600 16px/1 -apple-system,'SF Pro Text',var(--ui);z-index:50;pointer-events:none;color:var(--ink);transition:color .2s}
+.sb .ic{display:flex;gap:6px;align-items:center}
+.phone[data-screen="welcome"] .sb{color:var(--cream)}
+.home-ind{position:absolute;bottom:8px;left:50%;translate:-50% 0;width:134px;height:5px;border-radius:3px;background:var(--ink);z-index:70;pointer-events:none;opacity:.9}
+.phone[data-screen="welcome"] .home-ind{background:var(--cream)}
+
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .22s ease,visibility 0s .22s}
+.scr.on{opacity:1;visibility:visible;transition:opacity .22s ease}
+.body{flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;padding:62px 20px 24px}
+.body::-webkit-scrollbar{display:none}
+.has-tabs .body{padding-bottom:110px}
+
+/* type */
+.lab{font:600 12px/1.2 var(--ui);letter-spacing:.24em;text-transform:uppercase;color:var(--red)}
+.h-serif{font:900 34px/1.02 var(--serif);letter-spacing:-.03em}
+.h-shout{font:400 22px/1.05 var(--shout-f);text-transform:uppercase;letter-spacing:.005em}
+.sub{color:var(--dim);font-size:15px}
+.wordmark{font:900 30px/1 var(--serif);letter-spacing:-.03em;color:var(--red)}
+.wordmark i{font-style:normal;color:var(--gum)}
+
+/* buttons */
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;border-radius:18px;font-weight:600;font-size:17px;transition:transform .15s var(--ease),background .2s}
+.btn:active{transform:scale(.98)}
+.btn.cta{background:var(--shout);color:#fff}
+.btn.ink{background:var(--ink);color:var(--cream)}
+.btn.cream{background:var(--cream);color:var(--ink)}
+.btn.text{min-height:48px;font-weight:600}
+.link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:600;color:var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:18px}
+
+/* ---------- 01 welcome ---------- */
+#s-welcome{background:var(--red);color:var(--cream)}
+#s-welcome .blob{position:absolute;pointer-events:none}
+#s-welcome .b1{top:-70px;right:-110px;width:330px;fill:var(--shout)}
+#s-welcome .b2{bottom:250px;left:-150px;width:300px;fill:#A50D26}
+#s-welcome .b3{bottom:300px;left:96px;width:62px;fill:var(--blush)}
+#s-welcome .mid{flex:1;display:grid;place-content:center;justify-items:center;position:relative;padding-top:40px}
+#s-welcome .big{font:900 118px/0.85 var(--serif);letter-spacing:-.04em}
+#s-welcome .big i{font-style:normal;color:var(--gum)}
+#s-welcome .pc{font:600 13px/1 var(--ui);letter-spacing:.42em;margin-top:18px;padding-left:.42em}
+#s-welcome .foot{position:relative;padding:0 20px 44px}
+#s-welcome .foot h1{font:400 44px/0.95 var(--shout-f);letter-spacing:.005em;margin-bottom:12px}
+#s-welcome .foot p{font-size:17px;line-height:1.45;color:rgba(255,244,236,.9);margin-bottom:26px;max-width:30ch}
+#s-welcome .btn.text{color:var(--cream)}
+
+/* ---------- 02 set-up ---------- */
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.iconbtn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;flex:none}
+.iconbtn:hover{background:rgba(22,6,10,.06)}
+.prog{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.prog i{height:4px;border-radius:2px;background:var(--line)}
+.prog i.on{background:var(--red)}
+.step-n{font:600 13px/1 var(--ui);color:var(--dim);width:44px;text-align:right}
+.step{display:none}.step.on{display:block;animation:in .3s var(--ease)}
+@keyframes in{from{opacity:0;transform:translateX(14px)}}
+.step h2{margin:6px 0 10px}
+.step .sub{margin-bottom:22px}
+.cal-mini{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:14px 12px 10px}
+.cal-mini .mh{display:flex;align-items:center;justify-content:space-between;padding:0 4px 6px;font-weight:600}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font:600 11px/1 var(--ui);letter-spacing:.08em;color:var(--dim);padding:8px 0}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);row-gap:2px}
+.d{height:44px;display:grid;place-items:center;font-weight:500;font-size:15px;border-radius:50%;position:relative}
+.cal-mini .d{width:44px;justify-self:center}
+.cal-mini .d:hover{background:var(--blush)}
+.cal-mini .d.sel{background:var(--red);color:#fff;font-weight:700}
+.stepper{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:14px;margin-bottom:12px}
+.stepper .lbl{font-weight:600}
+.stepper .lbl small{display:block;font-weight:400;color:var(--dim);font-size:13.5px}
+.stepper .ctl{display:flex;align-items:center;gap:4px}
+.stepper .ctl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center}
+.stepper .ctl button:disabled{opacity:.3}
+.stepper output{min-width:62px;text-align:center;font:900 30px/1 var(--serif)}
+.stepper output small{display:block;font:500 12px/1.3 var(--ui);color:var(--dim)}
+.picks{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pick{border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:14px;text-align:left;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.pick .pack{width:30px;height:38px;border-radius:6px}
+.pick b{font-weight:600;font-size:15px;line-height:1.25}
+.pick .tick{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center}
+.pick[aria-pressed="true"]{border-color:var(--red);background:#fff}
+.pick[aria-pressed="true"] .tick{background:var(--red);border-color:var(--red);color:#fff}
+.pick .tick svg{opacity:0}.pick[aria-pressed="true"] .tick svg{opacity:1}
+.setup-foot{padding:12px 20px 40px;background:linear-gradient(to top,var(--cream) 70%,transparent)}
+
+/* pack colours: absorbency is colour, on the shelf and in the app */
+.pk-reg{background:var(--gum)} .pk-sup{background:var(--red)} .pk-night{background:var(--ink)} .pk-light{background:var(--blush);box-shadow:inset 0 0 0 1.5px var(--gum)}
+
+/* ---------- 03 today ---------- */
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.hdr .date{font:600 12px/1.2 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-align:right}
+.hero{position:relative;overflow:hidden;background:var(--red);color:var(--cream);border-radius:32px;padding:22px 22px 24px;margin-bottom:12px}
+.hero .blob{position:absolute;pointer-events:none}
+.hero .h1b{right:-90px;top:-80px;width:230px;fill:var(--shout)}
+.hero .h2b{left:-60px;bottom:-110px;width:200px;fill:#A50D26}
+.ring{position:relative;width:236px;height:236px;margin:2px auto 14px}
+.ring svg{position:absolute;inset:0}
+.ring .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.ring .ctr span{font:600 12px/1 var(--ui);letter-spacing:.24em}
+.ring .ctr b{font:900 92px/0.9 var(--serif);letter-spacing:-.04em;margin:6px 0 2px}
+.ring .ctr small{font-size:14px;color:rgba(255,244,236,.82)}
+.hero .when{position:relative;text-align:center}
+.hero .when .h-shout{font-size:27px;line-height:1}
+.hero .when p{font-size:14px;color:rgba(255,244,236,.85);margin-top:6px}
+.boxcard{display:grid;gap:12px;margin-top:12px}
+.boxcard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.boxcard h3{font-weight:700;font-size:19px;line-height:1.2;margin-top:6px}
+.van{width:44px;height:44px;border-radius:14px;background:var(--blush);display:grid;place-items:center;color:var(--red);flex:none}
+.packs{display:flex;flex-wrap:wrap;gap:6px}
+.packs span{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;padding:6px 10px 6px 6px;border-radius:999px;background:var(--cream);border:1px solid var(--line)}
+.packs span i{width:14px;height:18px;border-radius:3px;display:block}
+.last{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+.last p{font-size:15px}
+.last p small{display:block;color:var(--dim);font-size:13px}
+.quote{margin-top:22px;padding:18px 4px 0;border-top:1px solid var(--line);font:700 italic 28px/1.12 var(--serif);color:var(--red);letter-spacing:-.02em}
+
+/* ---------- 04 log sheet ---------- */
+.scrim{position:absolute;inset:0;background:rgba(22,6,10,.5);z-index:80;opacity:0;visibility:hidden;transition:opacity .3s,visibility 0s .3s}
+.sheet{position:absolute;inset:auto 0 0;height:93%;background:var(--cream);border-radius:32px 32px 0 0;z-index:81;display:flex;flex-direction:column;transform:translateY(102%);transition:transform .38s var(--ease)}
+.logopen .scrim{opacity:1;visibility:visible;transition:opacity .3s}
+.logopen .sheet{transform:none}
+.grab{width:40px;height:5px;border-radius:3px;background:rgba(22,6,10,.2);margin:8px auto 0;flex:none}
+.sheet .body{padding:10px 20px 20px}
+.sheet-h{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}
+.sheet-h p{color:var(--dim);font-size:14.5px;margin-top:6px}
+.grp{margin-bottom:24px}
+.grp h3{font-weight:700;font-size:17px;margin-bottom:2px}
+.grp > p{color:var(--dim);font-size:14px;margin-bottom:12px}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.flow button{min-height:84px;border-radius:18px;background:var(--card);border:1.5px solid var(--line);display:grid;justify-items:center;align-content:center;gap:8px;font-size:13px;font-weight:600;color:var(--ink)}
+.flow button svg{color:var(--red)}
+.flow button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#fff}
+.flow button[aria-pressed="true"] svg{color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-weight:500;font-size:15px}
+.chip svg{width:0;transition:width .15s;overflow:hidden}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+.chip[aria-pressed="true"] svg{width:16px}
+textarea{width:100%;min-height:88px;border-radius:18px;border:1.5px solid var(--line);background:var(--card);padding:14px;font:inherit;font-size:15px;color:var(--ink);resize:none}
+textarea:focus{outline:none;border-color:var(--ink)}
+.sheet-foot{padding:12px 20px 38px;border-top:1px solid var(--line);background:var(--cream)}
+
+.toast{position:absolute;left:20px;right:20px;bottom:104px;z-index:90;background:var(--ink);color:var(--cream);border-radius:18px;padding:14px 16px;display:flex;gap:12px;align-items:center;font-size:15px;font-weight:500;transform:translateY(20px);opacity:0;pointer-events:none;transition:all .3s var(--ease)}
+.toast.on{transform:none;opacity:1}
+.toast i{width:28px;height:28px;border-radius:50%;background:var(--gum);color:var(--ink);display:grid;place-items:center;flex:none}
+
+/* ---------- 05 calendar ---------- */
+.mhdr{display:flex;align-items:center;justify-content:space-between;margin:4px 0 8px}
+.cal{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:10px 10px 12px}
+.cal .d{width:100%;height:46px;border-radius:14px;font-size:15px}
+.cal .d .n{width:38px;height:38px;border-radius:50%;display:grid;place-items:center}
+.cal .d.out{color:rgba(22,6,10,.38)}
+.cal .d.per .n{background:var(--red);color:#fff;font-weight:700}
+.cal .d.out.per .n{background:#E57F90}
+.cal .d.pred .n{border:2px dashed var(--red);color:var(--red);font-weight:700}
+.cal .d.today .n{box-shadow:0 0 0 2px var(--ink);font-weight:700}
+.cal .d.logd::after{content:"";position:absolute;bottom:3px;width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.cal .d.sel{background:var(--blush)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin:14px 4px 18px;font-size:13.5px;color:var(--dim)}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:16px;height:16px;border-radius:50%;display:block}
+.lg-per{background:var(--red)} .lg-pred{border:2px dashed var(--red)} .lg-today{box-shadow:inset 0 0 0 2px var(--ink)} .lg-log{width:6px!important;height:6px!important;background:var(--ink);margin:0 5px}
+.daycard{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.daycard h3{font-weight:700;font-size:17px}
+.daycard p{color:var(--dim);font-size:14.5px}
+.avg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.avg div{background:var(--blush);border-radius:22px;padding:16px}
+.avg b{display:block;font:900 40px/1 var(--serif);color:var(--red);letter-spacing:-.03em}
+.avg span{font-size:14px;font-weight:500}
+.fine{font-size:13px;color:var(--dim);margin:10px 4px 0}
+
+/* ---------- 06 box ---------- */
+.ship{background:var(--ink);color:var(--cream);border-radius:28px;padding:20px;position:relative;overflow:hidden;margin:16px 0 12px}
+.ship .claw{position:absolute;right:16px;top:16px;width:46px;color:var(--gum)}
+.ship .lab{color:var(--gum)}
+.ship h3{font:900 30px/1.05 var(--serif);letter-spacing:-.02em;margin:8px 0 6px;max-width:12ch}
+.ship p{font-size:14.5px;color:rgba(255,244,236,.78)}
+.sw-row{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,244,236,.16)}
+.sw-row b{font-weight:600;font-size:15px}
+.sw-row small{display:block;font-size:13px;color:rgba(255,244,236,.66)}
+.switch{width:52px;height:32px;border-radius:16px;background:rgba(22,6,10,.2);position:relative;flex:none;transition:background .2s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:26px;height:26px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .22s var(--ease)}
+.switch[aria-checked="true"]{background:var(--shout)}
+.switch[aria-checked="true"]::after{transform:translateX(20px)}
+.ship .switch{background:rgba(255,244,236,.25)}
+.ship .switch[aria-checked="true"]{background:var(--shout)}
+.items{display:grid;gap:8px}
+.item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 12px 12px 14px}
+.item .pack{width:38px;height:50px;border-radius:8px;flex:none;position:relative;overflow:hidden}
+.item .pack::after{content:"p";position:absolute;inset:auto 0 4px;text-align:center;font:900 16px/1 var(--serif);color:rgba(255,244,236,.92)}
+.item .pk-reg::after{color:var(--red)}
+.item .info{flex:1;min-width:0}
+.item .info b{display:block;font-weight:600;font-size:15.5px}
+.item .info small{color:var(--dim);font-size:13.5px}
+.qty{display:flex;align-items:center;gap:2px}
+.qty button{width:44px;height:44px;border-radius:50%;display:grid;place-items:center}
+.qty button:hover{background:var(--blush)}
+.qty button:disabled{opacity:.25}
+.qty output{min-width:22px;text-align:center;font-weight:700;font-size:17px}
+.item[data-q="0"]{opacity:.62}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:18px 4px 14px}
+.total span{font-weight:600}
+.total b{font:900 34px/1 var(--serif);letter-spacing:-.02em}
+.total small{display:block;text-align:right;font:500 13px/1.3 var(--ui);color:var(--dim)}
+.sec{display:flex;gap:10px;margin-top:10px}
+.sec .btn{flex:1;min-height:52px;font-size:15.5px;border:1.5px solid var(--line);background:var(--card)}
+
+/* ---------- 07 me ---------- */
+.list{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;margin-bottom:18px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 16px;min-height:60px}
+.row + .row{border-top:1px solid var(--line)}
+.row b{font-weight:600;font-size:15.5px}
+.row small{display:block;color:var(--dim);font-size:13.5px;line-height:1.35;margin-top:2px}
+.row .val{color:var(--dim);font-size:15px;display:flex;align-items:center;gap:4px;white-space:nowrap}
+.grp-t{font:600 12px/1 var(--ui);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin:0 4px 10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:rgba(22,6,10,.06);border-radius:14px;padding:3px;margin:0 16px 14px}
+.seg button{min-height:40px;border-radius:11px;font-size:14px;font-weight:600;color:var(--dim)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(22,6,10,.12)}
+.preview{margin:0 16px 16px;border-radius:18px;background:rgba(22,6,10,.86);color:#fff;padding:12px 14px;display:flex;gap:12px;align-items:center;font-size:14px}
+.preview .ap{width:36px;height:36px;border-radius:9px;background:var(--red);display:grid;place-items:center;font:900 22px/1 var(--serif);flex:none}
+.preview small{display:block;color:rgba(255,255,255,.7);font-size:12.5px}
+.danger{color:var(--shout)!important}
+
+/* ---------- tab bar ---------- */
+.tabs{position:absolute;inset:auto 0 0;z-index:40;height:88px;padding:8px 10px 28px;display:grid;grid-template-columns:repeat(4,1fr);background:rgba(255,244,236,.9);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-top:1px solid var(--line);transition:transform .3s var(--ease)}
+.tabs button{display:grid;justify-items:center;align-content:center;gap:3px;font-size:11.5px;font-weight:600;color:var(--dim);min-height:52px}
+.tabs button .pill{width:56px;height:30px;border-radius:15px;display:grid;place-items:center;transition:background .2s}
+.tabs button[aria-current="page"]{color:var(--ink)}
+.tabs button[aria-current="page"] .pill{background:var(--blush);color:var(--red)}
+.phone[data-screen="welcome"] .tabs,.phone[data-screen="setup"] .tabs{transform:translateY(110%)}
+
+/* ---------- small screens: the prototype is the app ---------- */
+@media (max-width:540px){
+  body{background:var(--cream)}
+  .stage{display:block;padding:0}
+  .panel{display:none}
+  .phone{width:100%;height:100dvh;border-radius:0;box-shadow:none}
+  .island,.sb,.home-ind{display:none}
+  .body{padding-top:calc(env(safe-area-inset-top) + 20px)}
+  #s-welcome .foot{padding-bottom:calc(env(safe-area-inset-bottom) + 24px)}
+}
+/* screenshot mode: bare screen, no bezel */
+html.shot body{background:var(--cream)}
+html.shot .stage{display:block;padding:0}
+html.shot .panel{display:none}
+html.shot .phone{border-radius:0;box-shadow:none}
+html.shot *{transition:none!important;animation:none!important}
+html.shot .sb{display:flex}html.shot .island,html.shot .home-ind{display:block}html.shot .body{padding-top:62px}html.shot .sheet .body{padding-top:10px}html.shot #s-welcome .foot{padding-bottom:44px}html.shot .phone{width:390px;height:844px}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="panel">
+    <div class="wm">purr<i>.</i></div>
+    <p class="lab">App prototype</p>
+    <p>A cycle tracker that times your <b>PURR box</b> to arrive before your period does. Tap through it like the real thing, or jump to a screen.</p>
+    <ol class="jump" id="jump">
+      <li><button data-go="welcome">Welcome</button></li>
+      <li><button data-go="setup">Set-up, 3 steps</button></li>
+      <li><button data-go="today">Today</button></li>
+      <li><button data-go="log">Log a day</button></li>
+      <li><button data-go="calendar">Calendar</button></li>
+      <li><button data-go="box">Your box</button></li>
+      <li><button data-go="me">Me and privacy</button></li>
+    </ol>
+    <a class="back-link" href="/#purr">&larr; Back to the PURR case study</a>
+    <p class="note">Concept project by Elsie van Rooyen. PURR is not a real brand, and the cycle data and prices here are sample content.</p>
+  </aside>
+
+  <div class="phone" id="phone" data-screen="welcome">
+    <div class="island" aria-hidden="true"></div>
+    <div class="sb" aria-hidden="true"><span>9:41</span><span class="ic">
+      <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.6c2.3 0 4.4.9 6 2.4l1.2-1.2A10.2 10.2 0 0 0 8 .9 10.2 10.2 0 0 0 .8 3.8L2 5a8.5 8.5 0 0 1 6-2.4zm0 3.4c1.4 0 2.6.5 3.6 1.4l1.2-1.2A6.8 6.8 0 0 0 8 4.3a6.8 6.8 0 0 0-4.8 1.9l1.2 1.2c1-.9 2.2-1.4 3.6-1.4zm0 3.3c.5 0 1 .2 1.3.5L8 11.1 6.7 9.8c.3-.3.8-.5 1.3-.5z"/></svg>
+      <svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x=".5" y=".5" width="23" height="12" rx="3.5" stroke="currentColor" opacity=".4"/><rect x="2" y="2" width="20" height="9" rx="2" fill="currentColor"/><path d="M25 4.5v4c.8-.3 1.4-1.1 1.4-2s-.6-1.7-1.4-2z" fill="currentColor" opacity=".5"/></svg>
+    </span></div>
+
+    <!-- 01 WELCOME -->
+    <section class="scr on" id="s-welcome" aria-label="Welcome">
+      <svg class="blob b1" viewBox="0 0 200 200" aria-hidden="true"><path d="M43.7,-58.8C55.4,-50.3,62.9,-35.7,68.3,-19.9C73.8,-4.1,77.3,12.9,71.6,26.3C65.9,39.7,51.1,49.4,36,57.8C20.8,66.2,5.3,73.3,-12.3,75.1C-29.9,76.9,-49.5,73.4,-60.8,61.6C-72.1,49.9,-75,29.9,-75.5,11C-76,-7.9,-74,-25.7,-65.1,-39.2C-56.2,-52.7,-40.4,-61.9,-24.9,-68.7C-9.4,-75.5,5.8,-79.9,19.6,-76.5C33.4,-73.1,32,-67.3,43.7,-58.8Z" transform="translate(100 100)"/></svg>
+      <svg class="blob b2" viewBox="0 0 200 200" aria-hidden="true"><path d="M52.1,-62.1C66.5,-50.3,76.2,-32.6,78.4,-14.4C80.6,3.9,75.3,22.6,64.6,36.6C53.9,50.6,37.8,59.8,20.4,66.2C3,72.6,-15.7,76.2,-32.6,70.7C-49.4,65.2,-64.4,50.6,-71.4,33C-78.4,15.4,-77.4,-5.2,-70.2,-22.6C-63.1,-40,-49.8,-54.2,-34.7,-65.8C-19.6,-77.4,-2.7,-86.4,12.6,-83.8C28,-81.3,37.7,-73.9,52.1,-62.1Z" transform="translate(100 100)"/></svg>
+      <div class="mid">
+        <div class="big" aria-label="purr">purr<i>.</i></div>
+        <div class="pc">PERIOD CARE</div>
+      </div>
+      <div class="foot">
+        <h1>Bleed loud.</h1>
+        <p>Track your cycle. Get your box before your period gets to you.</p>
+        <button class="btn cream" data-go="setup">Get started</button>
+        <button class="btn text" data-go="today">I already have an account</button>
+      </div>
+    </section>
+
+    <!-- 02 SET-UP -->
+    <section class="scr" id="s-setup" aria-label="Set-up">
+      <div class="body">
+        <div class="topbar">
+          <button class="iconbtn" id="su-back" aria-label="Back"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <div class="prog" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
+          <span class="step-n" id="su-n">1 of 3</span>
+        </div>
+
+        <div class="step on" data-step="1">
+          <p class="lab">Your cycle</p>
+          <h2 class="h-serif">When did your last period start?</h2>
+          <p class="sub">We use it to predict your next one. Change it any time.</p>
+          <div class="cal-mini">
+            <div class="mh"><button class="iconbtn" aria-label="Previous month"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><span>October 2026</span><button class="iconbtn" aria-label="Next month"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button></div>
+            <div class="dow" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+            <div class="grid" id="mini" role="group" aria-label="October 2026"></div>
+          </div>
+          <button class="btn text" style="color:var(--red)" data-next>I'm not sure</button>
+        </div>
+
+        <div class="step" data-step="2">
+          <p class="lab">Your cycle</p>
+          <h2 class="h-serif">How long does it usually last?</h2>
+          <p class="sub">Best guess is fine. The app learns from what you log.</p>
+          <div class="stepper"><div class="lbl">Period<small>Days of bleeding</small></div><div class="ctl"><button aria-label="Fewer days" data-st="per" data-d="-1"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button><output id="st-per">5<small>days</small></output><button aria-label="More days" data-st="per" data-d="1"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></button></div></div>
+          <div class="stepper"><div class="lbl">Whole cycle<small>First day to first day</small></div><div class="ctl"><button aria-label="Fewer days" data-st="cyc" data-d="-1"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button><output id="st-cyc">28<small>days</small></output><button aria-label="More days" data-st="cyc" data-d="1"><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></button></div></div>
+        </div>
+
+        <div class="step" data-step="3">
+          <p class="lab">Your first box</p>
+          <h2 class="h-serif">What do you bleed into?</h2>
+          <p class="sub">Pick everything you use. Colour tells you the absorbency, same as on the shelf.</p>
+          <div class="picks" id="picks">
+            <button class="pick" aria-pressed="true" data-p="rt"><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="pack pk-reg"></span><b>Regular tampons</b></button>
+            <button class="pick" aria-pressed="true" data-p="st"><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="pack pk-sup"></span><b>Super tampons</b></button>
+            <button class="pick" aria-pressed="false" data-p="rp"><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="pack pk-reg"></span><b>Regular pads</b></button>
+            <button class="pick" aria-pressed="true" data-p="np"><span class="tick"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span class="pack pk-night"></span><b>Night pads</b></button>
+          </div>
+        </div>
+      </div>
+      <div class="setup-foot"><button class="btn cta" id="su-next">Continue</button></div>
+    </section>
+
+    <!-- 03 TODAY -->
+    <section class="scr has-tabs" id="s-today" aria-label="Today">
+      <div class="body">
+        <div class="hdr"><div class="wordmark" aria-label="purr">purr<i>.</i></div><div class="date">Tuesday<br>17 November</div></div>
+        <div class="hero">
+          <svg class="blob h1b" viewBox="0 0 200 200" aria-hidden="true"><path d="M43.7,-58.8C55.4,-50.3,62.9,-35.7,68.3,-19.9C73.8,-4.1,77.3,12.9,71.6,26.3C65.9,39.7,51.1,49.4,36,57.8C20.8,66.2,5.3,73.3,-12.3,75.1C-29.9,76.9,-49.5,73.4,-60.8,61.6C-72.1,49.9,-75,29.9,-75.5,11C-76,-7.9,-74,-25.7,-65.1,-39.2C-56.2,-52.7,-40.4,-61.9,-24.9,-68.7C-9.4,-75.5,5.8,-79.9,19.6,-76.5C33.4,-73.1,32,-67.3,43.7,-58.8Z" transform="translate(100 100)"/></svg>
+          <svg class="blob h2b" viewBox="0 0 200 200" aria-hidden="true"><path d="M52.1,-62.1C66.5,-50.3,76.2,-32.6,78.4,-14.4C80.6,3.9,75.3,22.6,64.6,36.6C53.9,50.6,37.8,59.8,20.4,66.2C3,72.6,-15.7,76.2,-32.6,70.7C-49.4,65.2,-64.4,50.6,-71.4,33C-78.4,15.4,-77.4,-5.2,-70.2,-22.6C-63.1,-40,-49.8,-54.2,-34.7,-65.8C-19.6,-77.4,-2.7,-86.4,12.6,-83.8C28,-81.3,37.7,-73.9,52.1,-62.1Z" transform="translate(100 100)"/></svg>
+          <div class="ring" role="img" aria-label="Cycle day 24 of about 28. Period expected in about 5 days.">
+            <svg viewBox="0 0 236 236" id="ring" aria-hidden="true"></svg>
+            <div class="ctr" aria-hidden="true"><span>CYCLE DAY</span><b>24</b><small>of about 28</small></div>
+          </div>
+          <div class="when"><p class="h-shout">Period in<br>about 5 days</p><p>Expected Sunday 22 November</p></div>
+        </div>
+        <button class="btn ink" data-go="log"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Log today</button>
+
+        <div class="card boxcard">
+          <div class="top"><div><p class="lab">Next box</p><h3>Ships Thursday.<br>Lands before day 1.</h3></div><span class="van" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></span></div>
+          <div class="packs" id="today-packs"></div>
+          <button class="link" data-go="box" style="justify-self:start">Edit box<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </div>
+
+        <div class="card last">
+          <p><small>Yesterday, day 23</small><span id="last-txt">Cramps, tired</span></p>
+          <button class="link" data-go="calendar">See all</button>
+        </div>
+        <p class="quote">Cramps don't care about your meeting. Neither do we. Log it anyway.</p>
+      </div>
+    </section>
+
+    <!-- 05 CALENDAR -->
+    <section class="scr has-tabs" id="s-calendar" aria-label="Calendar">
+      <div class="body">
+        <p class="lab">Calendar</p>
+        <div class="mhdr"><h2 class="h-serif">November</h2><div style="display:flex"><button class="iconbtn" aria-label="Previous month"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><button class="iconbtn" aria-label="Next month"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button></div></div>
+        <div class="cal">
+          <div class="dow" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+          <div class="grid" id="cal" role="group" aria-label="November 2026"></div>
+        </div>
+        <div class="legend" aria-hidden="true"><span><i class="lg-per"></i>Period</span><span><i class="lg-pred"></i>Predicted</span><span><i class="lg-today"></i>Today</span><span><i class="lg-log"></i>Logged</span></div>
+        <div class="card daycard" id="daycard" aria-live="polite"></div>
+        <div class="avg"><div><b>28</b><span>day cycle</span></div><div><b>5</b><span>day period</span></div></div>
+        <p class="fine">Averages from your last 3 cycles. Predictions are estimates, not medical advice.</p>
+      </div>
+    </section>
+
+    <!-- 06 BOX -->
+    <section class="scr has-tabs" id="s-box" aria-label="Your box">
+      <div class="body">
+        <p class="lab">Subscription</p>
+        <h2 class="h-serif">Your box</h2>
+        <div class="ship">
+          <svg class="claw" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M11 6c-1.5 9 .5 17 7 24M18.5 5c-1 9 1 16 6 22M26 6.5c-.2 8 1.2 13 5 18" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><circle cx="18.5" cy="34" r="2.6" fill="currentColor"/></svg>
+          <p class="lab">Next delivery</p>
+          <h3>Ships Thu 19 Nov</h3>
+          <p>Arrives before your period, expected Sun 22 Nov.</p>
+          <div class="sw-row"><div><b>Time it to my cycle</b><small>We ship 3 days before your predicted day 1.</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Time deliveries to my cycle"></button></div>
+        </div>
+        <div class="items" id="items"></div>
+        <div class="total"><span>Every cycle</span><div><b id="total">R 211</b><small>Delivery included</small></div></div>
+        <button class="btn cta" id="save-box">Save box</button>
+        <div class="sec"><button class="btn">Skip next box</button><button class="btn">Pause</button></div>
+        <p class="fine" style="text-align:center;margin-top:14px">Change, skip or cancel any time. No phone call, no guilt trip.</p>
+      </div>
+    </section>
+
+    <!-- 07 ME -->
+    <section class="scr has-tabs" id="s-me" aria-label="Me">
+      <div class="body">
+        <p class="lab">Settings</p>
+        <h2 class="h-serif" style="margin-bottom:20px">Me</h2>
+        <p class="grp-t">Privacy</p>
+        <div class="list">
+          <div class="row"><div><b>App lock</b><small>Face ID or PIN to open PURR</small></div><button class="switch" role="switch" aria-checked="true" aria-label="App lock"></button></div>
+          <div class="row" style="padding-bottom:10px"><div><b>Lock-screen notifications</b><small>Your phone, your call</small></div></div>
+          <div class="seg" role="group" aria-label="Notification wording"><button aria-pressed="true" data-n="full">Say it</button><button aria-pressed="false" data-n="min">Keep it short</button></div>
+          <div class="preview" id="notif"><span class="ap">p</span><div><b>PURR</b><small id="notif-t">Period in about 2 days. Your box ships tomorrow.</small></div></div>
+        </div>
+        <p class="grp-t">Your data</p>
+        <div class="list">
+          <div class="row"><div><b>Stored on this phone</b><small>Your logs never leave it unless you turn on backup. We never sell them.</small></div></div>
+          <div class="row"><b>Encrypted backup</b><button class="switch" role="switch" aria-checked="false" aria-label="Encrypted backup"></button></div>
+          <button class="row" style="width:100%;text-align:left"><b>Download my data</b><span class="val"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></span></button>
+          <button class="row" style="width:100%;text-align:left"><b class="danger">Delete everything</b><span class="val"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></span></button>
+        </div>
+        <p class="grp-t">Cycle</p>
+        <div class="list">
+          <div class="row"><b>Cycle length</b><span class="val">28 days</span></div>
+          <div class="row"><b>Period length</b><span class="val">5 days</span></div>
+          <div class="row"><div><b>Heads-up</b><small>2 days before your period</small></div><button class="switch" role="switch" aria-checked="true" aria-label="Period heads-up"></button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 LOG (sheet over Today) -->
+    <div class="scrim" id="scrim"></div>
+    <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="log-h" aria-hidden="true">
+      <div class="grab" aria-hidden="true"></div>
+      <div class="body">
+        <div class="sheet-h"><div><h2 class="h-serif" id="log-h">Tell us where it hurts.</h2><p>Tuesday 17 November, cycle day 24</p></div><button class="iconbtn" id="log-x" aria-label="Close"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+        <div class="grp"><h3>Blood</h3><p>Bleed however you bleed.</p>
+          <div class="flow" id="flow" role="radiogroup" aria-label="Blood flow"></div></div>
+        <div class="grp"><h3>Body</h3><p>Pick as many as you like.</p>
+          <div class="chips" data-g="body"></div></div>
+        <div class="grp"><h3>Mood</h3>
+          <div class="chips" data-g="mood" style="margin-top:12px"></div></div>
+        <div class="grp"><h3>Notes</h3><label class="vh" for="note">Notes</label><textarea id="note" placeholder="Anything else. Only you can see this." style="margin-top:12px"></textarea></div>
+      </div>
+      <div class="sheet-foot"><button class="btn cta" id="log-save">Save</button></div>
+    </section>
+
+    <div class="toast" id="toast" role="status"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></i><span id="toast-t">Saved</span></div>
+
+    <nav class="tabs" aria-label="Main">
+      <button data-go="today" aria-current="page"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 3c3.6 4.3 6.2 7.7 6.2 10.8a6.2 6.2 0 0 1-12.4 0C5.8 10.7 8.4 7.3 12 3z"/></svg></span>Today</button>
+      <button data-go="calendar"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8.5 3v4M15.5 3v4"/></svg></span>Calendar</button>
+      <button data-go="box"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M3.5 8l8.5-4.6L20.5 8v8L12 20.6 3.5 16z"/><path d="M3.5 8L12 12.6 20.5 8M12 12.6v8"/></svg></span>Box</button>
+      <button data-go="me"><span class="pill"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.4-3.8 4.2-5.6 7.5-5.6s6.1 1.8 7.5 5.6"/></svg></span>Me</button>
+    </nav>
+    <div class="home-ind" aria-hidden="true"></div>
+  </div>
+</div>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const phone=$('#phone');
+const check='<svg viewBox="0 0 24 24" height="16" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
+let screen='welcome', logOpen=false;
+
+/* ---- navigation ---- */
+function go(id){
+  if(id==='log'){ if(!['today','calendar'].includes(screen)) go('today'); openLog(); syncJump('log'); return; }
+  closeLog(true);
+  screen=id; phone.dataset.screen=id;
+  $$('.scr').forEach(s=>s.classList.toggle('on',s.id==='s-'+id));
+  $$('.tabs button').forEach(b=>{ if(b.dataset.go===id) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+  const sc=$('#s-'+id+' .body'); if(sc) sc.scrollTop=0;
+  if(id==='setup') setStep(1);
+  syncJump(id);
+}
+function syncJump(id){ $$('#jump button').forEach(b=>b.setAttribute('aria-current',b.dataset.go===id)); }
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-go]'); if(b){ e.preventDefault(); go(b.dataset.go); } });
+
+/* ---- set-up ---- */
+let step=1;
+function setStep(n){
+  step=n; $$('.step').forEach(s=>s.classList.toggle('on',+s.dataset.step===n));
+  $$('.prog i').forEach((i,k)=>i.classList.toggle('on',k<n));
+  $('#su-n').textContent=n+' of 3';
+  $('#su-next').textContent=n===3?'Build my box':'Continue';
+}
+$('#su-next').onclick=()=> step<3?setStep(step+1):go('today');
+$('#su-back').onclick=()=> step>1?setStep(step-1):go('welcome');
+$$('[data-next]').forEach(b=>b.onclick=()=>setStep(step+1));
+// October 2026 starts on a Thursday (Monday-first grid: 3 blanks)
+const mini=$('#mini'); let sel=25;
+mini.innerHTML='<span></span>'.repeat(3)+Array.from({length:31},(_,i)=>`<button class="d${i+1===sel?' sel':''}" aria-pressed="${i+1===sel}" aria-label="${i+1} October">${i+1}</button>`).join('');
+mini.addEventListener('click',e=>{ const d=e.target.closest('.d'); if(!d) return; $$('.d',mini).forEach(x=>{x.classList.remove('sel');x.setAttribute('aria-pressed','false')}); d.classList.add('sel'); d.setAttribute('aria-pressed','true'); });
+const st={per:5,cyc:28}, lim={per:[2,10],cyc:[21,40]};
+$$('[data-st]').forEach(b=>b.onclick=()=>{ const k=b.dataset.st; st[k]=Math.min(lim[k][1],Math.max(lim[k][0],st[k]+ +b.dataset.d)); $('#st-'+k).firstChild.nodeValue=st[k]; });
+$$('.pick').forEach(p=>p.onclick=()=>p.setAttribute('aria-pressed',p.getAttribute('aria-pressed')!=='true'));
+
+/* ---- today: cycle ring ---- */
+(()=>{ const N=28, today=24, per=5, R=104, c=118; let h='';
+  for(let i=1;i<=N;i++){ const a=(i-1)/N*Math.PI*2-Math.PI/2, x=c+R*Math.cos(a), y=c+R*Math.sin(a);
+    const past=i<=today, isP=i<=per, isT=i===today;
+    if(isT) h+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="none" stroke="#FFF4EC" stroke-width="2"/>`;
+    h+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${isT?6.5:5}" fill="${isP?'#FF8FA8':'#FFF4EC'}" opacity="${past?1:.32}"/>`; }
+  $('#ring').innerHTML=h; })();
+
+/* ---- box ---- */
+const items=[
+  {id:'rt',name:'Regular tampons',pk:'pk-reg',size:'16 per pack',price:69,q:1},
+  {id:'st',name:'Super tampons',pk:'pk-sup',size:'16 per pack',price:74,q:1},
+  {id:'rp',name:'Regular pads',pk:'pk-reg',size:'12 per pack',price:62,q:0},
+  {id:'np',name:'Night pads',pk:'pk-night',size:'10 per pack',price:68,q:1},
+];
+const R=n=>'R '+n;
+function renderBox(){
+  $('#items').innerHTML=items.map(it=>`<div class="item" data-q="${it.q}"><span class="pack ${it.pk}" aria-hidden="true"></span><div class="info"><b>${it.name}</b><small>${it.size} · ${R(it.price)}</small></div><div class="qty"><button aria-label="Remove one ${it.name}" data-q="${it.id}" data-d="-1" ${it.q?'':'disabled'}><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14"/></svg></button><output aria-label="${it.name} quantity">${it.q}</output><button aria-label="Add one ${it.name}" data-q="${it.id}" data-d="1" ${it.q>=4?'disabled':''}><svg width="18" height="18" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M12 5v14"/></svg></button></div></div>`).join('');
+  $('#total').textContent=R(items.reduce((s,it)=>s+it.q*it.price,0));
+  $('#today-packs').innerHTML=items.filter(it=>it.q).map(it=>`<span><i class="${it.pk}"></i>${it.name}${it.q>1?' ×'+it.q:''}</span>`).join('');
+}
+$('#items').addEventListener('click',e=>{ const b=e.target.closest('[data-q]'); if(!b||b.tagName!=='BUTTON') return; const it=items.find(x=>x.id===b.dataset.q); it.q=Math.max(0,Math.min(4,it.q+ +b.dataset.d)); renderBox(); });
+$('#save-box').onclick=()=>toast('Box saved. Ships Thursday.');
+renderBox();
+
+/* ---- switches + segmented ---- */
+document.addEventListener('click',e=>{ const s=e.target.closest('.switch'); if(s) s.setAttribute('aria-checked',s.getAttribute('aria-checked')!=='true'); });
+$$('.seg button').forEach(b=>b.onclick=()=>{ $$('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b)); $('#notif-t').textContent=b.dataset.n==='full'?'Period in about 2 days. Your box ships tomorrow.':'You have an update.'; });
+
+/* ---- calendar: Monday-first, Nov 2026 starts Sunday, so the grid opens on Mon 26 Oct ---- */
+const per=new Set(['o26','o27','o28','o29']), pred=new Set([22,23,24,25,26]), logged=new Set([3,9,10,16]);
+const notes={16:'Cramps, tired',10:'Light flow, headache',9:'Bloating',3:'Low mood'};
+const wd=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+let cells=[]; for(let d=26;d<=31;d++) cells.push({k:'o'+d,n:d,out:true}); for(let d=1;d<=30;d++) cells.push({k:d,n:d}); while(cells.length%7) cells.push({k:'d'+cells.length,n:cells.length-35,out:true});
+const calEl=$('#cal'); let selDay=17;
+function dayCard(c){
+  const dname=wd[cells.indexOf(c)%7], cd=c.out? (c.n-24) : (c.n+7);
+  let h, act='';
+  if(per.has(c.k)) h=`<h3>${dname} ${c.n} Oct</h3><p>Period, day ${c.n-24}. Medium flow.</p>`;
+  else if(c.out) h=`<h3>${dname} ${c.n} Dec</h3><p>Next month.</p>`;
+  else if(pred.has(c.n)) h=`<h3>${dname} ${c.n} Nov</h3><p>Predicted period, day ${c.n-21}. Your box lands before this.</p>`;
+  else if(c.n===17){ h=`<h3>Today, ${dname} 17 Nov</h3><p>Cycle day 24. Nothing logged yet.</p>`; act='<button class="btn ink" style="width:auto;min-height:44px;padding:0 16px;font-size:15px" data-go="log">Log</button>'; }
+  else if(c.n>17) h=`<h3>${dname} ${c.n} Nov</h3><p>Cycle day ${cd}.</p>`;
+  else { h=`<h3>${dname} ${c.n} Nov</h3><p>Cycle day ${cd}. ${notes[c.n]||'Nothing logged.'}</p>`; act=notes[c.n]?'<button class="link">Edit</button>':'<button class="link">Add</button>'; }
+  $('#daycard').innerHTML='<div>'+h+'</div>'+act;
+}
+function renderCal(){
+  calEl.innerHTML=cells.map(c=>{ const cls=['d']; if(c.out) cls.push('out'); if(per.has(c.k)) cls.push('per'); if(!c.out&&pred.has(c.n)) cls.push('pred'); if(c.k===17) cls.push('today'); if(!c.out&&logged.has(c.n)) cls.push('logd'); if(c.k===selDay) cls.push('sel');
+    const lab=(c.out?(c.n>20?c.n+' October':c.n+' December'):c.n+' November')+(per.has(c.k)?', period':'')+(!c.out&&pred.has(c.n)?', predicted period':'')+(c.k===17?', today':'')+(!c.out&&logged.has(c.n)?', logged':'');
+    return `<button class="${cls.join(' ')}" aria-label="${lab}" data-k="${c.k}"><span class="n">${c.n}</span></button>`; }).join('');
+  dayCard(cells.find(c=>c.k===selDay));
+}
+calEl.addEventListener('click',e=>{ const b=e.target.closest('.d'); if(!b) return; const k=isNaN(b.dataset.k)?b.dataset.k:+b.dataset.k; selDay=k; renderCal(); });
+renderCal();
+
+/* ---- log sheet ---- */
+const drop=s=>`<svg width="${s}" height="${s*1.25}" viewBox="0 0 20 25" fill="currentColor"><path d="M10 1c4 5 7 9 7 13a7 7 0 0 1-14 0c0-4 3-8 7-13z"/></svg>`;
+const flows=[['None','<svg width="20" height="25" viewBox="0 0 20 25" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2c4 5 7 9 7 12.5a7 7 0 0 1-14 0C3 11 6 7 10 2z"/></svg>'],['Spotting',drop(8)],['Light',drop(12)],['Medium',drop(16)],['Heavy',drop(20)]];
+$('#flow').innerHTML=flows.map(([n,ic],i)=>`<button role="radio" aria-checked="false" aria-pressed="false" data-f="${i}">${ic}<span>${n}</span></button>`).join('');
+$('#flow').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; $$('#flow button').forEach(x=>{const on=x===b; x.setAttribute('aria-pressed',on); x.setAttribute('aria-checked',on);}); });
+const groups={body:['Cramps','Headache','Bloating','Sore boobs','Back pain','Clots','Spots','Tired'],mood:['Fine','Flat','Irritable','Anxious','Wired','Weepy']};
+$$('.chips').forEach(g=>{ g.innerHTML=groups[g.dataset.g].map(t=>`<button class="chip" aria-pressed="false">${check}${t}</button>`).join(''); });
+document.addEventListener('click',e=>{ const c=e.target.closest('.chip'); if(c) c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')!=='true'); });
+let lastFocus=null;
+function openLog(){ logOpen=true; lastFocus=document.activeElement; phone.classList.add('logopen'); $('#sheet').setAttribute('aria-hidden','false'); setTimeout(()=>$('#log-x').focus({preventScroll:true}),350); }
+function closeLog(silent){ if(!logOpen) return; logOpen=false; phone.classList.remove('logopen'); $('#sheet').setAttribute('aria-hidden','true'); if(!silent){ syncJump(screen); lastFocus&&lastFocus.focus&&lastFocus.focus({preventScroll:true}); } }
+$('#log-x').onclick=()=>closeLog(); $('#scrim').onclick=()=>closeLog();
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&logOpen) closeLog(); });
+$('#log-save').onclick=()=>{
+  const f=$('#flow [aria-pressed="true"] span'), picked=$$('#sheet .chip[aria-pressed="true"]').map(c=>c.textContent);
+  const parts=[f&&f.textContent!=='None'?f.textContent+' flow':null,...picked].filter(Boolean);
+  closeLog(); toast(parts.length?'Logged: '+parts.slice(0,3).join(', ').toLowerCase().replace(/^./,m=>m.toUpperCase()):'Logged. Nothing to report is still data.');
+  if(parts.length){ logged.add(17); notes[17]=parts.join(', '); renderCal(); }
+};
+let tt; function toast(t){ $('#toast-t').textContent=t; $('#toast').classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>$('#toast').classList.remove('on'),2600); }
+
+/* ---- deep links: ?screen=box, and ?shot=box for bare screenshots ---- */
+const q=new URLSearchParams(location.search), start=q.get('shot')||q.get('screen');
+if(q.has('shot')) document.documentElement.classList.add('shot');
+if(start){
+  const m=start.match(/^setup(\d)$/);
+  if(m){ go('setup'); setStep(+m[1]); }
+  else if(start==='log'){ go('today'); openLog(); if(q.has('shot')){ $$('#flow button')[3].click(); ['Cramps','Tired','Flat'].forEach(t=>$$('#sheet .chip').find(c=>c.textContent===t).click()); } }
+  else go(start);
+} else syncJump('welcome');
+})();
+</script>
+</body>
+</html>

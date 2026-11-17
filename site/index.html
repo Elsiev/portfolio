@@ -544,6 +544,43 @@ body{font-size:17px;line-height:1.6}
 .portrait figcaption{display:flex;justify-content:space-between;gap:12px;margin-top:18px;font:500 11.5px/1 var(--mono);color:var(--dim)}
 @media (hover:none){.portrait .hint::after{content:""}}
 @media (max-width:700px){.about{grid-template-columns:1fr}.portrait{max-width:300px}}
+
+/* boards, round two: file chrome, linked selection, open button */
+@media (min-width:861px){.proj{grid-template-columns:minmax(0,4.3fr) minmax(0,7.7fr)}}
+.board{aspect-ratio:5/4.3}
+.board::before{content:none}
+.bbar{position:absolute;inset:0 0 auto;height:40px;display:flex;align-items:center;gap:14px;padding:0 14px 0 16px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 82%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:6;font:500 11px/1 var(--mono);color:var(--dim)}
+.bfile{display:flex;align-items:center;gap:8px;color:var(--fg);font-weight:600}
+.bfile svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.6}
+.bfile svg rect:first-child{fill:currentColor}
+.bmeta{margin-left:auto}
+.bzoom{border:1px solid var(--line);border-radius:5px;padding:5px 6px;min-width:46px;text-align:center;font-variant-numeric:tabular-nums}
+.bme{width:24px;height:24px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font:600 11px/1 var(--body)}
+.bcanvas{position:absolute;inset:40px 0 0}
+.fr{will-change:translate,rotate}
+.hdl{position:absolute;inset:-7px;border:1.5px solid var(--fg);border-radius:2px;pointer-events:none;opacity:0;transition:opacity .15s}
+.hdl i{position:absolute;width:8px;height:8px;background:var(--bg);border:1.5px solid var(--fg)}
+.hdl i:nth-child(1){left:-5px;top:-5px}.hdl i:nth-child(2){right:-5px;top:-5px}.hdl i:nth-child(3){left:-5px;bottom:-5px}.hdl i:nth-child(4){right:-5px;bottom:-5px}
+.fr:hover .hdl,.fr.hl .hdl{opacity:1}
+.fr:hover .fl,.fr.hl .fl{color:var(--fg);font-weight:600}
+.fr:hover,.fr.hl{z-index:3}
+.pin{pointer-events:auto;cursor:default}
+.pin:hover i{transform:scale(1.12)}
+.pin i{transition:transform .2s}
+.bopen{position:absolute;right:16px;bottom:16px;z-index:7;display:inline-flex;align-items:center;gap:8px;background:var(--fg);color:var(--bg);font:600 13.5px/1 var(--body);padding:12px 16px;border-radius:999px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .4s cubic-bezier(.2,.8,.2,1)}
+.bopen svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.board:hover .bopen,.board:focus-visible .bopen{opacity:1;transform:none}
+.pj-notes{display:none}
+@media (max-width:860px){
+  .bbar{height:30px;font-size:9.5px;padding:0 10px}
+  .bmeta,.bzoom{display:none}
+  .bme{width:18px;height:18px;font-size:9px}
+  .bcanvas{inset:30px 0 0}
+  .bopen{opacity:1;transform:none;padding:8px 11px;font-size:11.5px;right:10px;bottom:10px}
+  .pj-notes{display:grid;gap:9px;list-style:none;counter-reset:n;margin:16px 0 0;padding:0}
+  .pj-notes li{counter-increment:n;display:flex;gap:10px;font-size:14.5px;line-height:1.4;align-items:flex-start}
+  .pj-notes li::before{content:counter(n);flex:none;width:20px;height:20px;margin-top:1px;border-radius:50% 50% 50% 4px;background:var(--fg);color:var(--bg);font:600 10px/20px var(--mono);text-align:center}
+}
 </style>
 </head>
 <body>
@@ -603,8 +640,8 @@ body{font-size:17px;line-height:1.6}
           <div class="fr" style="--l:4%;--t:10%;--w:66%;--d:-.03"><span class="fl">Home / Desktop</span><div class="box"><div class="win"><i></i><i></i><i></i><span>honeycodedesign.com</span></div><img src="img/hc-desktop.jpg" alt="" width="1440" height="900" loading="lazy"></div></div>
           <div class="fr" style="--l:12%;--t:70%;--w:44%;--d:.05;--r:-1.5deg"><span class="fl">Pricing / Section</span><div class="box"><img src="img/hc-pricing.webp" alt="" width="1200" height="570" loading="lazy"></div></div>
           <div class="fr ph" style="--l:73%;--t:13%;--w:23%;--d:.08;--r:2deg"><span class="fl">Home / Mobile</span><div class="box"><img src="img/hc-mobile.webp" alt="" width="600" height="1298" loading="lazy"></div></div>
-          <span class="pin" style="--l:52%;--t:22%"><i>1</i><em>"Beige. Basic. Blends in." struck through</em></span>
-          <span class="pin" style="--l:50%;--t:79%"><i>2</i><em>Prices on the page, from R&nbsp;1&nbsp;950</em></span>
+          <span class="pin" data-f="0" style="--l:30%;--t:19%"><i>1</i><em>"Beige. Basic. Blends in." struck through</em></span>
+          <span class="pin" data-f="1" style="--l:50%;--t:79%"><i>2</i><em>Prices on the page, from R&nbsp;1&nbsp;950</em></span>
         </a>
       </article>
 
@@ -624,8 +661,8 @@ body{font-size:17px;line-height:1.6}
           <span class="note" style="--l:41%;--t:11%">27 years later</span>
           <div class="fr" style="--l:20%;--t:49%;--w:56%;--d:-.04"><span class="fl">Home / Desktop</span><div class="box"><div class="win"><i></i><i></i><i></i><span>corleonproperty.co.za</span></div><img src="img/corleon-site-hero.webp" alt="" width="1200" height="664" loading="lazy"></div></div>
           <div class="fr ph" style="--l:76%;--t:7%;--w:20%;--d:.07;--r:3deg"><span class="fl">Home / Mobile</span><div class="box"><img src="img/corleon-mobile.webp" alt="" width="600" height="1298" loading="lazy"></div></div>
-          <span class="pin" style="--l:24%;--t:82%"><i>1</i><em>A real complex, not a stock street</em></span>
-          <span class="pin l" style="--l:90%;--t:68%"><i>2</i><em>Desktop, tablet and mobile</em></span>
+          <span class="pin" data-f="1" style="--l:24%;--t:82%"><i>1</i><em>A real complex, not a stock street</em></span>
+          <span class="pin l" data-f="2" style="--l:90%;--t:68%"><i>2</i><em>Desktop, tablet and mobile</em></span>
         </a>
       </article>
 
@@ -644,8 +681,8 @@ body{font-size:17px;line-height:1.6}
           <div class="fr" style="--l:5%;--t:73%;--w:40%;--d:-.02"><span class="fl">Colour</span><div class="box sw"><span style="background:#C8102E"></span><span style="background:#E4002B"></span><span style="background:#FF8FA8"></span><span style="background:#FFDDE4"></span><span style="background:#16060A"></span></div></div>
           <div class="fr ph" style="--l:39%;--t:6%;--w:22%;--d:.06"><span class="fl">App / Today</span><div class="box"><img src="img/purr-app-today.webp" alt="" width="780" height="1688" loading="lazy"></div></div>
           <div class="fr ph" style="--l:67%;--t:19%;--w:22%;--d:.1;--r:3deg"><span class="fl">App / Log</span><div class="box"><img src="img/purr-app-log.webp" alt="" width="780" height="1688" loading="lazy"></div></div>
-          <span class="pin l" style="--l:89%;--t:50%"><i>1</i><em>Blood is called blood, even in a form</em></span>
-          <span class="pin" style="--l:31%;--t:86%"><i>2</i><em>Colour sorts the packs</em></span>
+          <span class="pin l" data-f="3" style="--l:89%;--t:50%"><i>1</i><em>Blood is called blood, even in a form</em></span>
+          <span class="pin" data-f="1" style="--l:31%;--t:86%"><i>2</i><em>Colour sorts the packs</em></span>
         </a>
       </article>
 
@@ -690,11 +727,12 @@ body{font-size:17px;line-height:1.6}
           <div class="job"><div class="when">Oct 2026 to now</div><div><h4>Everlune Photography</h4><p class="org">Website design, build and maintenance</p><ul>
             <li>Designed and built the photography business's website in React and Tailwind CSS, hosted on Cloudflare.</li>
             <li>Maintain the live site with regular content updates.</li></ul></div></div>
-          <div class="job"><div class="when">Oct 2024 to now</div><div><h4>Hennies and Seven Seas Liquor</h4><p class="org">Social media design and promotions</p><ul>
-            <li>Designed social media graphics for Hennies restaurant's head office in Moreleta Park (Oct 2024 to Oct 2025).</li>
-            <li>Design promotions and short videos for Seven Seas Liquor since September 2026, published to the client's WhatsApp audience at least twice a week.</li></ul></div></div>
+          <div class="job"><div class="when">Sep 2026 to now</div><div><h4>Seven Seas Liquor</h4><p class="org">Promotions and short videos</p><ul>
+            <li>Design promotions and short videos, published to the client's WhatsApp audience at least twice a week.</li></ul></div></div>
           <div class="job"><div class="when">Sep 2026 to now</div><div><h4>BrokerEdge</h4><p class="org">Content publishing</p><ul>
             <li>Publish bilingual (English and Afrikaans) member articles to the BrokerEdge WordPress website.</li></ul></div></div>
+          <div class="job"><div class="when">Oct 2024 to Oct 2025</div><div><h4>Hennies</h4><p class="org">Social media design</p><ul>
+            <li>Designed social media graphics for the restaurant's head office in Moreleta Park.</li></ul></div></div>
 
           <h3 class="cv-h">Admin experience</h3>
           <div class="job lead"><div class="when">Jan 2021 to now</div><div><h4>Portfolio Administrator</h4><p class="org">ANGOR Properties</p><ul>
@@ -1028,7 +1066,7 @@ body{font-size:17px;line-height:1.6}
         </section>
       </div>
     </div>
-    <a class="next" href="#purr"><div class="pic"><img src="img/purr-campaign-cover.webp" alt="" loading="lazy"></div><div><p class="mono dim">Next case study</p><h2>PURR &rarr;</h2></div></a>
+    <a class="next" href="#purr"><div class="pic"><img src="img/purr-hero.webp" alt="" loading="lazy"></div><div><p class="mono dim">Next case study</p><h2>PURR &rarr;</h2></div></a>
   </div>
 </article>
 
@@ -1042,7 +1080,7 @@ body{font-size:17px;line-height:1.6}
       <p class="lede">A concept period-care brand that calls blood blood, designed across a full launch.</p>
       <p class="notice"><b>Concept project.</b> PURR is a brand I invented to show what I can do in a sensitive category. It is not a real company, it has no client, and it has not launched.</p>
     </div>
-    <div class="hero"><img src="img/purr-campaign-cover.webp" alt="PURR campaign cover: Tampons and pads with a filthy mouth" width="1440" height="900"></div>
+    <div class="hero"><img src="img/purr-hero.webp" alt="PURR, a self-initiated concept: the wordmark, the Bleed loud poster and two app screens" width="1920" height="1200"></div>
     <dl class="meta">
       <div><dt>Type</dt><dd>Concept, self-initiated. Fictional brand</dd></div>
       <div><dt>Status</dt><dd>Complete as a concept. Not launched, no metrics</dd></div>
@@ -1344,17 +1382,35 @@ if(nm){
   io.observe(hello);
 })();
 
-// work boards: pins appear when a board comes into view; frames drift at different speeds on scroll
+// work boards: design-file chrome, frames that assemble as you scroll, pins linked to their frames
 (function(){
   const boards=$$('.board'); if(!boards.length) return;
-  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); } }),{threshold:.35});
-  boards.forEach(b=>io.observe(b));
-  if(RM) return;
-  const frames=boards.map(b=>[b,$$('.fr',b).map(f=>[f,parseFloat(f.style.getPropertyValue('--d'))||0])]);
+  const OFF=[[-150,90,-10],[160,-80,12],[80,140,-8],[-100,120,9]];
+  const data=boards.map(b=>{
+    const frs=$$('.fr',b), pins=$$('.pin',b);
+    const bar=document.createElement('div'); bar.className='bbar'; bar.setAttribute('aria-hidden','true');
+    bar.innerHTML='<span class="bfile"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/></svg>'+b.dataset.name+'</span><span class="bmeta">'+frs.length+' frames · '+pins.length+' notes</span><span class="bzoom">100%</span><span class="bme">E</span>';
+    const cv=document.createElement('div'); cv.className='bcanvas';
+    [...b.children].forEach(c=>cv.appendChild(c));
+    const open=document.createElement('span'); open.className='bopen'; open.setAttribute('aria-hidden','true');
+    open.innerHTML='Open case study <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    b.append(bar,cv,open);
+    frs.forEach(f=>{ const h=document.createElement('b'); h.className='hdl'; h.innerHTML='<i></i><i></i><i></i><i></i>'; f.appendChild(h); });
+    pins.forEach(p=>{ const f=frs[+p.dataset.f]; if(!f) return;
+      p.addEventListener('mouseenter',()=>f.classList.add('hl')); p.addEventListener('mouseleave',()=>f.classList.remove('hl')); });
+    if(pins.length){ const ol=document.createElement('ol'); ol.className='pj-notes'; ol.innerHTML=pins.map(p=>'<li>'+$('em',p).innerHTML+'</li>').join(''); b.after(ol); }
+    return {b,zoom:$('.bzoom',bar),done:false,frs:frs.map((f,i)=>({f,d:parseFloat(f.style.getPropertyValue('--d'))||0,o:OFF[i%OFF.length]}))};
+  });
+  if(RM){ data.forEach(D=>D.b.classList.add('seen')); return; }
+  const ease=t=>1-Math.pow(1-t,3);
   let ticking=false;
   const tick=()=>{ ticking=false; const vh=innerHeight;
-    frames.forEach(([b,fs])=>{ const r=b.getBoundingClientRect(); if(r.bottom<-200||r.top>vh+200) return;
-      const p=(r.top+r.height/2-vh/2)/vh; fs.forEach(([f,d])=>{ f.style.translate='0 '+(p*d*r.height*1.4).toFixed(1)+'px'; }); }); };
+    data.forEach(D=>{ const r=D.b.getBoundingClientRect(); if(r.bottom<-200||r.top>vh+200) return;
+      const e=Math.min(1,Math.max(0,(vh-r.top)/(vh*.7))), k=ease(e), p=(r.top+r.height/2-vh/2)/vh;
+      D.frs.forEach(({f,d,o})=>{ f.style.translate=(o[0]*(1-k)).toFixed(1)+'px '+(o[1]*(1-k)+p*d*r.height*1.2).toFixed(1)+'px'; f.style.rotate=(o[2]*(1-k)).toFixed(2)+'deg'; });
+      D.zoom.textContent=Math.round(50+50*k)+'%';
+      if(k>.96&&!D.done){ D.done=true; D.b.classList.add('seen'); }
+    }); };
   addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(tick); } },{passive:true});
   addEventListener('resize',tick); tick();
 })();

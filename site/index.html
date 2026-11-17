@@ -581,6 +581,10 @@ body{font-size:17px;line-height:1.6}
   .pj-notes li{counter-increment:n;display:flex;gap:10px;font-size:14.5px;line-height:1.4;align-items:flex-start}
   .pj-notes li::before{content:counter(n);flex:none;width:20px;height:20px;margin-top:1px;border-radius:50% 50% 50% 4px;background:var(--fg);color:var(--bg);font:600 10px/20px var(--mono);text-align:center}
 }
+
+.pf{aspect-ratio:3/4;cursor:auto}
+.about .pf .me-photo{filter:grayscale(1);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.pf:hover .me-photo{transform:scale(1.03)}
 </style>
 </head>
 <body>
@@ -699,7 +703,7 @@ body{font-size:17px;line-height:1.6}
     </section>
 
     <section class="about" id="about">
-      <figure class="portrait"><div class="pf" tabindex="0" aria-label="Portrait of Elsie van Rooyen. Hover or tap to see the original photo."><img class="ht" src="img/elsie-halftone.webp" alt="" width="1000" height="1252" loading="lazy"><img class="og" src="img/elsie-photo.jpg" alt="Portrait of Elsie van Rooyen" width="500" height="626" loading="lazy"></div><figcaption><span>elsie.jpg</span><span class="hint">Hover to see the real photo</span></figcaption></figure>
+      <figure class="portrait"><div class="pf"><img class="me-photo" src="img/elsie-about.jpg" alt="Elsie van Rooyen, laughing" width="900" height="1201" loading="lazy"></div><figcaption><span>elsie.jpg</span><span>Pretoria, 2026</span></figcaption></figure>
       <div>
         <p class="mono" style="color:var(--honey)">About</p>
         <h2>Admin brain, designer's eye.</h2>

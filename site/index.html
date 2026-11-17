@@ -585,6 +585,62 @@ body{font-size:17px;line-height:1.6}
 .pf{aspect-ratio:3/4;cursor:auto}
 .about .pf .me-photo{filter:grayscale(1);transition:transform .7s cubic-bezier(.2,.8,.2,1)}
 .pf:hover .me-photo{transform:scale(1.03)}
+
+/* ===== selected work: cinematic =====
+   One huge dark stage per project. The real site scrolls inside the browser and phone
+   as you scroll the page; the name sits huge underneath. */
+.cines{display:grid;gap:clamp(96px,13vw,190px);margin:clamp(32px,4vw,56px) 0 clamp(96px,12vw,170px)}
+.cn-stage{position:relative;display:block;height:clamp(360px,56vw,760px);border-radius:clamp(18px,2.4vw,32px);overflow:hidden;isolation:isolate;color:#fff;text-decoration:none;
+  padding:clamp(28px,5vw,72px) clamp(20px,8vw,120px) 0;background:#0A0A0A radial-gradient(110% 80% at 50% 0%,#2b2b2b 0%,#0A0A0A 62%)}
+.cn-win{position:relative;height:calc(100% + 40px);border-radius:12px 12px 0 0;overflow:hidden;background:#fff;box-shadow:0 40px 90px rgba(0,0,0,.55);transform-origin:50% 100%;will-change:transform}
+.cn-bar{position:relative;z-index:1;height:40px;display:flex;align-items:center;gap:7px;padding:0 16px;background:#F1F1EF;border-bottom:1px solid rgba(0,0,0,.08)}
+.cn-bar i{width:10px;height:10px;border-radius:50%;background:#D2D2CE}
+.cn-url{position:absolute;left:50%;translate:-50% 0;font:500 12px/1 var(--mono);color:#555;background:#fff;border:1px solid rgba(0,0,0,.08);padding:7px 16px;border-radius:999px;white-space:nowrap}
+.cn-live{margin-left:auto;display:flex;align-items:center;gap:7px;font:600 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#0A0A0A}
+.cn-live::before{content:"";width:7px;height:7px;border-radius:50%;background:#0A0A0A;animation:cn-blink 1.6s ease-in-out infinite}
+.cn-live.concept::before{background:none;box-shadow:inset 0 0 0 1.5px #0A0A0A;animation:none}
+@keyframes cn-blink{50%{opacity:.2}}
+.cn-view{position:absolute;inset:40px 0 0;overflow:hidden}
+.cn-view img{display:block;width:100%;height:auto;will-change:transform}
+.cn-phone{position:absolute;z-index:2;right:clamp(14px,4.5vw,70px);bottom:clamp(-70px,-4vw,-24px);width:clamp(112px,17vw,240px);aspect-ratio:390/844;border-radius:clamp(18px,2.6vw,38px);border:clamp(4px,.6vw,9px) solid #0A0A0A;overflow:hidden;background:#000;
+  box-shadow:0 0 0 1.5px rgba(255,255,255,.2),0 30px 70px rgba(0,0,0,.6);will-change:transform}
+.cn-phone .cn-view{inset:0}
+.cn-open{position:absolute;z-index:3;left:50%;bottom:28px;translate:-50% 12px;opacity:0;display:inline-flex;align-items:center;gap:9px;background:#fff;color:#0A0A0A;font:600 14px/1 var(--body);padding:13px 18px;border-radius:999px;box-shadow:0 10px 30px rgba(0,0,0,.35);transition:opacity .3s,translate .4s cubic-bezier(.2,.8,.2,1)}
+.cn-open svg,.cn-arrow svg{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cn-open svg{width:16px;height:16px}
+.cn-stage:hover .cn-open,.cn-stage:focus-visible .cn-open{opacity:1;translate:-50% 0}
+.cn-cap{margin-top:clamp(18px,2.4vw,30px)}
+.cn-top{display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;font:500 11.5px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dim)}
+.cn-n{color:var(--fg);font-weight:600}
+.cn-top .chips{margin-left:auto}
+.cn-main{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:end;gap:clamp(18px,3vw,48px);margin-top:4px}
+.cn-ttl{font:700 clamp(64px,12.5vw,200px)/.8 var(--display);letter-spacing:-.075em;margin:0;padding-bottom:.04em}
+.cn-ttl a{color:inherit;text-decoration:none}
+.cn-stat{display:flex;align-items:flex-end;gap:12px;padding-bottom:clamp(6px,1vw,14px)}
+.cn-stat b{font:700 clamp(44px,5vw,78px)/.8 var(--display);letter-spacing:-.06em}
+.cn-stat span{font-size:14.5px;line-height:1.35;max-width:16ch}
+.cn-arrow{width:clamp(56px,6vw,86px);aspect-ratio:1;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;margin-bottom:clamp(4px,.8vw,12px);transition:transform .45s cubic-bezier(.3,1.5,.5,1)}
+.cn-arrow svg{width:40%;height:40%}
+.cine:hover .cn-arrow{transform:rotate(-45deg)}
+.cn-line{max-width:58ch;color:var(--dim);margin:14px 0 0}
+@media (max-width:760px){
+  .cn-stage{height:clamp(300px,96vw,440px);padding:22px 14px 0}
+  .cn-bar{height:26px;padding:0 10px;gap:5px}.cn-bar i{width:7px;height:7px}
+  .cn-url{font-size:9.5px;padding:4px 9px}
+  .cn-live{display:none}
+  .cn-view{inset:26px 0 0}
+  .cn-main{grid-template-columns:minmax(0,1fr) auto}
+  .cn-stat{grid-column:1/-1;order:3;padding-bottom:0}
+  .cn-top .chips{margin-left:0;width:100%}
+  .cn-open{display:none}
+}
+
+.cn-view img{animation:cn-scroll var(--t,40s) linear infinite alternate;animation-play-state:paused}
+.cn-stage.play .cn-view img{animation-play-state:running}
+.cn-stage.play:hover .cn-view img{animation-play-state:paused}
+@keyframes cn-scroll{0%,7%{transform:translate3d(0,0,0)}93%,100%{transform:translate3d(0,var(--d,0px),0)}}
+@media (prefers-reduced-motion:reduce){.cn-view img{animation:none}}
+@media (max-width:760px){.cn-ttl{font-size:14vw}.cn-arrow{width:50px}}
 </style>
 </head>
 <body>
@@ -626,68 +682,59 @@ body{font-size:17px;line-height:1.6}
     </section>
 
 
-    <div class="sec-head"><h2>Selected work</h2><span class="mono dim">3 projects, real screens</span></div>
+    <div class="sec-head"><h2>Selected work</h2><span class="mono dim">3 projects, scroll to look around</span></div>
 
-    <div class="works" id="work">
+    <div class="cines" id="work">
 
-      <article class="proj">
-        <div class="pj-txt">
-          <p class="pj-n">01 / 03</p>
-          <p class="pj-meta">2026 · Own studio · Brand, web design and build</p>
-          <h3 class="pj-title"><a href="#honeycode">Honeycode Design Studio</a></h3>
-          <p class="pj-line">The brand, voice, design system and website for my own studio. Designed and built by me.</p>
-          <div class="pj-stat"><b>3</b><span>paying clients in its first ten weeks live</span></div>
-          <div class="chips"><span class="chip live">Live</span><span class="chip">Self-initiated</span></div>
-          <a class="pj-cta" href="#honeycode">Read the case study<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <a class="board" href="#honeycode" data-name="honeycode.fig" aria-label="Open the Honeycode Design Studio case study">
-          <div class="fr" style="--l:4%;--t:10%;--w:66%;--d:-.03"><span class="fl">Home / Desktop</span><div class="box"><div class="win"><i></i><i></i><i></i><span>honeycodedesign.com</span></div><img src="img/hc-desktop.jpg" alt="" width="1440" height="900" loading="lazy"></div></div>
-          <div class="fr" style="--l:12%;--t:70%;--w:44%;--d:.05;--r:-1.5deg"><span class="fl">Pricing / Section</span><div class="box"><img src="img/hc-pricing.webp" alt="" width="1200" height="570" loading="lazy"></div></div>
-          <div class="fr ph" style="--l:73%;--t:13%;--w:23%;--d:.08;--r:2deg"><span class="fl">Home / Mobile</span><div class="box"><img src="img/hc-mobile.webp" alt="" width="600" height="1298" loading="lazy"></div></div>
-          <span class="pin" data-f="0" style="--l:30%;--t:19%"><i>1</i><em>"Beige. Basic. Blends in." struck through</em></span>
-          <span class="pin" data-f="1" style="--l:50%;--t:79%"><i>2</i><em>Prices on the page, from R&nbsp;1&nbsp;950</em></span>
+      <article class="cine">
+        <a class="cn-stage" href="#honeycode" aria-label="Open the Honeycode Design Studio case study">
+          <div class="cn-win"><div class="cn-bar"><i></i><i></i><i></i><span class="cn-url">honeycodedesign.com</span><span class="cn-live">Live</span></div><div class="cn-view"><img src="img/hc-long.webp" alt="" width="1200" height="7000" loading="lazy"></div></div>
+          <div class="cn-phone"><div class="cn-view"><img src="img/hc-mlong.webp" alt="" width="488" height="11250" loading="lazy"></div></div>
+          <span class="cn-open" aria-hidden="true">Open case study<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <div class="cn-cap">
+          <div class="cn-top"><span class="cn-n">01</span><span>2026 · Own studio · Brand, web design and build</span><span class="chips"><span class="chip live">Live</span><span class="chip">Self-initiated</span></span></div>
+          <div class="cn-main">
+            <h3 class="cn-ttl"><a href="#honeycode">Honeycode</a></h3>
+            <div class="cn-stat"><b>3</b><span>paying clients in its first ten weeks</span></div>
+            <a class="cn-arrow" href="#honeycode" aria-label="Read the Honeycode case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="cn-line">My own studio: the brand, voice, design system and the site itself, designed and built by me.</p>
+        </div>
       </article>
 
-      <article class="proj">
-        <div class="pj-txt">
-          <p class="pj-n">02 / 03</p>
-          <p class="pj-meta">2024 to 2025 · Client · Website and admin portal UI/UX</p>
-          <h3 class="pj-title"><a href="#corleon">Corleon Property</a></h3>
-          <p class="pj-line">The first real website for a Johannesburg rental company, about 20 responsive pages plus the admin portal behind them.</p>
-          <div class="pj-stat"><b>27</b><span>years of letting homes, and now every complex has its own listing</span></div>
-          <div class="chips"><span class="chip live">Live</span><span class="chip">Client</span></div>
-          <a class="pj-cta" href="#corleon">Read the case study<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <a class="board" href="#corleon" data-name="corleon.fig" aria-label="Open the Corleon Property case study">
-          <div class="fr grey" style="--l:5%;--t:10%;--w:28%;--d:.02;--r:-3deg"><span class="fl">Before / April 2025</span><div class="box"><div class="win"><i></i><i></i><i></i></div><img src="img/corleon-before.jpg" alt="" width="1440" height="1400" loading="lazy" style="--ar:4/3"></div></div>
-          <svg class="scribble" style="--l:35%;--t:16%;--w:19%" viewBox="0 0 120 70" aria-hidden="true"><path d="M4 12C40 2 86 10 100 52"/><path d="M88 44l12 10 6-15"/></svg>
-          <span class="note" style="--l:41%;--t:11%">27 years later</span>
-          <div class="fr" style="--l:20%;--t:49%;--w:56%;--d:-.04"><span class="fl">Home / Desktop</span><div class="box"><div class="win"><i></i><i></i><i></i><span>corleonproperty.co.za</span></div><img src="img/corleon-site-hero.webp" alt="" width="1200" height="664" loading="lazy"></div></div>
-          <div class="fr ph" style="--l:76%;--t:7%;--w:20%;--d:.07;--r:3deg"><span class="fl">Home / Mobile</span><div class="box"><img src="img/corleon-mobile.webp" alt="" width="600" height="1298" loading="lazy"></div></div>
-          <span class="pin" data-f="1" style="--l:24%;--t:82%"><i>1</i><em>A real complex, not a stock street</em></span>
-          <span class="pin l" data-f="2" style="--l:90%;--t:68%"><i>2</i><em>Desktop, tablet and mobile</em></span>
+      <article class="cine">
+        <a class="cn-stage" href="#corleon" aria-label="Open the Corleon Property case study">
+          <div class="cn-win"><div class="cn-bar"><i></i><i></i><i></i><span class="cn-url">corleonproperty.co.za</span><span class="cn-live">Live</span></div><div class="cn-view"><img src="img/corleon-long.webp" alt="" width="1200" height="5213" loading="lazy"></div></div>
+          <div class="cn-phone"><div class="cn-view"><img src="img/corleon-mlong.webp" alt="" width="488" height="7006" loading="lazy"></div></div>
+          <span class="cn-open" aria-hidden="true">Open case study<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <div class="cn-cap">
+          <div class="cn-top"><span class="cn-n">02</span><span>2024 to 2025 · Client · Website and admin portal UI/UX</span><span class="chips"><span class="chip live">Live</span><span class="chip">Client</span></span></div>
+          <div class="cn-main">
+            <h3 class="cn-ttl"><a href="#corleon">Corleon</a></h3>
+            <div class="cn-stat"><b>27</b><span>years of letting homes before its first real website</span></div>
+            <a class="cn-arrow" href="#corleon" aria-label="Read the Corleon Property case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="cn-line">The first real website for a Johannesburg rental company, about 20 responsive pages, plus the admin portal behind them.</p>
+        </div>
       </article>
 
-      <article class="proj">
-        <div class="pj-txt">
-          <p class="pj-n">03 / 03</p>
-          <p class="pj-meta">2026 · Concept · Brand, campaign and app</p>
-          <h3 class="pj-title"><a href="#purr">PURR</a></h3>
-          <p class="pj-line">A period-care brand I invented to stretch: identity, a launch campaign that calls blood blood, and a clickable app.</p>
-          <div class="pj-stat"><b>7</b><span>app screens, on top of 21 campaign artboards</span></div>
-          <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></div>
-          <a class="pj-cta" href="#purr">Read the case study<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <a class="board" href="#purr" data-name="purr.fig" aria-label="Open the PURR case study">
-          <div class="fr" style="--l:5%;--t:8%;--w:30%;--d:.03;--r:-3deg"><span class="fl">Poster 01</span><div class="box"><img src="img/purr-poster-01-bleed-loud.webp" alt="" width="640" height="900" loading="lazy"></div></div>
-          <div class="fr" style="--l:5%;--t:73%;--w:40%;--d:-.02"><span class="fl">Colour</span><div class="box sw"><span style="background:#C8102E"></span><span style="background:#E4002B"></span><span style="background:#FF8FA8"></span><span style="background:#FFDDE4"></span><span style="background:#16060A"></span></div></div>
-          <div class="fr ph" style="--l:39%;--t:6%;--w:22%;--d:.06"><span class="fl">App / Today</span><div class="box"><img src="img/purr-app-today.webp" alt="" width="780" height="1688" loading="lazy"></div></div>
-          <div class="fr ph" style="--l:67%;--t:19%;--w:22%;--d:.1;--r:3deg"><span class="fl">App / Log</span><div class="box"><img src="img/purr-app-log.webp" alt="" width="780" height="1688" loading="lazy"></div></div>
-          <span class="pin l" data-f="3" style="--l:89%;--t:50%"><i>1</i><em>Blood is called blood, even in a form</em></span>
-          <span class="pin" data-f="1" style="--l:31%;--t:86%"><i>2</i><em>Colour sorts the packs</em></span>
+      <article class="cine">
+        <a class="cn-stage" href="#purr" aria-label="Open the PURR case study">
+          <div class="cn-win"><div class="cn-bar"><i></i><i></i><i></i><span class="cn-url">purr.fig / campaign</span><span class="cn-live concept">Concept</span></div><div class="cn-view"><img src="img/purr-strip.webp" alt="" width="1200" height="6631" loading="lazy"></div></div>
+          <div class="cn-phone"><div class="cn-view"><img src="img/purr-app-strip.webp" alt="" width="488" height="7392" loading="lazy"></div></div>
+          <span class="cn-open" aria-hidden="true">Open case study<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </a>
+        <div class="cn-cap">
+          <div class="cn-top"><span class="cn-n">03</span><span>2026 · Concept · Brand, campaign and app</span><span class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></span></div>
+          <div class="cn-main">
+            <h3 class="cn-ttl"><a href="#purr">PURR</a></h3>
+            <div class="cn-stat"><b>7</b><span>app screens, on top of 21 campaign artboards</span></div>
+            <a class="cn-arrow" href="#purr" aria-label="Read the PURR case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+          <p class="cn-line">A period-care brand I invented to stretch: identity, a launch campaign that calls blood blood, and a clickable app.</p>
+        </div>
       </article>
 
     </div>
@@ -1427,6 +1474,30 @@ if(nm){
   pf.addEventListener('pointerleave',()=>pf.classList.remove('moving'));
   pf.addEventListener('click',e=>{ if(e.pointerType==='mouse') return; pf.classList.toggle('full'); });
   pf.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); pf.classList.toggle('full'); } });
+})();
+
+// cinematic work: the real sites scroll slowly inside the frames while in view (hover pauses);
+// the window and phone rise into place as the stage arrives
+(function(){
+  const stages=$$('.cn-stage'); if(!stages.length) return;
+  const items=stages.map(s=>({s,win:$('.cn-win',s),ph:$('.cn-phone',s),imgs:$$('.cn-view img',s)}));
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  const measure=()=>items.forEach(it=>it.imgs.forEach(img=>{ const d=Math.max(0,img.offsetHeight-img.parentElement.clientHeight);
+    img.style.setProperty('--d',-d+'px'); img.style.setProperty('--t',Math.max(12,d/55).toFixed(1)+'s'); }));
+  $$('.cn-view img').forEach(i=>i.addEventListener('load',measure));
+  addEventListener('resize',measure); addEventListener('load',measure); measure();
+  if(RM) return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('play',e.isIntersecting)),{threshold:.25});
+  stages.forEach(s=>io.observe(s));
+  let ticking=false;
+  const tick=()=>{ ticking=false; const vh=innerHeight;
+    items.forEach(it=>{ const r=it.s.getBoundingClientRect(); if(r.bottom<-100||r.top>vh+100) return;
+      const k=1-Math.pow(1-clamp((vh-r.top)/(vh*.75),0,1),3);
+      it.win.style.transform='translateY('+((1-k)*70).toFixed(1)+'px) scale('+(.9+.1*k).toFixed(4)+')';
+      if(it.ph) it.ph.style.transform='translateY('+((1-k)*160).toFixed(1)+'px) rotate('+((1-k)*7).toFixed(2)+'deg)';
+    }); };
+  addEventListener('scroll',()=>{ if(!ticking){ ticking=true; requestAnimationFrame(tick); } },{passive:true});
+  addEventListener('resize',tick); tick();
 })();
 
 // hive behind the intro: cells light up under the cursor, a few glint on their own

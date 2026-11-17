@@ -60,7 +60,6 @@ button{font:inherit;color:inherit;cursor:pointer}
 .intro{padding-block:clamp(48px,9vw,110px) clamp(36px,6vw,64px)}
 .intro .mono{color:var(--honey)}
 .intro h1{font:800 clamp(38px,6.4vw,92px)/1.02 var(--display);letter-spacing:-.035em;margin:18px 0 0;max-width:15ch;text-wrap:balance}
-.intro h1 span{color:var(--honey)}
 .intro p{max-width:58ch;margin:24px 0 0;font-size:clamp(17px,1.6vw,20px);color:var(--dim)}
 .intro p strong{color:var(--fg);font-weight:600}
 
@@ -97,9 +96,12 @@ footer{padding-block:28px 40px;border-top:1px solid var(--line);color:var(--dim)
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 /* personal portfolio framing */
-.mark{width:30px;height:30px;border-radius:8px;background:var(--honey);color:var(--honey-ink);display:grid;place-items:center;font:800 10px/1 var(--display);letter-spacing:-.02em}
-.intro .name{font:900 clamp(56px,12vw,176px)/.9 var(--display);letter-spacing:-.05em;margin:18px 0 0;max-width:none}
-.intro .name .hl{color:var(--honey)}
+.mark{width:30px;height:30px;display:block;flex:none;overflow:visible}
+.mark path{fill:none;stroke:var(--honey);stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1}
+.mark.drawn path{animation:draw 1s cubic-bezier(.65,0,.25,1) both}
+.mark.drawn path+path{animation-delay:.45s;animation-duration:.5s}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+.intro .name{font:900 clamp(52px,10vw,150px)/.9 var(--display);letter-spacing:-.05em;margin:18px 0 0;max-width:none;color:var(--honey)}
 .intro-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(20px,4vw,56px);margin-top:clamp(28px,4vw,44px);align-items:start}
 .intro .role{margin:0;font:700 clamp(20px,2.2vw,28px)/1.25 var(--display);letter-spacing:-.02em;color:var(--fg);max-width:16ch}
 .intro .stmt{margin:0;max-width:60ch;color:var(--dim);font-size:clamp(17px,1.5vw,19px)}
@@ -133,8 +135,7 @@ html,body{overflow-x:clip}
   -webkit-mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%);mask-image:radial-gradient(ellipse 75% 85% at 55% 40%,#000 35%,transparent 85%)}
 .name .wd{display:inline-block;white-space:nowrap}
 .name .ch{display:inline-block;transition:transform .4s cubic-bezier(.3,1.6,.5,1),color .25s;animation:settle .9s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
-.name .ch:hover{transform:translateY(-.08em) rotate(-5deg);color:var(--honey)}
-.name .hl .ch:hover{color:var(--fg)}
+.name .ch:hover{transform:translateY(-.08em) rotate(-5deg);color:var(--fg)}
 @keyframes settle{from{transform:translateY(.16em);color:var(--honey)}}
 .clock{color:var(--dim);font:500 13px/1 var(--mono);margin-left:6px;white-space:nowrap}
 .tile .pic{position:relative}
@@ -277,13 +278,69 @@ html.vc .tile,html.vc .next{cursor:none}
 .lb .x{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:var(--gr)}
 .lb .nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--raise);font-size:20px}
 .lb .prev{left:var(--gl)}.lb .nx{right:var(--gr)}
+
+/* ===== minimal + loud layer =====
+   Quiet by default (fewer rules, labels and borders, more air); loud in three places:
+   the name, the honey band, and the contact block. */
+.sec-head{border-bottom:0;padding-bottom:0}
+.sec-head .mono{color:var(--dim)}
+.about,.cv{border-top:0}
+.now{background:transparent;border:0;gap:clamp(16px,3vw,40px)}
+.now div,.now div+div{padding:0}
+.brand{gap:12px}
+
+/* the honey band */
+.band{width:100vw;margin:clamp(4px,1vw,12px) 0 clamp(64px,9vw,120px) calc(50% - 50vw);background:var(--honey);color:var(--honey-ink);overflow:hidden;transform:rotate(-1.6deg);padding-block:clamp(12px,1.4vw,18px)}
+.band .track{display:flex;width:max-content;animation:band 32s linear infinite}
+.band .run{display:flex;align-items:center;gap:.7em;padding-right:.7em;font:900 clamp(20px,2.6vw,34px)/1 var(--display);letter-spacing:-.02em;text-transform:uppercase;white-space:nowrap}
+.band i{flex:none;width:.5em;height:.56em;background:currentColor;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+@keyframes band{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.band .track{animation:none}}
+
+/* work: numbered, quieter captions, one arrow */
+.work{counter-reset:t;gap:clamp(28px,4vw,56px) clamp(16px,2.4vw,28px)}
+.tile{counter-increment:t}
+.tile .yr{color:var(--dim)}
+.tile .yr::before{content:"0" counter(t);color:var(--honey);margin-right:12px;font-weight:600}
+.tile .chip:not(.live):not(.concept){display:none}
+.tile .cap{align-items:start}
+.tile p{font-size:16px}
+.go{width:54px;height:54px;padding:0;border:1px solid var(--line);border-radius:50%;justify-content:center;transition:background .25s,border-color .25s,color .25s,transform .35s cubic-bezier(.3,1.4,.5,1)}
+.go svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .35s cubic-bezier(.3,1.4,.5,1)}
+.tile:hover .go{background:var(--honey);border-color:var(--honey);color:var(--honey-ink)}
+.tile:hover .go svg{transform:rotate(-45deg)}
+@media (max-width:760px){.go{display:none}}
+
+/* approach: big outlined numbers that fill on hover */
+.principles{counter-reset:p}
+.principles div{counter-increment:p;border-top:1px solid var(--line);padding-top:18px}
+.principles div::before{content:"0" counter(p);display:block;font:900 clamp(44px,4.6vw,64px)/1 var(--display);letter-spacing:-.04em;color:rgba(245,241,230,.16);margin-bottom:16px;transition:color .3s}
+.principles div:hover{border-top-color:var(--honey)}
+.principles div:hover::before{color:var(--honey)}
+
+/* about: photo tilts toward the cursor */
+.about img.photo{transition:transform .5s cubic-bezier(.2,.8,.2,1);will-change:transform}
+
+/* contact: the loud ending */
+.contact{position:relative;margin-top:clamp(40px,6vw,80px);padding-block:clamp(64px,10vw,140px);border-top:0;background:var(--honey);color:var(--honey-ink);box-shadow:0 0 0 100vmax var(--honey);clip-path:inset(0 -100vmax)}
+.contact .mono{color:var(--honey-ink)!important;opacity:.7}
+.contact h2{color:var(--honey-ink);max-width:20ch}
+.mail{display:block;width:100%;text-align:left;background:none;border:0;padding:0;margin:clamp(12px,2vw,24px) 0 clamp(24px,3vw,36px);color:var(--honey-ink)}
+.mail-t{display:inline;font:900 clamp(15px,4.6vw,64px)/1.05 var(--display);letter-spacing:-.04em;overflow-wrap:anywhere;background:linear-gradient(currentColor,currentColor) 0 100%/0 .08em no-repeat;transition:background-size .45s cubic-bezier(.65,0,.25,1)}
+.mail:hover .mail-t{background-size:100% .08em}
+.mail-hint{display:block;margin-top:14px;font:600 12.5px/1 var(--mono);letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.contact .row{gap:12px}
+.btn.dark{background:var(--honey-ink);color:var(--honey)}
+.btn.line{background:transparent;color:var(--honey-ink);border:1.5px solid var(--honey-ink)}
+footer{border-top:0}
+.btn,.go{will-change:transform}
 </style>
 </head>
 <body>
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="#"><span class="mark" aria-hidden="true">EvR</span>Elsie van Rooyen</a>
+    <a class="brand" href="#"><svg class="mark drawn" viewBox="0 0 40 40" aria-hidden="true"><path pathLength="1" d="M33.9 20V12L20 4 6.1 12v16L20 36l9.2-5.3"/><path pathLength="1" d="M6.1 20h27.8"/></svg>Elsie van Rooyen</a>
     <nav aria-label="Main"><a href="#" data-to="work">Work</a><a href="#" data-to="approach">Approach</a><a href="#" data-to="about">About</a><a href="#" data-to="cv">CV</a><a href="#" data-to="contact">Contact</a></nav>
   </div>
   <div class="progress" id="progress"></div>
@@ -307,6 +364,8 @@ html.vc .tile,html.vc .next{cursor:none}
       </dl>
     </section>
 
+    <div class="band" aria-hidden="true"><div class="track"><div class="run"><span>UI/UX design</span><i></i><span>Web design</span><i></i><span>Design systems</span><i></i><span>Brand identity</span><i></i><span>Social media design</span><i></i><span>Pretoria</span><i></i></div><div class="run"><span>UI/UX design</span><i></i><span>Web design</span><i></i><span>Design systems</span><i></i><span>Brand identity</span><i></i><span>Social media design</span><i></i><span>Pretoria</span><i></i></div></div></div>
+
     <div class="sec-head"><h2>Selected work</h2><span class="mono dim">3 case studies</span></div>
 
     <div class="work" id="work">
@@ -319,7 +378,7 @@ html.vc .tile,html.vc .next{cursor:none}
             <p>The brand, design system and website for my own studio, designed and built by me. It won three paying clients in its first ten weeks.</p>
             <div class="chips"><span class="chip live">Live</span><span class="chip">Self-initiated</span></div>
           </div>
-          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
       <a class="tile" href="#corleon" data-reel='[["img/corleon-site-hero.webp",""],["img/corleon-site-listings.webp","top"],["img/corleon-site-reviews.webp","center"],["img/corleon-before.jpg","top"]]'>
@@ -331,7 +390,7 @@ html.vc .tile,html.vc .next{cursor:none}
             <p>The first real website for a Johannesburg rental company that had been letting since 1998.</p>
             <div class="chips"><span class="chip live">Live</span><span class="chip">Client</span></div>
           </div>
-          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
       <a class="tile" href="#purr" data-reel='[["img/purr-campaign-cover.webp",""],["img/purr-poster-01-bleed-loud.webp","center 35%"],["img/purr-colour-type-devices.webp","center"],["img/purr-in-the-wild.webp","center"],["img/purr-instagram-grid.webp","top"]]'>
@@ -343,7 +402,7 @@ html.vc .tile,html.vc .next{cursor:none}
             <p>A concept period-care brand that calls blood blood, carried across every part of a launch.</p>
             <div class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></div>
           </div>
-          <span class="go">Read case study <span aria-hidden="true">&rarr;</span></span>
+          <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
     </div>
@@ -417,9 +476,10 @@ html.vc .tile,html.vc .next{cursor:none}
     </section>
 
     <section class="contact" id="contact">
-      <p class="mono" style="color:var(--honey)">Contact</p>
+      <p class="mono">Contact</p>
       <h2>Have a project in mind, or just want to talk design?</h2>
-      <div class="row"><code>elsie@honeycodedesign.com</code><button type="button" class="btn" data-copy="elsie@honeycodedesign.com">Copy email</button><a class="btn ghost" href="https://www.linkedin.com/in/elsie-van-rooyen-1b1473280" target="_blank" rel="noopener">LinkedIn</a></div>
+      <button type="button" class="mail" data-copy="elsie@honeycodedesign.com"><span class="mail-t">elsie@honeycodedesign.com</span><span class="mail-hint">Click to copy</span></button>
+      <div class="row"><a class="btn dark" href="https://www.linkedin.com/in/elsie-van-rooyen-1b1473280" target="_blank" rel="noopener">LinkedIn</a><a class="btn line" href="cv.pdf" target="_blank" rel="noopener">View CV</a></div>
     </section>
   </div>
 </main>
@@ -846,8 +906,9 @@ addEventListener('keydown',e=>{ if(lb.hidden) return; if(e.key==='Escape') close
 // copy email
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-copy]'); if(!b) return;
-  const t=b.dataset.copy, old=b.textContent, done=()=>{ b.textContent='Copied'; setTimeout(()=>b.textContent=old,1500); };
-  const sel=()=>{ const c=b.parentElement.querySelector('code'); if(!c) return; const rg=document.createRange(); rg.selectNodeContents(c); const s=getSelection(); s.removeAllRanges(); s.addRange(rg); };
+  const lab=b.querySelector('.mail-hint')||b;
+  const t=b.dataset.copy, old=lab.textContent, done=()=>{ lab.textContent='Copied to clipboard'; setTimeout(()=>lab.textContent=old,1600); };
+  const sel=()=>{ const c=b.querySelector('.mail-t')||b.parentElement.querySelector('code'); if(!c) return; const rg=document.createRange(); rg.selectNodeContents(c); const s=getSelection(); s.removeAllRanges(); s.addRange(rg); };
   try{ navigator.clipboard.writeText(t).then(done,sel); }catch(_){ sel(); }
 });
 
@@ -946,6 +1007,36 @@ if(vc && matchMedia('(hover: hover) and (pointer: fine)').matches){
   let x=-200,y=-200,tx=-200,ty=-200,on=false;
   addEventListener('pointermove',e=>{ tx=e.clientX; ty=e.clientY; const over=!!(e.target.closest && e.target.closest('.tile, .next')); if(over!==on){ on=over; vc.classList.toggle('on',on); document.documentElement.classList.toggle('vc',on); } },{passive:true});
   (function f(){ x+=(tx-x)*(RM?1:.22); y+=(ty-y)*(RM?1:.22); vc.style.transform='translate('+x.toFixed(1)+'px,'+y.toFixed(1)+'px)'; requestAnimationFrame(f); })();
+}
+
+// logo: the honeycomb "e" draws itself again on hover
+const mk=$('.mark');
+if(mk && !RM){ $('.brand').addEventListener('pointerenter',()=>{ mk.classList.remove('drawn'); void mk.getBoundingClientRect(); mk.classList.add('drawn'); }); }
+else if(mk){ mk.classList.remove('drawn'); }
+
+// honey band: speeds up with scroll, slows under the cursor
+const band=$('.band .track');
+if(band && !RM && band.getAnimations){
+  const an=band.getAnimations()[0]; let lastY=scrollY, boost=0, hover=false;
+  $('.band').addEventListener('pointerenter',()=>hover=true); $('.band').addEventListener('pointerleave',()=>hover=false);
+  addEventListener('scroll',()=>{ boost=Math.min(7,boost+Math.abs(scrollY-lastY)/14); lastY=scrollY; },{passive:true});
+  (function f(){ boost*=.92; if(an) an.playbackRate=(hover?.25:1)+boost; requestAnimationFrame(f); })();
+}
+
+const FINE=matchMedia('(hover: hover) and (pointer: fine)').matches;
+// buttons lean toward the cursor
+if(FINE && !RM){
+  $$('.btn, .go').forEach(el=>{
+    const tgt=el.classList.contains('go')? el.closest('.tile') : el;
+    tgt.addEventListener('pointermove',e=>{ const r=el.getBoundingClientRect(); const dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height/2); const k=el.classList.contains('go')?.08:.22; el.style.transform='translate('+(dx*k).toFixed(1)+'px,'+(dy*k).toFixed(1)+'px)'; });
+    tgt.addEventListener('pointerleave',()=>{ el.style.transform=''; });
+  });
+  // about photo tilts toward the cursor
+  const ph=$('.about img.photo'), ab=$('.about');
+  if(ph && ab){
+    ab.addEventListener('pointermove',e=>{ const r=ph.getBoundingClientRect(); const x=(e.clientX-(r.left+r.width/2))/r.width, y=(e.clientY-(r.top+r.height/2))/r.height; ph.style.transform='perspective(900px) rotateY('+(x*10).toFixed(2)+'deg) rotateX('+(-y*10).toFixed(2)+'deg)'; });
+    ab.addEventListener('pointerleave',()=>{ ph.style.transform=''; });
+  }
 }
 
 route();

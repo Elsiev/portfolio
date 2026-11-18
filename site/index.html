@@ -641,6 +641,32 @@ body{font-size:17px;line-height:1.6}
 @keyframes cn-scroll{0%,7%{transform:translate3d(0,0,0)}93%,100%{transform:translate3d(0,var(--d,0px),0)}}
 @media (prefers-reduced-motion:reduce){.cn-view img{animation:none}}
 @media (max-width:760px){.cn-ttl{font-size:14vw}.cn-arrow{width:50px}}
+
+/* title gets its own row with the arrow; the number and line sit underneath, side by side */
+.cn-main{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+.cn-ttl{font-size:clamp(60px,10.5vw,176px);letter-spacing:-.05em;line-height:.86;white-space:nowrap}
+.cn-foot{display:flex;align-items:flex-end;gap:clamp(20px,5vw,72px);margin-top:clamp(14px,1.8vw,24px);padding-top:clamp(14px,1.8vw,22px);border-top:1px solid var(--line)}
+.cn-foot .cn-stat{padding:0;flex:none}
+.cn-foot .cn-line{margin:0;padding-bottom:4px}
+@media (max-width:760px){.cn-ttl{font-size:13.5vw}.cn-foot{flex-direction:column;align-items:flex-start;gap:12px}}
+
+/* contact, written for employers: email + phone side by side, friendly sign-off */
+.contact h2{max-width:18ch}
+.ct-lede{max-width:52ch;font-size:clamp(16px,1.4vw,19px);line-height:1.6;color:var(--honey-ink);opacity:.78;margin:0}
+.ct-ways{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);margin:clamp(32px,4.5vw,60px) 0 clamp(28px,3.5vw,44px);padding-top:clamp(24px,3vw,36px);border-top:1px solid rgba(255,255,255,.22)}
+.ct-ways .mail{margin:0}
+.ct-k{display:block;margin-bottom:12px;font:600 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.ct-ways .mail-t,.ct-v{font-size:clamp(22px,3.3vw,46px)}
+.ct-tel{display:block;color:var(--honey-ink);text-decoration:none}
+.ct-v{display:inline;font-weight:900;font-family:var(--display);line-height:1.05;letter-spacing:-.04em;white-space:nowrap;background:linear-gradient(currentColor,currentColor) 0 100%/0 .08em no-repeat;transition:background-size .45s cubic-bezier(.65,0,.25,1)}
+.ct-tel:hover .ct-v{background-size:100% .08em}
+.ct-sign{margin:clamp(48px,6vw,80px) 0 0;padding-top:clamp(20px,2.4vw,28px);border-top:1px solid rgba(255,255,255,.22);font-size:16px;line-height:1.6;color:var(--honey-ink);opacity:.85}
+.ct-name{display:flex;align-items:center;gap:10px;margin-top:6px;font:650 clamp(28px,3vw,40px)/1 var(--display);letter-spacing:-.04em;opacity:1}
+.ct-wave{width:.85em;height:.95em;fill:none;stroke:currentColor;stroke-width:4;stroke-linejoin:round;transform-origin:50% 90%}
+.ct-sign:hover .ct-wave{animation:ct-wave 1s ease-in-out}
+@keyframes ct-wave{20%,60%{transform:rotate(16deg)}40%,80%{transform:rotate(-10deg)}}
+@media (prefers-reduced-motion:reduce){.ct-sign:hover .ct-wave{animation:none}}
+@media (max-width:700px){.ct-ways{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -696,10 +722,12 @@ body{font-size:17px;line-height:1.6}
           <div class="cn-top"><span class="cn-n">01</span><span>2026 · Own studio · Brand, web design and build</span><span class="chips"><span class="chip live">Live</span><span class="chip">Self-initiated</span></span></div>
           <div class="cn-main">
             <h3 class="cn-ttl"><a href="#honeycode">Honeycode</a></h3>
-            <div class="cn-stat"><b>3</b><span>paying clients in its first ten weeks</span></div>
             <a class="cn-arrow" href="#honeycode" aria-label="Read the Honeycode case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
-          <p class="cn-line">My own studio: the brand, voice, design system and the site itself, designed and built by me.</p>
+          <div class="cn-foot">
+            <div class="cn-stat"><b>3</b><span>paying clients in its first ten weeks</span></div>
+            <p class="cn-line">My own studio: the brand, voice, design system and the site itself, designed and built by me.</p>
+          </div>
         </div>
       </article>
 
@@ -713,10 +741,12 @@ body{font-size:17px;line-height:1.6}
           <div class="cn-top"><span class="cn-n">02</span><span>2024 to 2025 · Client · Website and admin portal UI/UX</span><span class="chips"><span class="chip live">Live</span><span class="chip">Client</span></span></div>
           <div class="cn-main">
             <h3 class="cn-ttl"><a href="#corleon">Corleon</a></h3>
-            <div class="cn-stat"><b>27</b><span>years of letting homes before its first real website</span></div>
             <a class="cn-arrow" href="#corleon" aria-label="Read the Corleon Property case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
-          <p class="cn-line">The first real website for a Johannesburg rental company, about 20 responsive pages, plus the admin portal behind them.</p>
+          <div class="cn-foot">
+            <div class="cn-stat"><b>27</b><span>years of letting homes before its first real website</span></div>
+            <p class="cn-line">The first real website for a Johannesburg rental company, about 20 responsive pages, plus the admin portal behind them.</p>
+          </div>
         </div>
       </article>
 
@@ -730,10 +760,12 @@ body{font-size:17px;line-height:1.6}
           <div class="cn-top"><span class="cn-n">03</span><span>2026 · Concept · Brand, campaign and app</span><span class="chips"><span class="chip concept">Concept</span><span class="chip">Self-initiated</span></span></div>
           <div class="cn-main">
             <h3 class="cn-ttl"><a href="#purr">PURR</a></h3>
-            <div class="cn-stat"><b>7</b><span>app screens, on top of 21 campaign artboards</span></div>
             <a class="cn-arrow" href="#purr" aria-label="Read the PURR case study"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
-          <p class="cn-line">A period-care brand I invented to stretch: identity, a launch campaign that calls blood blood, and a clickable app.</p>
+          <div class="cn-foot">
+            <div class="cn-stat"><b>7</b><span>app screens, on top of 21 campaign artboards</span></div>
+            <p class="cn-line">A period-care brand I invented to stretch: identity, a launch campaign that calls blood blood, and a clickable app.</p>
+          </div>
         </div>
       </article>
 
@@ -811,9 +843,14 @@ body{font-size:17px;line-height:1.6}
 
     <section class="contact" id="contact">
       <p class="mono">Contact</p>
-      <h2>Have a project in mind, or just want to talk design?</h2>
-      <button type="button" class="mail" data-copy="elsie@honeycodedesign.com"><span class="mail-t">elsie@honeycodedesign.com</span><span class="mail-hint">Click to copy</span></button>
-      <div class="row"><a class="btn dark" href="https://www.linkedin.com/in/elsie-van-rooyen-1b1473280" target="_blank" rel="noopener">LinkedIn</a><a class="btn line" href="cv.pdf" target="_blank" rel="noopener">View CV</a></div>
+      <h2>Looking for a UI/UX or web designer? Let's talk.</h2>
+      <p class="ct-lede">If your team needs someone who cares about the details and still delivers on the date she promised, I'd love to hear about the role. Email or call, whichever suits you.</p>
+      <div class="ct-ways">
+        <button type="button" class="mail" data-copy="elsie@honeycodedesign.com"><span class="ct-k">Email</span><span class="mail-t">elsie@honeycodedesign.com</span><span class="mail-hint">Click to copy</span></button>
+        <a class="ct-tel" href="tel:+27795127720"><span class="ct-k">Call</span><span class="ct-v">079 512 7720</span><span class="mail-hint">Tap to call</span></a>
+      </div>
+      <div class="row"><a class="btn dark" href="https://www.linkedin.com/in/elsie-van-rooyen-1b1473280" target="_blank" rel="noopener">LinkedIn</a><a class="btn line" href="cv.pdf" target="_blank" rel="noopener">Download my CV</a></div>
+      <p class="ct-sign">Thanks for scrolling all the way down here. I hope we speak soon.<span class="ct-name">Elsie<svg class="ct-wave" viewBox="0 0 64 72" aria-hidden="true"><path d="M20 70L20 65C17 60 12 53 7 47C4 43 6.5 37.5 11 39C14 40 16.5 43 19 46.5L17.5 14A4 4 0 0 1 25.5 13.6L26 32L27 9.2A4 4 0 0 1 35 9.2L35 32L36 12.4A4 4 0 0 1 44 12.8L43.5 34L45 21.5A3.8 3.8 0 0 1 52.6 22L52.3 43C52.3 56 47 63.5 41 66.5L41 70Z"/></svg></span></p>
     </section>
   </div>
 </main>
